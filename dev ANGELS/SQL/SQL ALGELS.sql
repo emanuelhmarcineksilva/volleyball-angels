@@ -1,102 +1,117 @@
-CREATE DATABASE biblioteca;
-use biblioteca;
+CREATE DATABASE angels;
+USE angels;
 
-CREATE TABLE livro(
-  id int PRIMARY KEY AUTO_INCREMENT,
-  titulo varchar(100) not null,
-  subtitulo varchar(100),
-  editora varchar(50) not null,
-  ano year not null, 
-  titulo_original varchar(100),
-  cdd varchar(15)
+CREATE TABLE administrador (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    telefone VARCHAR(12) NOT NULL,
+    carteirinha INT UNIQUE NOT NULL,
+    cargo VARCHAR(50) NOT NULL
 );
 
-
-CREATE TABLE autor(
-	livro_id int NOT NULL,
-	nome varchar(100) not null,
-	FOREIGN KEY(livro_id) REFERENCES livro(id)
+CREATE TABLE aluno(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    data_nasc DATE NOT NULL,
+    telefone VARCHAR(12) NOT NULL,
+    nome VARCHAR(50) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    carteirinha INT UNIQUE NOT NULL,
+    status BOOLEAN NOT NULL DEFAULT TRUE,
+    curso VARCHAR(50) NOT NULL,
+    horas_jogadas TIME,
+    id_administrador INT,
+    FOREIGN KEY (id_administrador) REFERENCES administrador(id)
 );
 
-CREATE TABLE exemplar(
-    id int PRIMARY KEY AUTO_INCREMENT,
-    livro_id int NOT NULL,
-    num_exemplar int,
-    FOREIGN KEY(livro_id) REFERENCES livro(id)    
+CREATE TABLE treino(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    duracao TIME NOT NULL,
+    data_hora DATETIME NOT NULL,
+    local VARCHAR(50) NOT NULL,
+    tipo_treino VARCHAR(255) NOT NULL,
+    id_administrador INT,
+    FOREIGN KEY (id_administrador) REFERENCES administrador(id)
 );
 
-CREATE TABLE estante(
-	id int PRIMARY KEY AUTO_INCREMENT,
-	local VARCHAR(50) NOT NULL,
-	numero int 
+CREATE TABLE treino_usuario(
+	id_aluno INT,
+    id_administrador INT,
+    FOREIGN KEY (id_aluno) REFERENCES aluno(id),
+    FOREIGN KEY (id_administrador) REFERENCES administrador(id)
 );
 
-CREATE TABLE usuario(
-	id int PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50) NOT NULL,
-	cpf CHAR(11) NOT NULL,
-	endereco VARCHAR(100) NOT NULL,
-	status CHAR(1) NOT NULL,
-	email VARCHAR(50) NOT NULL,
-	codigo_aluno INT,
-	codigo_funcionario INT
+CREATE TABLE jogo (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    data_hora_inicio DATETIME NOT NULL,
+    data_hora_fim DATETIME NOT NULL,
+    duracao TIME NOT NULL,
+    local VARCHAR(50) NOT NULL,
+    adversario VARCHAR(50),
+    tipo_jogo VARCHAR(255) NOT NULL,
+    ponto_clube INT UNSIGNED,
+    ponto_adversario INT UNSIGNED,
+    observacoes VARCHAR(255),
+    id_administrador INT,
+    FOREIGN KEY (id_administrador) REFERENCES administrador(id)
 );
 
-CREATE TABLE funcionario(
-	id int PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50) NOT NULL,
-	codigo_funcionario INT 
+CREATE TABLE jogo_usuario (
+	id_aluno INT,
+    id_administrador INT,
+    FOREIGN KEY (id_aluno) REFERENCES aluno(id),
+    FOREIGN KEY (id_administrador) REFERENCES administrador(id)
 );
 
-CREATE TABLE livro_funcionario(
-	livro_id INT  ,
-	funcionario_id INT ,
-	data_cadastro DATETIME not null,
-	PRIMARY KEY(livro_id, funcionario_id),
-	FOREIGN KEY (livro_id) REFERENCES livro(id),
-	FOREIGN KEY (funcionario_id) REFERENCES funcionario(id)
+CREATE TABLE presenca_jogo (
+	id_aluno INT,
+    id_jogo INT,
+    PRIMARY KEY (id_aluno, id_jogo),
+    presenca BOOLEAN NOT NULL DEFAULT TRUE,
+    justif_falta VARCHAR(255),
+    data_registro DATETIME NOT NULL,
+    FOREIGN KEY (id_aluno) REFERENCES aluno(id),
+    FOREIGN KEY (id_jogo) REFERENCES jogo(id)
 );
 
-CREATE TABLE exemplar_funcionario(
-	exemplar_id INT,
-	funcionario_id INT,
-	data_cadastro DATETIME not null,
-	PRIMARY KEY (exemplar_id, funcionario_id),
-	FOREIGN KEY (exemplar_id) REFERENCES exemplar(id),
-	FOREIGN KEY (funcionario_id) REFERENCES funcionario(id)
+CREATE TABLE evento (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    local VARCHAR(50) NOT NULL,
+    data_hora DATETIME NOT NULL,
+    duracao TIME NOT NULL,
+    descricao VARCHAR(255) NOT NULL,
+    id_aluno INT,
+    id_administrador INT,
+    FOREIGN KEY (id_aluno) REFERENCES aluno(id),
+    FOREIGN KEY (id_administrador) REFERENCES administrador(id)
 );
 
-CREATE TABLE exemplar_estante(
-	exemplar_id INT,
-	estante_id INT,
-	
-	PRIMARY KEY(exemplar_id, estante_id),
-	FOREIGN KEY (exemplar_id) REFERENCES exemplar(id),
-	FOREIGN KEY (estante_id) REFERENCES estante(id)	
+CREATE TABLE pedido (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    data_compra DATETIME NOT NULL,
+    valor_total DECIMAL(10, 2) UNSIGNED NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    id_aluno INT,
+    FOREIGN KEY (id_aluno) REFERENCES aluno(id)
 );
 
-
-CREATE TABLE emprestimo(
-	id int  AUTO_INCREMENT,
-	exemplar_id INT ,
-	usuario_id INT,
-	funcionario_id INT ,
-	data_emprestimo DATETIME NOT NULL,
-	data_prevista_devolucao DATETIME NOT NULL,
-	data_devolucao DATETIME,
-	num_dias_atraso INT,
-	PRIMARY KEY(id, exemplar_id, usuario_id, funcionario_id),
-	FOREIGN KEY (exemplar_id) REFERENCES exemplar(id),
-	FOREIGN KEY (usuario_id) REFERENCES usuario(id),
-	FOREIGN KEY (funcionario_id) REFERENCES funcionario(id)	
+CREATE TABLE produto (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(50) NOT NULL,
+    descricao VARCHAR(255) NOT NULL,
+    preco DECIMAL(10, 2) UNSIGNED NOT NULL,
+    estoque INT UNSIGNED NOT NULL,
+    categoria VARCHAR(255) NOT NULL,
+    id_administrador INT,
+    FOREIGN KEY (id_administrador) REFERENCES administrador(id)
 );
 
-CREATE TABLE MULTA(
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	emprestimo_id INT NOT NULL,
-	data_multa DATETIME NOT NULL,
-	valor DECIMAL(8,2) NOT NULL,
-	status char(1),
-	FOREIGN KEY (emprestimo_id) REFERENCES emprestimo(id)
+CREATE TABLE item_pedido (
+	id_pedido INT,
+    id_produto INT,
+    PRIMARY KEY (id_pedido, id_produto),
+    quantidade INT UNSIGNED NOT NULL,
+    FOREIGN KEY (id_pedido) REFERENCES pedido(id),
+    FOREIGN KEY (id_produto) REFERENCES produto(id)
 );
-
