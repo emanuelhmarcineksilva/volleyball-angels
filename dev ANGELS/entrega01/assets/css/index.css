@@ -1,0 +1,63 @@
+@import url(./header.css);
+@import url(./footer.css);
+
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body {
+    width: 100vw;
+    overflow: hidden;
+    background: #f4f4f4;
+}
+
+section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 200px;
+}
+
+.faixa-marrom {
+    background-color: brown;
+    transform: rotate(-3deg);
+    position: absolute;
+    width: 110%;
+    left: 0;
+    height: 20%;
+    top: 40px;
+}
+
+.faixa-marrom h1 {
+    color: #fff;
+    white-space: nowrap;
+    font-size: 2rem;
+}
+
+.faixa-amarela {
+    display: flex;
+    align-items: center;
+    background-color: yellow;
+    transform: rotate(8deg);
+    position: relative;
+    width: 110%;
+    left: 0;
+    overflow: hidden;
+    height: 25%;
+}
+
+.faixa-amarela .conteudo {
+    display: flex;
+    gap: 50px;
+    white-space: nowrap;
+}
+
+.faixa-amarela h1 {
+    font-size: 2rem;
+    font-family: Arial, sans-serif;
+    color: black;
+}
+

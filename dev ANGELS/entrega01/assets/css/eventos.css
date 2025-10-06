@@ -1,0 +1,12 @@
+@import url(./header.css);
+@import url(./footer.css);
+
+#toolbar_eventos {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+#busca_evento {
+    padding-left: 1%;
+}
