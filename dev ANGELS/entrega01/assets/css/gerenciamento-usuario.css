@@ -1,0 +1,36 @@
+.login-pessoa {
+    width: 25vw;
+    padding: 1em;
+    margin: 2em auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+a {
+    cursor: pointer;
+}
+
+.login-pessoa {
+    border: 1px rgb(230, 64, 64);
+    border-radius: 10px;
+    background-color: rgb(164, 221, 221);
+}
+
+.item-container-cadastro {
+    padding: 2px;
+}
+
+.botao-deletar-usuario {
+    padding: 0.5em;
+    border-radius: 10px;
+    border: none;
+    transition: all 1s;
+    border: solid 1px ;
+    background-color: rgb(230, 64, 64);
+}
+
+.botao-deletar-usuario:hover {
+    color: rgb(235, 138, 138);
+    background-color: rgb(109, 17, 17);
+}

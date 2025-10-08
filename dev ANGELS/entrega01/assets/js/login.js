@@ -1,26 +1,50 @@
-document.getElementById('entrar').addEventListener('click', function() {
-    login();
-});
 
-async function login() {
-    var email = document.getElementById('email').value;  //pega o valor do campo email
-    var senha = document.getElementById('senha').value;
+// Login Usuário Existente
 
-    const fd = new FormData();
-    fd.append("email", email);
-    fd.append("senha", senha);
+async function botonLogin() {
+    var email;
+    var senha;
+    email = document.getElementById('email-login').value;
+    senha = document.getElementById('senha-login').value;
 
-    const retorno = await fetch("php/login.php",{ // AWAIT dis para o JS esperar a resposta do fetch antes de continuar a execuçao do codigo
-        method: "POST",
-        body: fd
-    });
+    var retorno = loginsEfetuados(email, senha);
+    var resposta = [
+        'login efetuado com sucesso 1',
+        'erro da senha',
+        'não encontrado'
+    ];
 
-    const resposta = await retorno.json(); //converte o retorno do fetch em json
-    console.log(resposta);
+    alert(resposta[retorno]);
 
-    // Repositorio Local Storage que armazena dados no navegador
-    localStorage.setItem("sessao", JSON.stringify(resposta)); // stringify converte o retorno em uma string
+}
+function loginsEfetuados(email, senha) {
+    var existeADM = 0;
+    for (var i = 0; i < listaCadastro.length; i++) {
+        if (listaCadastro[i].email != "adim@gmail.com") {
+            existeADM = existeADM;
+        } else {
+            existeADM += 1;
+        };
+    }
+    if (existeADM == 0) {
+        listaCadastro.push({
+            email: "adim@gmail.com",
+            senha: "adim"
+        });
+    }
 
-    // Deu certo!
-    window.location.href = "../../app/View/index.html"; //redireciona para a pagina home
-};
+    for (var i = 0; i < listaCadastro.length; i++) {
+        var verificar = listaCadastro[i];
+        if (email == verificar.email) {
+            if (senha == verificar.senha) {
+                window.location.href = "./gerenciamento-usuario.html";
+                return 0;
+            } else {
+                return 1;
+            }
+        }
+    }
+    console.log(listaCadastro)
+    return 2;
+
+}
