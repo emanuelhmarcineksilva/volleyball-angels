@@ -16,5 +16,5 @@ function armazenarJogo(){
     var fim = new Date(jogo.fim);
     var duracao = (fim - inicio) / 1000; // Duracao em segundos
 
-
+    
 }
