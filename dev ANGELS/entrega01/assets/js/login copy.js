@@ -37,15 +37,15 @@ function loginsEfetuados(email, senha) {
         var verificar = listaCadastro[i];
         if (email == "adim@gmail.com") {
             if (senha == "adim") {
-                window.location.href = "./gerenciar-logins.html"
-            } else {
-                if (email == verificar.email) {
-                    if (senha == verificar.senha) {
-                        window.location.href = "./index.html";
-                        return 0;
-                    } else {
-                        return 1;
-                    }
+                window.location.href = "./gerenciamento-usuario.html"
+            }
+        }else {
+            if (email == verificar.email) {
+                if (senha == verificar.senha) {
+                    window.location.href = "./index.html";
+                    return 0;
+                } else {
+                    return 1;
                 }
             }
         }

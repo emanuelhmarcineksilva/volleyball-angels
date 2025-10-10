@@ -2,8 +2,8 @@
 
 var listaCadastro = JSON.parse(localStorage.getItem("listaCadastro"));
 
-if(!listaCadastro) {
-    var listaCadastro = [
+if(listaCadastro.length == 0) {
+    listaCadastro = [
         {
             nome: "Adim",
             email: "adim@gmail.com",
