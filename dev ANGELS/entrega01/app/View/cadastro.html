@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Angels</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body
+    style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; width: 100vw; background-color: rgb(6, 5, 22);">
+
+    <!-- Modal -->
+    <div class="" style="background-color: aliceblue; padding: 1em; border-radius: 20px;" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastro</h1>
+                </div>
+
+                <div class="modal-body">
+
+
+                    <form>
+                        <fieldset>
+                            <div class="mb-3">
+                                <label for="disabledTextInput" class="form-label">Nome</label>
+                                <input type="text" id="nome-cadastro" class="form-control"
+                                    placeholder="Digite seu nome aqui">
+                            </div>
+                            <div class="mb-3">
+                                <label for="disabledTextInput" class="form-label">E-mail</label>
+                                <input type="email" id="email-cadastro" class="form-control"
+                                    placeholder="Digite seu e-mail aqui">
+                            </div>
+                            <div class="mb-3">
+                                <label for="disabledTextInput" class="form-label">Senha</label>
+                                <input type="password" id="senha-cadastro" class="form-control"
+                                    placeholder="Digite sua senha aqui">
+                            </div>
+                            <div class="mb-3">
+                                <label for="radio-sexo" class="form-label">Sexo</label>
+                                <div class="form-radio">
+                                    <input class="form-radio-input" type="radio" name="sexo" id="radio-masculino" value="Masculino">
+                                    <label for="radio-masculino">Masculino</label>
+                                    <input class="form-radio-input" type="radio" name="sexo" id="radio-feminino" value="Feminino">
+                                    <label for="radio-feminino">Feminino</label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="seletor-cargo" class="form-label">Serei:</label>
+                                <select id="seletor-cargo" class="form-select">
+                                    <option selected>Usuário</option>
+                                    <option>Membro</option>
+                                    <option>Jogador</option>
+                                    <option>Administrador</option>
+                                </select>
+                            </div>
+                            <button type="submit" id="botao-cadastrar" class="btn btn-primary"
+                                onclick="realizarCadastro()">Cadastrar</button>
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    <button class="btn" style="margin-bottom: 0;" onclick="window.history.go(-1)">voltar</button>
+
+</body>
+<script src="../../assets/js/cadastro.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
+
+</html>

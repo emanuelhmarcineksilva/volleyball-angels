@@ -18,7 +18,7 @@ function renderizarEventos(listaParaRenderizar) {
     for (var i = 0; i < listaParaRenderizar.length; i++) {
         const evento = listaParaRenderizar[i];
         const idOriginal = buscarIdOriginal(evento);
-
+        
         html += `
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="card h-100 d-flex flex-column">

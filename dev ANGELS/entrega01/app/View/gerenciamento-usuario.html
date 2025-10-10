@@ -2,51 +2,35 @@
 <html lang="pt-br">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../assets/css/gerenciamento-usuario.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>Gerenciamento logins</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../../assets/css/gerenciamento-usuario.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <title>Gerenciamento logins</title>
 </head>
 
 <body>
-    <h1>Bem-vindo Adm.</h1>
-    <h2>Aqui estão os logins</h2>
+  <h1>Bem-vindo Adm.</h1>
+  <h2>Aqui estão os logins</h2>
 
-    <a type="button" class="btn btn-primary" href="index.html">Home</a>
-    <button type="button" class="btn btn-primary"  onclick="mostrarTabelaLogin()">Mostrar logins</button>
+  <a type="button" class="btn btn-primary" href="index.html">Home</a>
+  <a type="button" class="btn btn-primary" href="cadastro.html">Novo Cadastro</a>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="nome-mudanca-modal">Modal title</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body" id="container-editor-modal">
-        
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Sair</button>
-        <button type="button" class="btn btn-primary" id="botao-salvar-alteracao" data-bs-dismiss="modal">Salvar alteração</button>
-      </div>
-    </div>
+  <div class="container mt-4"></div>
+  <div class="row"
+    style="background-color: rgba(127, 255, 212, 0.445); width: 100%; min-height: 20vh; display: flex; align-items: center; justify-content: center; padding: 2em;"
+    id="container-cadastros">
+    <!-- Está no js -->
   </div>
-</div>
-
-
-    <div id="container-cadastros">
-        <!-- Está no js -->
-    </div>
+  </div>
 
 
 
-    <script src="../../assets/js/gerenciar-logins.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-        crossorigin="anonymous"></script>
+  <script src="../../assets/js/gerenciar-logins.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>

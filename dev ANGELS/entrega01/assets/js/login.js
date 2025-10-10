@@ -6,8 +6,9 @@ async function botonLogin() {
     var senha;
     email = document.getElementById('email-login').value;
     senha = document.getElementById('senha-login').value;
+    cargo = document.getElementById('seletor-sou').value;
 
-    var retorno = loginsEfetuados(email, senha);
+    var retorno = loginsEfetuados(email, senha, cargo);
     var resposta = [
         'login efetuado com sucesso 1',
         'erro da senha',
@@ -17,35 +18,17 @@ async function botonLogin() {
     alert(resposta[retorno]);
 
 }
-function loginsEfetuados(email, senha) {
-    var existeADM = 0;
-    for (var i = 0; i < listaCadastro.length; i++) {
-        if (listaCadastro[i].email != "adim@gmail.com") {
-            existeADM = existeADM;
-        } else {
-            existeADM += 1;
-        };
-    }
-    if (existeADM == 0) {
-        listaCadastro.push({
-            email: "adim@gmail.com",
-            senha: "adim"
-        });
-    }
+function loginsEfetuados(email, senha, cargo) {
 
     for (var i = 0; i < listaCadastro.length; i++) {
         var verificar = listaCadastro[i];
-        if (email == "adim@gmail.com") {
-            if (senha == "adim") {
-                window.location.href = "./gerenciar-logins.html"
-            } else {
-                if (email == verificar.email) {
-                    if (senha == verificar.senha) {
-                        window.location.href = "./index.html";
-                        return 0;
-                    } else {
-                        return 1;
-                    }
+        if (email == verificar.email) {
+            if (senha == verificar.senha) {
+                if (cargo == verificar.cargo) {
+                    window.location.href = "./gerenciamento-usuario.html";
+                    return 0;
+                } else {
+                    return 1;
                 }
             }
         }
