@@ -8,7 +8,8 @@
     <link rel="stylesheet" href="../../assets/css/registro_jogos.css">
     <title>Volleyball Angels - Jogo</title>
 </head>
-<body>
+
+<body style="background-color: rgb(6, 5, 22);">
     <header style="display: flex; align-items: center; justify-content: center; height: 20%;">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
@@ -29,9 +30,6 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="login.html">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="jogos.html">Jogos</a>
                         </li>
                     </ul>
                 </div>
@@ -57,7 +55,11 @@
                 </div>
                 <div class="mb-3 pb-2">
                     <label for="tipo_jogo" class="form-label">Tipo de jogo:</label>
-                    <input type="text" class="form-control" id="tipo_jogo">
+                    <select type="form-select" class="form-control" id="tipo_jogo">
+                        <option selected>Selecione...</option>
+                        <option value="competitivo">Competitivo</option>
+                        <option value="amistoso">Amistoso</option>
+                    </select>
                 </div>
                 <div class="mb-3 pb-2">
                     <label for="pontclube_jogo" class="form-label">Pontuação do clube:</label>
@@ -75,11 +77,6 @@
             </form>
         </div>
     </main>
-
-
-
-
-    
     <footer>
 
     </footer>

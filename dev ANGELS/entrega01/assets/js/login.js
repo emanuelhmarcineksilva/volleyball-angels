@@ -1,6 +1,4 @@
-
 // Login Usuário Existente
-
 async function botonLogin() {
     var email;
     var senha;
@@ -16,8 +14,8 @@ async function botonLogin() {
     ];
 
     alert(resposta[retorno]);
-
 }
+
 function loginsEfetuados(email, senha, cargo) {
 
     for (var i = 0; i < listaCadastro.length; i++) {
@@ -36,5 +34,4 @@ function loginsEfetuados(email, senha, cargo) {
     }
     console.log(listaCadastro)
     return 2;
-
 }

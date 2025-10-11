@@ -74,9 +74,29 @@ function mostrarEdicao(id, campo) {
 
 function editarEvento(id, campo) {
     let listaEventos = JSON.parse(localStorage.getItem("listaEventos")) || [];
-    var novaInfo = document.getElementById(`input_${campo}_${id}`).value;
+    const input = document.getElementById(`input_${campo}_${id}`);
+    const novaInfo = input.value.trim();
+    const mensagem = document.getElementById('mensagem');
+    const regex = /^(?!\s*$).+/;
+    mensagem.innerHTML = "";
+    if (!regex.test(novaInfo)) {
+        input.classList.add("invalido"); 
+        input.classList.remove("valido");
+        mensagem.innerHTML = `
+            <div class="alert alert-danger alert-caixa" role="alert"> 
+                <p>Você preencheu o campo ${campo} indevidamente!</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`;
+        return;
+    }
+    input.classList.remove("invalido");
+    input.classList.add("valido");
     listaEventos[id][campo] = novaInfo;
     localStorage.setItem("listaEventos", JSON.stringify(listaEventos));
+    mensagem.innerHTML = `
+        <div class="alert alert-success alert-caixa" role="alert">
+            <p>Campo ${campo} editado com sucesso!</p>
+        </div>`;
     renderizarEventos(listaEventos);
 }
 
