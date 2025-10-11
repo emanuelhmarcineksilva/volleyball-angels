@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>CRUD com JavaScript</title>
+  <style>
+    body { font-family: Arial; max-width: 600px; margin: 20px auto; }
+    input, button { padding: 8px; margin: 4px; }
+    .usuario { background: #f2f2f2; padding: 10px; margin: 5px 0; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Gerenciar Usuários</h1>
+
+  <!-- Formulário -->
+  <input id="nome" placeholder="Nome">
+  <input id="email" placeholder="E-mail">
+  <button onclick="criarUsuario()">Adicionar</button>
+
+  <hr>
+
+  <!-- Lista -->
+  <div id="listaUsuarios"></div>
+
+  <script src="crud.js"></script>
+</body>
+</html>

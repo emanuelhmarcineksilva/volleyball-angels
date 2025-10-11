@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../assets/css/registro_jogos.css">
+    <title>Volleyball Angels - Jogo</title>
+</head>
+<body>
+    <header style="display: flex; align-items: center; justify-content: center; height: 20%;">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand">Volleyball Angels</a>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="eventos.html">Eventos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contato</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Shop</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.html">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="jogos.html">Jogos</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <div style="background-color: aliceblue;" class="position-absolute top-100 start-50 translate-middle shadow-lg border p-5">
+            <form>
+                <h1>Registro de Jogos:</h1>
+                <div class="mb-3">
+                    <label class="form-label" for="inicio_jogo">Data/hora de início:</label>
+                    <input type="datetime-local" class="form-control" id="inicio_jogo">
+                </div>
+                <div class="mb-3">
+                    <label for="fim_jogo" class="form-label">Data/hora final:</label>
+                    <input type="datetime-local" class="form-control" id="fim_jogo">
+                </div>
+                <div class="mb-3">
+                    <label for="adversario_jogo" class="form-label">Time adversário:</label>
+                    <input type="text" class="form-control" id="adversario_jogo">
+                </div>
+                <div class="mb-3 pb-2">
+                    <label for="tipo_jogo" class="form-label">Tipo de jogo:</label>
+                    <select class="form-select" id="tipo_jogo">
+                        <option selected>Selecione...</option>
+                        <option value="competitivo">Competitivo</option>
+                        <option value="casual">Casual</option>
+                    </select>                    
+                </div>
+                <div class="mb-3 pb-2">
+                    <label for="pontclube_jogo" class="form-label">Pontuação do clube:</label>
+                    <input type="number" class="form-control" id="pontclube_jogo">
+                </div>
+                <div class="mb-3 pb-2">
+                    <label for="pontadvers_jogo" class="form-label">Pontuação do time adversário:</label>
+                    <input type="number" class="form-control" id="pontadvers_jogo">
+                </div>
+                <div class="mb-3 pb-2">
+                    <label for="observ_jogo" class="form-label">Observações:</label>
+                    <input type="text" class="form-control" id="observ_jogo">
+                </div>
+                <button type="button" class="btn btn-primary" id="enviar_jogo">Enviar</button>
+            </form>
+        </div>
+    </main>
+
+
+
+
+    
+    <footer>
+
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="../../assets/js/registro_jogos.js"></script>
+</body>

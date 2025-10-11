@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../assets/css/eventos.css">
+    <title>Volleyball Angels - Eventos</title>
+</head>
+<body style="background-color: rgb(6, 5, 22);">
+    <header class="nav m-5 h-auto">
+        
+        <div style="background-color: #231242;" class="row w-100 p-5 m-0 h-auto border border-black shadow-lg">
+            <h1 style="font-size: 4vw; height: bold; color: #8b058b;" class="col-9 p-0 m-0 text-center">VOLLEYBALL ANGELS</h1>
+            <a style="font-size: 2vw;" href="login.html" class="col-2 m-0 p-0 text-end">Entrar</a>
+            <img class="col-1 p-0 m-0 mh-100 h-100" src="/img/profilePicture.jpg" alt="Imagem de perfil">
+        </div>
+        <div class="row w-100 h-auto"> 
+            <div class="botaoNotificacao col-1">
+                <img style="width: 50px; height: 50px;" class="h-100" src="/img/notificationBell.png" alt="notificationBell">
+            </div>
+
+            <div style="background-color: #4b254e;" class="col-1 botoesMenu m-0 p-0 text-center border border-black">
+                <a class="botoesMenuSize" href="./index.html">Home</a>
+            </div>
+            <div class="botoesMenu col-1 m-0 p-0 text-center border border-black">
+                <a class="botoesMenuSize" href="#">Sobre Nós</a>
+            </div>
+            <div class="botoesMenu col-1 m-0 p-0 text-center border border-black">
+                <a class="botoesMenuSize" href="eventos.html">Eventos</a>
+            </div>
+            <div class="botoesMenu col-1 m-0 p-0 text-center border border-black">
+                <a class="botoesMenuSize" href="#">Calendário</a>
+            </div>
+            <div class="botoesMenu col-1 m-0 p-0 text-center border border-black">
+                <a class="botoesMenuSize" href="#">Jogos oficiais</a>
+            </div>
+            <div class="botoesMenu col-1 m-0 p-0 text-center border border-black">
+                <a class="botoesMenuSize" href="./shop.html">Loja</a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <h1>Central de Eventos</h1>
+        <div id="toolbar_eventos">
+            <div id="botao_novo_evento">
+                <button id="novo_evento" type="button" class="btn btn-primary">Novo evento</button>
+            </div>
+            <div id="busca_evento">
+                <form id="form_busca" class="d-flex" role="search">
+                    <input id="input_busca" class="form-control me-2" type="search" placeholder="Buscar Eventos" aria-label="Search"/>
+                </form>
+            </div>
+        </div>
+        
+        <div class="container mt-4">
+            <div class="row" id="lista_de_eventos">
+
+            </div>
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="../../assets/js/eventos.js"></script>
+</body>
+</html>
