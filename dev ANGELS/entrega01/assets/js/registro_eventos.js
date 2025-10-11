@@ -16,3 +16,5 @@ function armazenarEvento(){
     listaEventos.push(evento);
     localStorage.setItem("listaEventos",JSON.stringify(listaEventos));
 }
+
+
