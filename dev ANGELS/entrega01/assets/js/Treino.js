@@ -1,5 +1,5 @@
 document.getElementById("nv_treino").addEventListener("click", function(){
-    window.location.href = "../registro_treino/Registro.html";
+    window.location.href = "../View/registro_treino.html";
 });
 
 function carregarForms (){

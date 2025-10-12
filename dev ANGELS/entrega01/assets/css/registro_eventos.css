@@ -1,3 +1,6 @@
+@import url(./header.css);
+@import url(./footer.css);
+
 .alert-caixa{
     display: flex;
     top: -8%;

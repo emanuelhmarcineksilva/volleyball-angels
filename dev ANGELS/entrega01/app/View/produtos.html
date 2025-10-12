@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../assets/css/produtos.css">
     <link rel="icon" href="../../assets/img/Logo_Volleyball_Angels.png">
-    <link rel="stylesheet" href="../../assets/css/treino.css">
-    <title>Volleyball Angels - Treinos</title>
+    <title>Volleyball Angels - Produtos</title>
 </head>
 <body>
-    <header>
+        <header>
         <div class="header-top">
             <div class="header-spacer"></div>
 
@@ -20,7 +21,7 @@
             <div class="login">
                 <a href="login.html" class="login-link">
                     <span class="login-text">Entrar</span>
-                    <img src="../assets/img/Logo_Volleyball_Angels.png" alt="Acessar perfil de usuário">
+                    <img src="" alt="Acessar perfil de usuário">
                 </a>
             </div>
         </div>
@@ -45,37 +46,44 @@
                         <a class="nav-link" href="jogos.html">Jogos</a>
                     </li>
                     <li class="nav-item nav-item-desktop">
-                        <a class="nav-link active" aria-current="page" href="treino.html">Treinos</a>
+                        <a class="nav-link" href="treino.html">Treinos</a>
                     </li>
                     <li class="nav-item nav-item-desktop">
-                        <a class="nav-link" href="produtos.html">Produtos</a>
+                        <a class="nav-link active" aria-current="page" href="produtos.html">Produtos</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </header>
-
-    <main> <!--Parte -->
-        <h1>Central de Treinos</h1>
-        
-        <div id="busca_evento">
-            <form id="form_busca" class="d-flex" role="search">
-                <input id="input_busca" class="form-control me-2" type="search" placeholder="Buscar Eventos" aria-label="Search"/>
-            </form>
+    <main>
+        <div class="row">
+            <div class="col" id="titulo_produtos">
+                <h1>Central de Produtos</h1>
+            </div>
         </div>
         
-        <div class="treinos">
-            <button type="button" id="nv_treino" class="nv_treino">Novo Treino</button>
-            <div class="container" id="list_Forms">
+    
+        <div id="toolbar_produtos">
+            <div id="botao_novo_produto">
+                <button id="novo_produto" type="button" class="btn btn-primary">Novo produto</button>
+            </div>
+            <div id="busca_produto">
+                <form id="form_busca" class="d-flex" role="search">
+                    <input id="input_busca" class="form-control me-2" type="search" placeholder="Buscar Produtos" aria-label="Search"/>
+                </form>
+            </div>
+        </div>
+        
+        <div class="container mt-4">
+            <div class="row" id="lista_de_produtos">
 
             </div>
         </div>
     </main>
-
-    
     <footer>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-        <script src="../../assets/js/treino.js"></script>
+        <p>&copy; Copyright Volleyball-Angels.com 2025</p>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="../../assets/js/produtos.js"></script>
 </body>
 </html>

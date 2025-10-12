@@ -1,6 +1,6 @@
 document.getElementById("confirm_form").addEventListener("click", function(){
     armazenarForm();
-    window.location.href = "../treinoo/Treino.html";
+    window.location.href = "../js/treino.html";
 });
 
 function armazenarForm(){

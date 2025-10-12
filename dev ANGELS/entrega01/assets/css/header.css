@@ -1,32 +1,127 @@
+/* Estilo geral do Header */
 header {
-  background-color: #c7a143;
-  padding-top: 2%;
-  padding-bottom: 2%;
-  position: sticky;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    background-color: #c7a143;
+    padding: 1rem 5%; /* Usar rem/em e % é melhor para responsividade */
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-.ajuste_header {
-  width: 90%;
-  padding-left: 5%;
-  padding-right: 5%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+/* LINHA SUPERIOR: Contém o logo e o login */
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 1rem; /* Espaço entre a linha de cima e a de baixo */
 }
 
-.navbar {
-    padding: 0%;
+/* Logo */
+.container-logo {
+    text-align: center;
 }
 
 #texto-logo {
-
+    font-size: 2.5rem; /* Tamanho da fonte do logo */
+    font-weight: bold;
+    color: #fff;
+    margin: 0;
+    white-space: nowrap; /* Evita que o nome quebre em duas linhas */
 }
 
-.container-logo {
+/* Área de Login */
+.login {
+    display: flex;
+    justify-content: flex-end; /* Alinha o conteúdo à direita */
+}
+
+.login-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Espaço entre o texto e a imagem */
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+}
+
+.login-link:hover {
+    color: #f0f0f0;
+}
+
+.login img {
+    width: 35px; /* Tamanho do ícone de usuário */
+    height: 35px;
+    border-radius: 50%;
+}
+
+/* Espaçador invisível para ajudar a centralizar o logo.
+   Ele ocupa o mesmo espaço que a área de login. */
+.header-spacer {
+    /* É importante que o spacer e o login tenham a mesma base de largura para uma centralização perfeita */
+    flex-basis: 100px; /* Ajuste este valor se a área de login for maior */
+}
+.login {
+    flex-basis: 100px;
+}
+
+
+/* LINHA INFERIOR: Navegação */
+.header-bottom {
+    display: flex;
+    justify-content: flex-start; /* Alinha a navbar à esquerda */
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.3); /* Linha divisória sutil */
+    padding-top: 0.5rem;
+}
+
+/* Ajustes na navbar do Bootstrap */
+.navbar {
+    padding: 0;
+}
+.nav-tabs {
+    border-bottom: none; /* Remove a borda padrão do nav-tabs do Bootstrap */
+}
+.nav-tabs .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    border: none;
+}
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-link:hover {
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #fff; /* Destaque para o item ativo/hover */
+}
+
+
+/* =================================== */
+/* RESPONSIVIDADE            */
+/* =================================== */
+
+/* Para telas com largura máxima de 768px (tablets e celulares) */
+@media (max-width: 768px) {
+    #texto-logo {
+        font-size: 1.8rem; /* Diminui o logo em telas menores */
+    }
+
+    /* Esconde o texto "Entrar" e deixa só o ícone */
+    .login-text {
+        display: none;
+    }
+
+    /* Esconde os itens do menu que não devem aparecer no mobile */
+    .nav-item-desktop {
+        display: none;
+    }
     
+    .header-top {
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Ajusta os espaçadores para o novo tamanho do login */
+    .header-spacer, .login {
+        flex-basis: 40px;
+    }
 }
