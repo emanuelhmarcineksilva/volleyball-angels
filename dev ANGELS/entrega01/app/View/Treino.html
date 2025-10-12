@@ -56,26 +56,31 @@
     </header>
 
     <main> <!--Parte -->
-        <h1>Central de Treinos</h1>
-        
-        <div id="busca_evento">
-            <form id="form_busca" class="d-flex" role="search">
-                <input id="input_busca" class="form-control me-2" type="search" placeholder="Buscar Eventos" aria-label="Search"/>
-            </form>
+        <div class="titulo_treino">
+            <h1>Central de Treinos</h1>
         </div>
-        
-        <div class="treinos">
-            <button type="button" id="nv_treino" class="nv_treino">Novo Treino</button>
-            <div class="container" id="list_Forms">
-
+        <div id="toolbar_treino">
+            <div id="busca_treinos">
+                <form id="form_busca" class="d-flex" role="search">
+                    <input id="input_busca" class="form-control me-2" type="search" placeholder="Buscar Treinos" aria-label="Search"/>
+                </form>
+            </div>
+            
+            <div class="botao_novo_treino">
+                <button type="button" id="nv_treino" class="btn btn-primary">Novo Treino</button>
             </div>
         </div>
+        <div id="Container">
+            <div class="container" id="list_Forms"></div> 
+        </div>
+        
     </main>
 
     
     <footer>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-        <script src="../../assets/js/treino.js"></script>
+        <p>&copy; Copyright Volleyball-Angels.com 2025</p>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="../../assets/js/treino.js"></script>
 </body>
 </html>
