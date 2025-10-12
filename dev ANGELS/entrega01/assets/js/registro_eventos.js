@@ -1,7 +1,7 @@
-const nome_evento = document.getElementById('nome_evento'); 
-const data_evento = document.getElementById('data_evento'); 
-const horario_evento = document.getElementById('horario_evento'); 
-const local_evento = document.getElementById('local'); 
+const nome_evento = document.getElementById('nome_evento');
+const data_evento = document.getElementById('data_evento');
+const horario_evento = document.getElementById('horario_evento');
+const local_evento = document.getElementById('local');
 const btn_enviar = document.getElementById('enviar_evento'); 
 const form = document.getElementById('form_evento');
 const mensagem = document.getElementById('mensagem');
@@ -29,11 +29,11 @@ btn_enviar.addEventListener("click", function(e){
     const horario = horario_evento.value.trim() !== "";
     mensagem.innerHTML = "";
     if(!nome || !local || !data || !horario){
-        mensagem.innerHTML = `
-            <div class="alert alert-danger" role="alert"> 
-                <p>Você não preencheu todos os campos devidamente!</p> 
+        mensagem.innerHTML = 
+            `<div class="alert alert-danger alert-caixa" role="alert">
+                <p>Você não preencheu todos os campos devidamente!</p>
+                <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="alert" aria-label="Close"></button> 
             </div>`;
-        
         [nome_evento, local_evento, data_evento, horario_evento].forEach(input => { 
             if(input.value.trim() === "" || !regex.test(input.value)){ 
                 input.classList.add("invalido"); 
@@ -46,5 +46,5 @@ btn_enviar.addEventListener("click", function(e){
         return;
     } 
     armazenarEvento();
-    setTimeout(() => {window.location.href = "eventos.html";}, 1000);
+    setTimeout(() => {window.location.href = "eventos.html";});
 });

@@ -1,10 +1,6 @@
 @import url(./header.css);
 @import url(./footer.css);
 
-body {
-    background-image: linear-gradient(to right, rgb(136, 103, 189), white);
-}
-
 #toolbar_eventos {
     display: flex; 
     align-items: center; 
@@ -15,9 +11,10 @@ body {
     padding-left: 1%;
 }
 
-#titulo_eventos {
+.titulo_eventos {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
     padding-top: 2%;
     padding-bottom: 2%;
 }
@@ -38,9 +35,9 @@ main {
 
 .alert-caixa{
     display: flex;
-    margin-top: 1%;
-    margin-left: 1%;
-    margin-right: 1%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     position: absolute;
     z-index: 1;
 }

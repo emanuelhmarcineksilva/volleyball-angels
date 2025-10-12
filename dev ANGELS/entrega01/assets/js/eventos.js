@@ -85,7 +85,7 @@ function editarEvento(id, campo) {
         mensagem.innerHTML = `
             <div class="alert alert-danger alert-caixa" role="alert"> 
                 <p>Você preencheu o campo ${campo} indevidamente!</p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>`;
         return;
     }
@@ -96,6 +96,7 @@ function editarEvento(id, campo) {
     mensagem.innerHTML = `
         <div class="alert alert-success alert-caixa" role="alert">
             <p>Campo ${campo} editado com sucesso!</p>
+            <button type="button" class="btn btn-success btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`;
     renderizarEventos(listaEventos);
 }

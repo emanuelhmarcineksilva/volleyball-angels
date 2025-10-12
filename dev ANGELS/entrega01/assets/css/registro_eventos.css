@@ -1,0 +1,7 @@
+.alert-caixa{
+    display: flex;
+    top: -8%;
+    left: 1%;
+    position: absolute;
+    z-index: 1;
+}

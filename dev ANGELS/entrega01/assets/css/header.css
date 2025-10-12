@@ -1,5 +1,22 @@
 header {
-    background-color: aqua;
+  background-color: #c7a143;
+  padding-top: 2%;
+  padding-bottom: 2%;
+  position: sticky;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ajuste_header {
+  width: 90%;
+  padding-left: 5%;
+  padding-right: 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 .navbar {
