@@ -1,14 +1,25 @@
 @import url(./header.css);
 @import url(./footer.css);
 
+/* Aplica a base para o sticky footer e o tema escuro */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #23272A; /* Fundo cinza escuro */
+    color: #FFFFFF; /* Texto padrão branco */
+}
+
+/* Faz o conteúdo principal crescer e ocupar o espaço */
+main {
+    flex-grow: 1;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+}
+
 #toolbar_treino {
     display: flex; 
     align-items: center; 
-    justify-content: center; 
-}
-
-#busca_treinos {
-    padding-left: 1%;
+    justify-content: center;
 }
 
 .titulo_treino {
@@ -19,18 +30,54 @@
     padding-bottom: 2%;
 }
 
-main {
-    border-top: 1px solid rgb(255, 255, 255);
+.titulo_treino h1 {
+    color: #FFFFFF;
 }
 
+/* Estilização dos cards para o tema escuro */
+.card {
+    background-color: #2C2F33;
+    border: 1px solid #4F545C;
+    color: #FFFFFF;
+}
+
+.card p strong {
+    color: #FFFFFF;
+}
+
+.card .editable-field {
+    color: #FFFFFF;
+    text-decoration-style: dotted;
+}
+.card .editable-field:hover {
+    color: #A491D3; /* Roxo para hover */
+}
+
+.card-footer {
+    border-top-color: #4F545C !important;
+}
+
+/* Ajuste nos botões para combinar com o tema */
+#nv_treino.btn-primary {
+    background-color: #444;
+    border-color: #A491D3;
+}
+#nv_treino.btn-primary:hover {
+    background-color: #A491D3;
+    border-color: #A491D3;
+}
+
+/* Classes de validação e alerta */
 .invalido{
-    border: 2px solid red;
-    background-color: #ffe6e6;
+    border: 2px solid #C62828; /* Vermelho do tema */
+    background-color: #412f2f;
+    color: white;
 }
 
 .valido {
     border: 2px solid green;
-    background-color: #e6ffe6;
+    background-color: #2a3b2a;
+    color: white;
 }
 
 .alert-caixa{

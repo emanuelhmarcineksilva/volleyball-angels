@@ -25,31 +25,31 @@ function renderizarTreinos(listaParaRenderizar) {
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Duração:</strong></p>
-                            <a id="duracao_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'duracao')" class="m-0 flex-grow-1 text-body text-end editable-field">${treino.duracao}</a>
+                            <a id="duracao_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'duracao')" class="m-0 flex-grow-1 text-end editable-field">${treino.duracao}</a>
                             <input type="text" id="input_duracao_${idOriginal}" class="form-control flex-grow-1" value="${treino.duracao}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_duracao_${idOriginal}" onclick="editarTreino(${idOriginal}, 'duracao')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Data:</strong></p>
-                            <a id="data_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'data')" class="m-0 flex-grow-1 text-body text-end editable-field">${treino.data}</a>
+                            <a id="data_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'data')" class="m-0 flex-grow-1 text-end editable-field">${treino.data}</a>
                             <input type="date" id="input_data_${idOriginal}" class="form-control flex-grow-1" value="${treino.data}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_data_${idOriginal}" onclick="editarTreino(${idOriginal}, 'data')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Hora:</strong></p>
-                            <a id="hora_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'hora')" class="m-0 flex-grow-1 text-body text-end editable-field">${treino.hora}</a>
+                            <a id="hora_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'hora')" class="m-0 flex-grow-1 text-end editable-field">${treino.hora}</a>
                             <input type="time" id="input_hora_${idOriginal}" class="form-control flex-grow-1" value="${treino.hora}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_hora_${idOriginal}" onclick="editarTreino(${idOriginal}, 'hora')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Local:</strong></p>
-                            <a id="local_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'local')" class="m-0 flex-grow-1 text-body text-end editable-field">${treino.local}</a>
+                            <a id="local_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'local')" class="m-0 flex-grow-1 text-end editable-field">${treino.local}</a>
                             <input type="text" id="input_local_${idOriginal}" class="form-control flex-grow-1" value="${treino.local}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_local_${idOriginal}" onclick="editarTreino(${idOriginal}, 'local')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Tipo:</strong></p>
-                            <a id="tipo_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'tipo')" class="m-0 flex-grow-1 text-body text-end editable-field">${treino.tipo}</a>
+                            <a id="tipo_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'tipo')" class="m-0 flex-grow-1 text-end editable-field">${treino.tipo}</a>
                             <select id="input_tipo_${idOriginal}" class="form-select flex-grow-1" hidden>
                                 <option value="Aerobico" ${treino.tipo === 'Aerobico' ? 'selected' : ''}>Aeróbico</option>
                                 <option value="Forca" ${treino.tipo === 'Forca' ? 'selected' : ''}>Força</option>
@@ -62,7 +62,7 @@ function renderizarTreinos(listaParaRenderizar) {
                         </div>
                         <div class="d-flex align-items-center">
                             <p class="m-0 me-2"><strong>ADM:</strong></p>
-                            <a id="nome_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'nome')" class="m-0 flex-grow-1 text-body text-end editable-field">${treino.nome}</a>
+                            <a id="nome_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'nome')" class="m-0 flex-grow-1 text-end editable-field">${treino.nome}</a>
                             <input type="text" id="input_nome_${idOriginal}" class="form-control flex-grow-1" value="${treino.nome}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_nome_${idOriginal}" onclick="editarTreino(${idOriginal}, 'nome')" hidden>Ok</a>
                         </div>

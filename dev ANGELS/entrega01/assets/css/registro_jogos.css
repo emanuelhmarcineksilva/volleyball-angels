@@ -1,11 +1,12 @@
 @import url(./header.css);
 @import url(./footer.css);
 
-/* Garante que o layout ocupe a tela toda e permita centralização */
+/* Aplica a base para o sticky footer e o tema escuro */
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #23272A; /* Fundo cinza escuro */
 }
 
 /* Faz o main crescer e centraliza o formulário */
@@ -17,23 +18,54 @@ main {
     padding: 2rem;
 }
 
+/* Estiliza o container do formulário */
+.form-container {
+    background-color: #2C2F33; /* Fundo do formulário */
+    color: #FFFFFF; /* Texto branco */
+}
+
+/* Estiliza os campos do formulário para o tema escuro */
+.form-control, .form-select {
+    background-color: #40444B;
+    border: 1px solid #5c5c5c;
+    color: #FFFFFF;
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: #40444B;
+    border-color: #A491D3; /* Borda roxa ao focar */
+    color: #FFFFFF;
+    box-shadow: 0 0 0 0.25rem rgba(164, 145, 211, 0.25);
+}
+
+/* Ajuste no botão primário */
+#enviar_jogo.btn-primary {
+    background-color: #444;
+    border-color: #A491D3;
+}
+#enviar_jogo.btn-primary:hover {
+    background-color: #A491D3;
+    border-color: #A491D3;
+}
+
+/* Classes de validação */
 .invalido{
-    border: 2px solid red;
-    background-color: #ffe6e6;
+    border: 2px solid #C62828;
+    background-color: #412f2f;
 }
 
 .valido {
     border: 2px solid green;
-    background-color: #e6ffe6;
+    background-color: #2a3b2a;
 }
 
 .alert-caixa{
     display: flex;
-    position: fixed; /* Mudei para fixed para aparecer sobre tudo */
-    top: 20px; /* Distância do topo */
+    position: fixed;
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1050; /* Z-index alto para ficar na frente */
+    z-index: 1050;
     width: auto;
     max-width: 90%;
 }

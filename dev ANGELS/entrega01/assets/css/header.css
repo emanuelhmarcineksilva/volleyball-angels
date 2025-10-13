@@ -1,12 +1,12 @@
 /* Estilo geral do Header */
 header {
-    background-color: #c7a143;
-    padding: 1rem 5%; /* Usar rem/em e % é melhor para responsividade */
+    background-color: #1E2124; /* Cor alterada para cinza escuro */
+    padding: 1rem 5%;
     position: sticky;
     top: 0;
     width: 100%;
     z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Sombra mais visível no fundo escuro */
 }
 
 /* LINHA SUPERIOR: Contém o logo e o login */
@@ -15,113 +15,67 @@ header {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    margin-bottom: 1rem; /* Espaço entre a linha de cima e a de baixo */
+    margin-bottom: 1rem;
 }
 
 /* Logo */
-.container-logo {
-    text-align: center;
-}
-
+.container-logo { text-align: center; }
 #texto-logo {
-    font-size: 2.5rem; /* Tamanho da fonte do logo */
+    font-size: 2.5rem;
     font-weight: bold;
     color: #fff;
     margin: 0;
-    white-space: nowrap; /* Evita que o nome quebre em duas linhas */
+    white-space: nowrap;
 }
 
 /* Área de Login */
-.login {
-    display: flex;
-    justify-content: flex-end; /* Alinha o conteúdo à direita */
-}
-
+.login { display: flex; justify-content: flex-end; }
 .login-link {
     display: flex;
     align-items: center;
-    gap: 0.5rem; /* Espaço entre o texto e a imagem */
+    gap: 0.5rem;
     text-decoration: none;
     color: #fff;
     font-weight: 500;
 }
-
-.login-link:hover {
-    color: #f0f0f0;
-}
-
+.login-link:hover { color: #f0f0f0; }
 .login img {
-    width: 35px; /* Tamanho do ícone de usuário */
+    width: 35px;
     height: 35px;
     border-radius: 50%;
 }
 
-/* Espaçador invisível para ajudar a centralizar o logo.
-   Ele ocupa o mesmo espaço que a área de login. */
-.header-spacer {
-    /* É importante que o spacer e o login tenham a mesma base de largura para uma centralização perfeita */
-    flex-basis: 100px; /* Ajuste este valor se a área de login for maior */
-}
-.login {
-    flex-basis: 100px;
-}
-
+/* Espaçador para centralizar o logo */
+.header-spacer, .login { flex-basis: 100px; }
 
 /* LINHA INFERIOR: Navegação */
 .header-bottom {
     display: flex;
-    justify-content: flex-start; /* Alinha a navbar à esquerda */
+    justify-content: flex-start;
     width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.3); /* Linha divisória sutil */
+    border-top: 1px solid rgba(255, 255, 255, 0.2); /* Borda mais sutil */
     padding-top: 0.5rem;
 }
 
 /* Ajustes na navbar do Bootstrap */
-.navbar {
-    padding: 0;
-}
-.nav-tabs {
-    border-bottom: none; /* Remove a borda padrão do nav-tabs do Bootstrap */
-}
+.navbar { padding: 0; }
+.nav-tabs { border-bottom: none; }
 .nav-tabs .nav-link {
     color: rgba(255, 255, 255, 0.85);
     border: none;
 }
-.nav-tabs .nav-link.active,
-.nav-tabs .nav-link:hover {
+.nav-tabs .nav-link.active, .nav-tabs .nav-link:hover {
     color: #fff;
     background-color: transparent;
     border: none;
-    border-bottom: 2px solid #fff; /* Destaque para o item ativo/hover */
+    border-bottom: 2px solid #fff;
 }
 
-
-/* =================================== */
-/* RESPONSIVIDADE            */
-/* =================================== */
-
-/* Para telas com largura máxima de 768px (tablets e celulares) */
+/* RESPONSIVIDADE */
 @media (max-width: 768px) {
-    #texto-logo {
-        font-size: 1.8rem; /* Diminui o logo em telas menores */
-    }
-
-    /* Esconde o texto "Entrar" e deixa só o ícone */
-    .login-text {
-        display: none;
-    }
-
-    /* Esconde os itens do menu que não devem aparecer no mobile */
-    .nav-item-desktop {
-        display: none;
-    }
-    
-    .header-top {
-        margin-bottom: 0.5rem;
-    }
-    
-    /* Ajusta os espaçadores para o novo tamanho do login */
-    .header-spacer, .login {
-        flex-basis: 40px;
-    }
+    #texto-logo { font-size: 1.8rem; }
+    .login-text { display: none; }
+    .nav-item-desktop { display: none; }
+    .header-top { margin-bottom: 0.5rem; }
+    .header-spacer, .login { flex-basis: 40px; }
 }

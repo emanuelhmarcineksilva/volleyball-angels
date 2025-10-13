@@ -25,21 +25,21 @@ function renderizarProdutos(listaParaRenderizar) {
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Nome:</strong></p>
-                            <a id="nome_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'nome')" class="m-0 flex-grow-1 text-body text-end editable-field">${produto.nome}</a>
+                            <a id="nome_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'nome')" class="m-0 flex-grow-1 text-end editable-field">${produto.nome}</a>
                             <input type="text" id="input_nome_${idOriginal}" class="form-control flex-grow-1" value="${produto.nome}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_nome_${idOriginal}" onclick="editarProduto(${idOriginal}, 'nome')" hidden>Ok</a>
                         </div>
 
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Descrição:</strong></p>
-                            <a id="descricao_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'descricao')" class="m-0 flex-grow-1 text-body text-end editable-field">${produto.descricao}</a>
+                            <a id="descricao_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'descricao')" class="m-0 flex-grow-1 text-end editable-field">${produto.descricao}</a>
                             <input type="text" id="input_descricao_${idOriginal}" class="form-control flex-grow-1" value="${produto.descricao}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_descricao_${idOriginal}" onclick="editarProduto(${idOriginal}, 'descricao')" hidden>Ok</a>
                         </div>
 
                         <div class="d-flex align-items-center">
                             <p class="m-0 me-2"><strong>Preço:</strong></p>
-                            <a id="preco_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'preco')" class="m-0 flex-grow-1 text-body text-end editable-field">${produto.preco}</a>
+                            <a id="preco_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'preco')" class="m-0 flex-grow-1 text-end editable-field">${produto.preco}</a>
                             <input type="number" id="input_preco_${idOriginal}" class="form-control flex-grow-1" value="${produto.preco}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_preco_${idOriginal}" onclick="editarProduto(${idOriginal}, 'preco')" hidden>Ok</a>
                         </div>

@@ -19,7 +19,6 @@ function renderizarJogos(listaParaRenderizar) {
         const jogo = listaParaRenderizar[i];
         const idOriginal = buscarIdOriginal(jogo);
 
-        // Formata as datas para o formato yyyy-MM-ddTHH:mm, que é o esperado pelo input datetime-local
         const inicioFormatado = jogo.inicio ? jogo.inicio.slice(0, 16) : '';
         const fimFormatado = jogo.fim ? jogo.fim.slice(0, 16) : '';
 
@@ -29,25 +28,25 @@ function renderizarJogos(listaParaRenderizar) {
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Início:</strong></p>
-                            <a id="inicio_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'inicio')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.inicio.replace('T', ' ')}</a>
+                            <a id="inicio_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'inicio')" class="m-0 flex-grow-1 text-end editable-field">${jogo.inicio.replace('T', ' ')}</a>
                             <input type="datetime-local" id="input_inicio_${idOriginal}" class="form-control flex-grow-1" value="${inicioFormatado}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_inicio_${idOriginal}" onclick="editarJogo(${idOriginal}, 'inicio')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Fim:</strong></p>
-                            <a id="fim_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'fim')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.fim.replace('T', ' ')}</a>
+                            <a id="fim_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'fim')" class="m-0 flex-grow-1 text-end editable-field">${jogo.fim.replace('T', ' ')}</a>
                             <input type="datetime-local" id="input_fim_${idOriginal}" class="form-control flex-grow-1" value="${fimFormatado}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_fim_${idOriginal}" onclick="editarJogo(${idOriginal}, 'fim')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Adversário:</strong></p>
-                            <a id="adversario_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'adversario')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.adversario}</a>
+                            <a id="adversario_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'adversario')" class="m-0 flex-grow-1 text-end editable-field">${jogo.adversario}</a>
                             <input type="text" id="input_adversario_${idOriginal}" class="form-control flex-grow-1" value="${jogo.adversario}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_adversario_${idOriginal}" onclick="editarJogo(${idOriginal}, 'adversario')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Tipo:</strong></p>
-                            <a id="tipo_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'tipo')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.tipo}</a>
+                            <a id="tipo_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'tipo')" class="m-0 flex-grow-1 text-end editable-field">${jogo.tipo}</a>
                              <select id="input_tipo_${idOriginal}" class="form-select flex-grow-1" hidden>
                                 <option value="competitivo" ${jogo.tipo === 'competitivo' ? 'selected' : ''}>Competitivo</option>
                                 <option value="amistoso" ${jogo.tipo === 'amistoso' ? 'selected' : ''}>Amistoso</option>
@@ -56,19 +55,19 @@ function renderizarJogos(listaParaRenderizar) {
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Pontos (Clube):</strong></p>
-                            <a id="pontClube_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'pontClube')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.pontClube}</a>
+                            <a id="pontClube_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'pontClube')" class="m-0 flex-grow-1 text-end editable-field">${jogo.pontClube}</a>
                             <input type="number" id="input_pontClube_${idOriginal}" class="form-control flex-grow-1" value="${jogo.pontClube}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_pontClube_${idOriginal}" onclick="editarJogo(${idOriginal}, 'pontClube')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Pontos (Advers.):</strong></p>
-                            <a id="pontAdvers_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'pontAdvers')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.pontAdvers}</a>
+                            <a id="pontAdvers_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'pontAdvers')" class="m-0 flex-grow-1 text-end editable-field">${jogo.pontAdvers}</a>
                             <input type="number" id="input_pontAdvers_${idOriginal}" class="form-control flex-grow-1" value="${jogo.pontAdvers}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_pontAdvers_${idOriginal}" onclick="editarJogo(${idOriginal}, 'pontAdvers')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center">
                             <p class="m-0 me-2"><strong>Observações:</strong></p>
-                            <a id="observacoes_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'observacoes')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.observacoes}</a>
+                            <a id="observacoes_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'observacoes')" class="m-0 flex-grow-1 text-end editable-field">${jogo.observacoes}</a>
                             <input type="text" id="input_observacoes_${idOriginal}" class="form-control flex-grow-1" value="${jogo.observacoes}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_observacoes_${idOriginal}" onclick="editarJogo(${idOriginal}, 'observacoes')" hidden>Ok</a>
                         </div>

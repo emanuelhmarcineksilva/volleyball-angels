@@ -25,25 +25,25 @@ function renderizarCadastros(listaParaRenderizar) {
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Nome:</strong></p>
-                            <a id="nome_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'nome')" class="m-0 flex-grow-1 text-body text-end editable-field">${cadastro.nome}</a>
+                            <a id="nome_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'nome')" class="m-0 flex-grow-1 text-end editable-field">${cadastro.nome}</a>
                             <input type="text" id="input_nome_${idOriginal}" class="form-control flex-grow-1" value="${cadastro.nome}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_nome_${idOriginal}" onclick="editarCadastro(${idOriginal}, 'nome')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Email:</strong></p>
-                            <a id="email_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'email')" class="m-0 flex-grow-1 text-body text-end editable-field">${cadastro.email}</a>
+                            <a id="email_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'email')" class="m-0 flex-grow-1 text-end editable-field">${cadastro.email}</a>
                             <input type="email" id="input_email_${idOriginal}" class="form-control flex-grow-1" value="${cadastro.email}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_email_${idOriginal}" onclick="editarCadastro(${idOriginal}, 'email')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Senha:</strong></p>
-                            <a id="senha_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'senha')" class="m-0 flex-grow-1 text-body text-end editable-field">${cadastro.senha}</a>
+                            <a id="senha_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'senha')" class="m-0 flex-grow-1 text-end editable-field">${cadastro.senha}</a>
                             <input type="text" id="input_senha_${idOriginal}" class="form-control flex-grow-1" value="${cadastro.senha}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_senha_${idOriginal}" onclick="editarCadastro(${idOriginal}, 'senha')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Sexo:</strong></p>
-                            <a id="sexo_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'sexo')" class="m-0 flex-grow-1 text-body text-end editable-field">${cadastro.sexo}</a>
+                            <a id="sexo_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'sexo')" class="m-0 flex-grow-1 text-end editable-field">${cadastro.sexo}</a>
                             <select id="input_sexo_${idOriginal}" class="form-select flex-grow-1" hidden>
                                 <option value="Masculino" ${cadastro.sexo === 'Masculino' ? 'selected' : ''}>Masculino</option>
                                 <option value="Feminino" ${cadastro.sexo === 'Feminino' ? 'selected' : ''}>Feminino</option>
@@ -52,7 +52,7 @@ function renderizarCadastros(listaParaRenderizar) {
                         </div>
                         <div class="d-flex align-items-center">
                             <p class="m-0 me-2"><strong>Cargo:</strong></p>
-                            <a id="cargo_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'cargo')" class="m-0 flex-grow-1 text-body text-end editable-field">${cadastro.cargo}</a>
+                            <a id="cargo_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'cargo')" class="m-0 flex-grow-1 text-end editable-field">${cadastro.cargo}</a>
                             <select id="input_cargo_${idOriginal}" class="form-select flex-grow-1" hidden>
                                 <option value="Usuário" ${cadastro.cargo === 'Usuário' ? 'selected' : ''}>Usuário</option>
                                 <option value="Membro" ${cadastro.cargo === 'Membro' ? 'selected' : ''}>Membro</option>

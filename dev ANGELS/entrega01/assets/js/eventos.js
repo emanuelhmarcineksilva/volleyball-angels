@@ -26,28 +26,28 @@ function renderizarEventos(listaParaRenderizar) {
 
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Nome:</strong></p>
-                            <a id="nome_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'nome')" class="m-0 flex-grow-1 text-body text-end editable-field">${evento.nome}</a>
+                            <a id="nome_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'nome')" class="m-0 flex-grow-1 text-end editable-field">${evento.nome}</a>
                             <input type="text" id="input_nome_${idOriginal}" class="form-control flex-grow-1" value="${evento.nome}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_nome_${idOriginal}" onclick="editarEvento(${idOriginal}, 'nome')" hidden>Ok</a>
                         </div>
 
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Data:</strong></p>
-                            <a id="data_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'data')" class="m-0 flex-grow-1 text-body text-end editable-field">${evento.data}</a>
+                            <a id="data_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'data')" class="m-0 flex-grow-1 text-end editable-field">${evento.data}</a>
                             <input type="date" id="input_data_${idOriginal}" class="form-control flex-grow-1" value="${evento.data}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_data_${idOriginal}" onclick="editarEvento(${idOriginal}, 'data')" hidden>Ok</a>
                         </div>
 
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Horário:</strong></p>
-                            <a id="horario_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'horario')" class="m-0 flex-grow-1 text-body text-end editable-field">${evento.horario}</a>
+                            <a id="horario_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'horario')" class="m-0 flex-grow-1 text-end editable-field">${evento.horario}</a>
                             <input type="time" id="input_horario_${idOriginal}" class="form-control flex-grow-1" value="${evento.horario}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_horario_${idOriginal}" onclick="editarEvento(${idOriginal}, 'horario')" hidden>Ok</a>
                         </div>
 
                         <div class="d-flex align-items-center">
                             <p class="m-0 me-2"><strong>Local:</strong></p>
-                            <a id="local_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'local')" class="m-0 flex-grow-1 text-body text-end editable-field">${evento.local}</a>
+                            <a id="local_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'local')" class="m-0 flex-grow-1 text-end editable-field">${evento.local}</a>
                             <input type="text" id="input_local_${idOriginal}" class="form-control flex-grow-1" value="${evento.local}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_local_${idOriginal}" onclick="editarEvento(${idOriginal}, 'local')" hidden>Ok</a>
                         </div>
