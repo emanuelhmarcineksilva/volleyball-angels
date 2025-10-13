@@ -8,69 +8,76 @@ const form = document.getElementById('form_treino');
 const mensagem = document.getElementById('mensagem');
 const regex = /^(?!\s*$).+/;
 
-document.getElementById("enviar_treino").addEventListener("click", function(){
-    armazenarTreino();
-    window.location.href = "Treino.html";
-});
-
-function armazenarTreino(){
+function armazenarTreino() {
     var listaTreinos = JSON.parse(localStorage.getItem("listaTreinos"));
-    if(!listaTreinos){
+    if (!listaTreinos) {
         var listaTreinos = [];
     }
-    var form = {duracao: "", data: "", hora: "", local: "", tipo: "", nome: ""};
+    // A variável foi renomeada para 'treino' para consistência
+    var treino = { duracao: "", data: "", hora: "", local: "", tipo: "", nome: "" };
 
-    //gerais
-
+    // Gerais
     treino.duracao = document.getElementById("duracao_treino").value;
     treino.data = document.getElementById("data_treino").value;
     treino.hora = document.getElementById("hora_treino").value;
     treino.local = document.getElementById("local_treino").value;
     treino.nome = document.getElementById("nome_adm").value;
-    
 
-    //campo especial
+    // Campo especial (Radio Button)
     const radioSelecionado = document.querySelector('input[name="flexRadioDefault"]:checked');
-    if(radioSelecionado){
+    if (radioSelecionado) {
         treino.tipo = radioSelecionado.value;
     } else {
-        treino.tipo = "Nenhuma alternativa selecionada";
+        treino.tipo = ""; // Armazena vazio se nada for selecionado, para falhar na validação
     }
 
     listaTreinos.push(treino);
-    localStorage.setItem("listaTreinos",JSON.stringify(listaTreinos));
-
+    localStorage.setItem("listaTreinos", JSON.stringify(listaTreinos));
 }
 
-
-btn_enviar.addEventListener("click", function(e){ 
+btn_enviar.addEventListener("click", function(e) {
     e.preventDefault();
-    const duracao = regex.test(duracao_treino.value); 
-    const data = data_treino.value.trim() !== ""; 
-    const horario = hora_treino.value.trim() !== "";
-    const local = regex.test(local_treino.value); 
-    const nome = regex.test(nome_adm.value); 
-    const tipo = regex.test(radioSelecionado.value); 
-
+    const duracao = regex.test(duracao_treino.value);
+    const data = data_treino.value.trim() !== "";
+    const hora = hora_treino.value.trim() !== ""; // Renomeado para 'hora' para evitar conflito
+    const local = regex.test(local_treino.value);
+    const nome = regex.test(nome_adm.value);
+    const radioSelecionado = document.querySelector('input[name="flexRadioDefault"]:checked');
+    const tipo = radioSelecionado !== null; // Validação correta para radio button
 
     mensagem.innerHTML = "";
-    if(!duracao || !data || !horario || !local || !nome ||!tipo ){
-        mensagem.innerHTML = 
+    if (!duracao || !data || !hora || !local || !nome || !tipo) {
+        mensagem.innerHTML =
             `<div class="alert alert-danger alert-caixa" role="alert">
                 <p>Você não preencheu todos os campos devidamente!</p>
                 <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="alert" aria-label="Close"></button> 
             </div>`;
-        [duracao_treino, data_treino, hora_treino, local_treino,nome_adm, tipo].forEach(input => { 
-            if(input.value.trim() === "" || !regex.test(input.value)){ 
-                input.classList.add("invalido"); 
-                input.classList.remove("valido"); 
+        
+        // Validação individual para inputs de texto/data/hora
+        [duracao_treino, data_treino, hora_treino, local_treino, nome_adm].forEach(input => {
+            if (input.value.trim() === "" || !regex.test(input.value)) {
+                input.classList.add("invalido");
+                input.classList.remove("valido");
             } else {
-                input.classList.add("valido"); 
-                input.classList.remove("invalido"); 
-            } 
-        }); 
+                input.classList.add("valido");
+                input.classList.remove("invalido");
+            }
+        });
+
+        // Validação visual para o container dos radio buttons (opcional, mas bom para UX)
+        const radioContainer = document.getElementById('radio_container'); // Supondo que você tenha um container com este ID no seu HTML
+        if (radioContainer) {
+            if (!tipo) {
+                radioContainer.classList.add("invalido");
+                radioContainer.classList.remove("valido");
+            } else {
+                radioContainer.classList.add("valido");
+                radioContainer.classList.remove("invalido");
+            }
+        }
+        
         return;
-    } 
+    }
     armazenarTreino();
-    setTimeout(() => {window.location.href = "../js/treino.html";});
-}); 
+    setTimeout(() => { window.location.href = "treino.html"; }); // Corrigido o redirecionamento
+});

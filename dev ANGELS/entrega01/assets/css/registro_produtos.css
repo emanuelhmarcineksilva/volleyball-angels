@@ -1,2 +1,40 @@
 @import url(./header.css);
 @import url(./footer.css);
+
+/* Garante que o layout ocupe a tela toda e permita centralização */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Faz o main crescer e centraliza o formulário */
+main {
+    flex-grow: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+/* CLASSES DE VALIDAÇÃO E ALERTA ADICIONADAS */
+.invalido{
+    border: 2px solid red;
+    background-color: #ffe6e6;
+}
+
+.valido {
+    border: 2px solid green;
+    background-color: #e6ffe6;
+}
+
+.alert-caixa{
+    display: flex;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1050;
+    width: auto;
+    max-width: 90%;
+}

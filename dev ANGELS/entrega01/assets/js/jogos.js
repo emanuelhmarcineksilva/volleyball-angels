@@ -19,56 +19,62 @@ function renderizarJogos(listaParaRenderizar) {
         const jogo = listaParaRenderizar[i];
         const idOriginal = buscarIdOriginal(jogo);
 
+        // Formata as datas para o formato yyyy-MM-ddTHH:mm, que é o esperado pelo input datetime-local
+        const inicioFormatado = jogo.inicio ? jogo.inicio.slice(0, 16) : '';
+        const fimFormatado = jogo.fim ? jogo.fim.slice(0, 16) : '';
+
         html += `
             <div class="col-12 col-md-6 col-lg-4 mb-4">
                 <div class="card h-100 d-flex flex-column">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
-                        
-                            <p id="inicio_${idOriginal}" class="m-0 flex-grow-1"><strong>Data/hora de início:</strong> ${jogo.inicio}</p>
-                            <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'inicio')">Editar</a>
-                            <input type="datetime-local" id="input_inicio_${idOriginal}" class="form-control ms-2 w-auto" value="${jogo.inicio}" hidden>
+                            <p class="m-0 me-2"><strong>Início:</strong></p>
+                            <a id="inicio_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'inicio')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.inicio.replace('T', ' ')}</a>
+                            <input type="datetime-local" id="input_inicio_${idOriginal}" class="form-control flex-grow-1" value="${inicioFormatado}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_inicio_${idOriginal}" onclick="editarJogo(${idOriginal}, 'inicio')" hidden>Ok</a>
                         </div>
-                        <div class="d-flex align-items-center mb-1">
-                            <p id="fim_${idOriginal}" class="m-0 flex-grow-1"><strong>Data/hora final:</strong> ${jogo.fim}</p>
-                            <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'fim')">Editar</a>
-                            <input type="datetime-local" id="input_fim_${idOriginal}" class="form-control ms-2 w-auto" value="${jogo.fim}" hidden>
+                        <div class="d-flex align-items-center mb-2">
+                            <p class="m-0 me-2"><strong>Fim:</strong></p>
+                            <a id="fim_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'fim')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.fim.replace('T', ' ')}</a>
+                            <input type="datetime-local" id="input_fim_${idOriginal}" class="form-control flex-grow-1" value="${fimFormatado}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_fim_${idOriginal}" onclick="editarJogo(${idOriginal}, 'fim')" hidden>Ok</a>
                         </div>
-                        <div class="d-flex align-items-center mb-1">
-                            <p id="adversario_${idOriginal}" class="m-0 flex-grow-1"><strong>Time adversário:</strong> ${jogo.adversario}</p>
-                            <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'adversario')">Editar</a>
-                            <input type="text" id="input_adversario_${idOriginal}" class="form-control ms-2 w-auto" value="${jogo.adversario}" hidden>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_adersario_${idOriginal}" onclick="editarJogo(${idOriginal}, 'adversario')" hidden>Ok</a>
+                        <div class="d-flex align-items-center mb-2">
+                            <p class="m-0 me-2"><strong>Adversário:</strong></p>
+                            <a id="adversario_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'adversario')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.adversario}</a>
+                            <input type="text" id="input_adversario_${idOriginal}" class="form-control flex-grow-1" value="${jogo.adversario}" hidden>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_adversario_${idOriginal}" onclick="editarJogo(${idOriginal}, 'adversario')" hidden>Ok</a>
                         </div>
-                        <div class="d-flex align-items-center">
-                            <p id="tipo_${idOriginal}" class="m-0 flex-grow-1"><strong>Tipo de jogo:</strong> ${jogo.tipo}</p>
-                            <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'tipo')">Editar</a>
-                            <input type="form-select" id="input_tipo_${idOriginal}" class="form-control ms-2 w-auto" value="${jogo.tipo}" hidden>
+                        <div class="d-flex align-items-center mb-2">
+                            <p class="m-0 me-2"><strong>Tipo:</strong></p>
+                            <a id="tipo_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'tipo')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.tipo}</a>
+                             <select id="input_tipo_${idOriginal}" class="form-select flex-grow-1" hidden>
+                                <option value="competitivo" ${jogo.tipo === 'competitivo' ? 'selected' : ''}>Competitivo</option>
+                                <option value="amistoso" ${jogo.tipo === 'amistoso' ? 'selected' : ''}>Amistoso</option>
+                            </select>
                             <a class="btn btn-sm btn-success ms-2" id="ok_tipo_${idOriginal}" onclick="editarJogo(${idOriginal}, 'tipo')" hidden>Ok</a>
                         </div>
-                        <div class="d-flex align-items-center mb-1">
-                            <p id="pontClube_${idOriginal}" class="m-0 flex-grow-1"><strong>Pontuação do clube:</strong> ${jogo.pontClube}</p>
-                            <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'pontClube')">Editar</a>
-                            <input type="number" id="input_pontClube_${idOriginal}" class="form-control ms-2 w-auto" value="${jogo.pontClube}" hidden>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_ponClube_${idOriginal}" onclick="editarJogo(${idOriginal}, 'pontClube')" hidden>Ok</a>
+                        <div class="d-flex align-items-center mb-2">
+                            <p class="m-0 me-2"><strong>Pontos (Clube):</strong></p>
+                            <a id="pontClube_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'pontClube')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.pontClube}</a>
+                            <input type="number" id="input_pontClube_${idOriginal}" class="form-control flex-grow-1" value="${jogo.pontClube}" hidden>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_pontClube_${idOriginal}" onclick="editarJogo(${idOriginal}, 'pontClube')" hidden>Ok</a>
                         </div>
-                        <div class="d-flex align-items-center mb-1">
-                            <p id="pontAdvers_${idOriginal}" class="m-0 flex-grow-1"><strong>Pontuação do time adversário:</strong> ${jogo.pontAdvers}</p>
-                            <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'pontAdvers')">Editar</a>
-                            <input type="number" id="input_pontAdvers_${idOriginal}" class="form-control ms-2 w-auto" value="${jogo.pontAdvers}" hidden>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_ponAdvers_${idOriginal}" onclick="editarJogo(${idOriginal}, 'pontAdvers')" hidden>Ok</a>
+                        <div class="d-flex align-items-center mb-2">
+                            <p class="m-0 me-2"><strong>Pontos (Advers.):</strong></p>
+                            <a id="pontAdvers_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'pontAdvers')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.pontAdvers}</a>
+                            <input type="number" id="input_pontAdvers_${idOriginal}" class="form-control flex-grow-1" value="${jogo.pontAdvers}" hidden>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_pontAdvers_${idOriginal}" onclick="editarJogo(${idOriginal}, 'pontAdvers')" hidden>Ok</a>
                         </div>
-                        <div class="d-flex align-items-center mb-1">
-                            <p id="observacoes_${idOriginal}" class="m-0 flex-grow-1"><strong>Observações:</strong> ${jogo.observacoes}</p>
-                            <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'observacoes')">Editar</a>
-                            <input type="text" id="input_observacoes_${idOriginal}" class="form-control ms-2 w-auto" value="${jogo.observacoes}" hidden>
+                        <div class="d-flex align-items-center">
+                            <p class="m-0 me-2"><strong>Observações:</strong></p>
+                            <a id="observacoes_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'observacoes')" class="m-0 flex-grow-1 text-body text-end editable-field">${jogo.observacoes}</a>
+                            <input type="text" id="input_observacoes_${idOriginal}" class="form-control flex-grow-1" value="${jogo.observacoes}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_observacoes_${idOriginal}" onclick="editarJogo(${idOriginal}, 'observacoes')" hidden>Ok</a>
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-top-0 text-center">
-                        <a href="#" onclick="excluirJogo(${idOriginal})" class="btn btn-danger m-1">Excluir</a>
+                        <a onclick="excluirJogo(${idOriginal})" class="btn btn-danger m-1">Excluir</a>
                     </div>
                 </div>
             </div>
@@ -87,10 +93,11 @@ function excluirJogo(id) {
 }
 
 function mostrarEdicao(id, campo) {
-    document.getElementById(`input_${campo}_${i}`).hidden = false;
-    document.getElementById(`ok_${campo}_${i}`).hidden = false;
+    // Esconde o texto e mostra o campo de input e o botão OK
+    document.getElementById(`${campo}_${id}`).hidden = true;
+    document.getElementById(`input_${campo}_${id}`).hidden = false;
+    document.getElementById(`ok_${campo}_${id}`).hidden = false;
 }
-
 
 function editarJogo(id, campo) {
     let listaJogos = JSON.parse(localStorage.getItem("listaJogos")) || [];
@@ -99,8 +106,9 @@ function editarJogo(id, campo) {
     const mensagem = document.getElementById('mensagem');
     const regex = /^(?!\s*$).+/;
     mensagem.innerHTML = "";
+
     if (!regex.test(novaInfo)) {
-        input.classList.add("invalido");  
+        input.classList.add("invalido");
         input.classList.remove("valido");
         mensagem.innerHTML = `
             <div class="alert alert-danger alert-caixa" role="alert"> 
@@ -109,6 +117,7 @@ function editarJogo(id, campo) {
             </div>`;
         return;
     }
+
     input.classList.remove("invalido");
     input.classList.add("valido");
     listaJogos[id][campo] = novaInfo;
@@ -136,12 +145,12 @@ formBusca.addEventListener('input', function() {
     }
 
     const jogosFiltrados = listaCompleta.filter(function(jogo) {
-        return jogo.nome.toLowerCase().includes(termoBusca);
+        // Corrigido para buscar pelo time adversário
+        return jogo.adversario.toLowerCase().includes(termoBusca);
     });
 
     renderizarJogos(jogosFiltrados);
 });
-
 
 function carregarTudo() {
     const listaInicial = JSON.parse(localStorage.getItem("listaJogos")) || [];

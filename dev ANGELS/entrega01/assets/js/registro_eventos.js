@@ -48,4 +48,3 @@ btn_enviar.addEventListener("click", function(e){
     armazenarEvento();
     setTimeout(() => {window.location.href = "eventos.html";});
 }); 
-/// registros produtos, jogos e treino   btn

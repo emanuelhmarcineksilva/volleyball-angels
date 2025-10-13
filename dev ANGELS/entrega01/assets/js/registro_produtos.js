@@ -3,55 +3,47 @@ const descricao_produto = document.getElementById('descricao_produto');
 const preco_produto = document.getElementById('preco_produto');
 const btn_enviar = document.getElementById('enviar_produto');
 const form = document.getElementById('form_produto');
+const mensagem = document.getElementById('mensagem'); // Adicionada a declaração da variável mensagem
 const regex = /^(?!\s*$).+/;
 
-
-
-
-document.getElementById("enviar_produto").addEventListener("click", function(){
-    armazenarProduto();
-    window.location.href = "shop.html";
-});
-
-
-function armazenarProduto(){
+function armazenarProduto() {
     var listaProdutos = JSON.parse(localStorage.getItem("listaProdutos"));
-    if(!listaProdutos){
+    if (!listaProdutos) {
         var listaProdutos = [];
     }
-    var produto = {nome: "", descricao: "", preco: ""};
+    var produto = { nome: "", descricao: "", preco: "" };
     produto.nome = document.getElementById("nome_produto").value;
     produto.descricao = document.getElementById("descricao_produto").value;
     produto.preco = document.getElementById("preco_produto").value;
     listaProdutos.push(produto);
-    localStorage.setItem("listaProdutos",JSON.stringify(listaProdutos));
+    localStorage.setItem("listaProdutos", JSON.stringify(listaProdutos));
 }
 
-
-btn_enviar.addEventListener("click", function(e){ 
+btn_enviar.addEventListener("click", function(e) {
     e.preventDefault();
-    const nome = regex.test(nome_produto.value); 
-    const descricao = regex.test(descricao_produto.value); 
-    const preco = regex.test(preco.value.toString());
+    const nome = regex.test(nome_produto.value);
+    const descricao = regex.test(descricao_produto.value);
+    const preco = regex.test(preco_produto.value); // Corrigida a validação do preço
 
     mensagem.innerHTML = "";
-    if(!nome || !descricao || !preco ){
-        mensagem.innerHTML = 
+    if (!nome || !descricao || !preco) {
+        mensagem.innerHTML =
             `<div class="alert alert-danger alert-caixa" role="alert">
                 <p>Você não preencheu todos os campos devidamente!</p>
                 <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="alert" aria-label="Close"></button> 
             </div>`;
-        [nome_produto, descricao_produto, preco_produto].forEach(input => { 
-            if(input.value.trim() === "" || !regex.test(input.value)){ 
-                input.classList.add("invalido"); 
-                input.classList.remove("valido"); 
+        [nome_produto, descricao_produto, preco_produto].forEach(input => {
+            // A validação de preço para número usa a mesma lógica de regex pois o input type="number" já restringe a caracteres numéricos
+            if (input.value.trim() === "" || !regex.test(input.value)) {
+                input.classList.add("invalido");
+                input.classList.remove("valido");
             } else {
-                input.classList.add("valido"); 
-                input.classList.remove("invalido"); 
-            } 
-        }); 
+                input.classList.add("valido");
+                input.classList.remove("invalido");
+            }
+        });
         return;
-    } 
+    }
     armazenarProduto();
-    setTimeout(() => {window.location.href = "produtos.html";});
-}); 
+    setTimeout(() => { window.location.href = "produtos.html"; }); // Corrigido o redirecionamento
+});

@@ -1,14 +1,11 @@
 @import url(./header.css);
 @import url(./footer.css);
 
-
-
 #toolbar_treino {
     display: flex; 
     align-items: center; 
     justify-content: center; 
 }
-
 
 #busca_treinos {
     padding-left: 1%;
@@ -25,7 +22,6 @@
 main {
     border-top: 1px solid rgb(255, 255, 255);
 }
-
 
 .invalido{
     border: 2px solid red;

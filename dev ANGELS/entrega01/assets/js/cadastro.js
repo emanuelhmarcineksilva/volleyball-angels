@@ -1,63 +1,60 @@
-// Cadastro Novo Usuário
+// cadastro.js
 
-var listaCadastro = JSON.parse(localStorage.getItem("listaCadastro"));
+// Pega o formulário pelo ID que vamos adicionar no HTML
+const formCadastro = document.getElementById('form-cadastro');
 
+formCadastro.addEventListener('submit', function(e) {
+    // Impede que o formulário recarregue a página
+    e.preventDefault(); 
+    
+    realizarCadastro();
+});
 
-if(listaCadastro.length == 0) {
-    listaCadastro = [
-        {
-            nome: "Adim",
-            email: "adim@gmail.com",
-            senha: "adim",
-            sexo: '',
-            cargo: ''       
-        }
-    ];
-}
-console.log(listaCadastro)
+function realizarCadastro() {
+    // Carrega a lista de forma segura, criando uma lista vazia se não existir
+    const listaCadastro = JSON.parse(localStorage.getItem("listaCadastro")) || [];
 
-async function realizarCadastro() {
-    var nome;
-    var email;
-    var senha;
-    var sexo;
-    var cargo;
+    // Captura dos valores dos campos
+    const nome = document.getElementById('nome-cadastro').value;
+    const email = document.getElementById('email-cadastro').value;
+    const senha = document.getElementById('senha-cadastro').value;
+    const sexoRadio = document.querySelector('input[name="sexo"]:checked');
+    const cargo = document.getElementById('seletor-cargo').value;
 
-    nome = document.getElementById('nome-cadastro').value;
-    email = document.getElementById('email-cadastro').value;
-    senha = document.getElementById('senha-cadastro').value;
-    sexo = document.querySelector('input[name="sexo"]:checked').value; // Cuidado esse aqui é um button radio
-    cargo = document.getElementById('seletor-cargo').value;
+    // Validação para garantir que todos os campos foram preenchidos
+    if (!nome || !email || !senha || !sexoRadio) {
+        alert("Por favor, preencha todos os campos!");
+        return; // Interrompe a função se algum campo estiver vazio
+    }
+    const sexo = sexoRadio.value;
 
-
-    var cadastrando = inserindoDados(nome, email, senha, sexo, cargo); /// Aqui são o novoNome, novoEmail e novaSenha
-    var erros = [
-        "Já existe cadastro com esse E-mail!",
-        "Cadastrado com sucesso!"
-    ];
-
-
-    console.log(listaCadastro);
-    alert(erros[cadastrando]);
-
-}
-
-function inserindoDados(novoNome, novoEmail, novaSenha, novoSexo, novoCargo) {
-    for(var i=0; i<listaCadastro.length; i++) {
-        var emailUsados = listaCadastro[i].email; 
-        if(emailUsados == novoEmail) {
-            return 0;
+    // A função de inserir dados agora faz parte do fluxo principal
+    let emailJaExiste = false;
+    for(let i=0; i < listaCadastro.length; i++) {
+        if(listaCadastro[i].email === email) {
+            emailJaExiste = true;
+            break;
         } 
     }
 
-    listaCadastro.push({
-        nome: novoNome,
-        email: novoEmail,
-        senha: novaSenha,
-        sexo: novoSexo,
-        cargo: novoCargo
-    });
-    
-    localStorage.setItem('listaCadastro', JSON.stringify(listaCadastro));
-    return 1;
+    if (emailJaExiste) {
+        alert("Já existe um cadastro com este e-mail!");
+    } else {
+        listaCadastro.push({
+            nome: nome,
+            email: email,
+            senha: senha,
+            sexo: sexo,
+            cargo: cargo
+        });
+        
+        localStorage.setItem('listaCadastro', JSON.stringify(listaCadastro));
+        
+        alert("Cadastrado com sucesso! Você será redirecionado para o login.");
+        
+        // **A CORREÇÃO PRINCIPAL:** Redireciona para a página de login após 1 segundo
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 1000);
+    }
 }

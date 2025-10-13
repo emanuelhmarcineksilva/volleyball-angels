@@ -9,9 +9,8 @@ document.getElementById("novo_produto").addEventListener("click", function() {
 function renderizarProdutos(listaParaRenderizar) {
     containerProdutos.innerHTML = "";
 
-
     if (!listaParaRenderizar || listaParaRenderizar.length === 0) {
-        containerProdutos.innerHTML = `<p class="col-12 text-center">Nenhum evento para exibir.</p>`;
+        containerProdutos.innerHTML = `<p class="col-12 text-center">Nenhum produto para exibir.</p>`;
         return;
     }
 
@@ -25,26 +24,28 @@ function renderizarProdutos(listaParaRenderizar) {
                 <div class="card h-100 d-flex flex-column">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
-                            <h3 id="nome_${idOriginal}" class="m-0 flex-grow-1">${produto.nome}</h3>
-                            <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'nome')">Editar</a>
-                            <input type="text" id="input_nome_${idOriginal}" class="form-control ms-2 w-auto" value="${produto.nome}" hidden>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_nome_${idOriginal}" onclick="EditarProduto(${idOriginal}, 'nome')" hidden>Ok</a>
+                            <p class="m-0 me-2"><strong>Nome:</strong></p>
+                            <a id="nome_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'nome')" class="m-0 flex-grow-1 text-body text-end editable-field">${produto.nome}</a>
+                            <input type="text" id="input_nome_${idOriginal}" class="form-control flex-grow-1" value="${produto.nome}" hidden>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_nome_${idOriginal}" onclick="editarProduto(${idOriginal}, 'nome')" hidden>Ok</a>
                         </div>
-                        <div class="d-flex align-items-center mb-1">
-                            <p id="descricao_${idOriginal}" class="m-0 flex-grow-1"><strong>Descricao:</strong> ${produto.descricao}</p>
-                            <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'descricao')">Editar</a>
-                            <input type="text" id="input_descricao_${idOriginal}" class="form-control ms-2 w-auto" value="${produto.descricao}" hidden>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_descricao_${idOriginal}" onclick="EditarProduto(${idOriginal}, 'descricao')" hidden>Ok</a>
+
+                        <div class="d-flex align-items-center mb-2">
+                            <p class="m-0 me-2"><strong>Descrição:</strong></p>
+                            <a id="descricao_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'descricao')" class="m-0 flex-grow-1 text-body text-end editable-field">${produto.descricao}</a>
+                            <input type="text" id="input_descricao_${idOriginal}" class="form-control flex-grow-1" value="${produto.descricao}" hidden>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_descricao_${idOriginal}" onclick="editarProduto(${idOriginal}, 'descricao')" hidden>Ok</a>
                         </div>
-                        <div class="d-flex align-items-center mb-1">
-                            <p id="preco_${idOriginal}" class="m-0 flex-grow-1"><strong>Preco:</strong> ${produto.preco}</p>
-                            <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'preco')">Editar</a>
-                            <input type="number" id="input_preco_${idOriginal}" class="form-control ms-2 w-auto" value="${produto.preco}" hidden>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_preco_${idOriginal}" onclick="EditarProduto(${idOriginal}, 'preco')" hidden>Ok</a>
+
+                        <div class="d-flex align-items-center">
+                            <p class="m-0 me-2"><strong>Preço:</strong></p>
+                            <a id="preco_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'preco')" class="m-0 flex-grow-1 text-body text-end editable-field">${produto.preco}</a>
+                            <input type="number" id="input_preco_${idOriginal}" class="form-control flex-grow-1" value="${produto.preco}" hidden>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_preco_${idOriginal}" onclick="editarProduto(${idOriginal}, 'preco')" hidden>Ok</a>
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-top-0 text-center">
-                        <a href="#" onclick="excluirProduto(${idOriginal})" class="btn btn-danger m-1">Excluir</a>
+                        <a onclick="excluirProduto(${idOriginal})" class="btn btn-danger m-1">Excluir</a>
                     </div>
                 </div>
             </div>
@@ -54,7 +55,7 @@ function renderizarProdutos(listaParaRenderizar) {
 }
 
 function excluirProduto(id) {
-    if (confirm("Tem certeza que deseja excluir este evento?")) {
+    if (confirm("Tem certeza que deseja excluir este produto?")) {
         let listaProdutos = JSON.parse(localStorage.getItem("listaProdutos")) || [];
         listaProdutos.splice(id, 1);
         localStorage.setItem("listaProdutos", JSON.stringify(listaProdutos));
@@ -63,19 +64,22 @@ function excluirProduto(id) {
 }
 
 function mostrarEdicao(id, campo) {
+    // Esconde o texto e mostra o campo de input
+    document.getElementById(`${campo}_${id}`).hidden = true;
     document.getElementById(`input_${campo}_${id}`).hidden = false;
     document.getElementById(`ok_${campo}_${id}`).hidden = false;
 }
 
-function EditarProduto(id, campo) {
+function editarProduto(id, campo) {
     let listaProdutos = JSON.parse(localStorage.getItem("listaProdutos")) || [];
     const input = document.getElementById(`input_${campo}_${id}`);
     const novaInfo = input.value.trim();
     const mensagem = document.getElementById('mensagem');
     const regex = /^(?!\s*$).+/;
     mensagem.innerHTML = "";
+
     if (!regex.test(novaInfo)) {
-        input.classList.add("invalido");  
+        input.classList.add("invalido");
         input.classList.remove("valido");
         mensagem.innerHTML = `
             <div class="alert alert-danger alert-caixa" role="alert"> 
@@ -84,6 +88,7 @@ function EditarProduto(id, campo) {
             </div>`;
         return;
     }
+
     input.classList.remove("invalido");
     input.classList.add("valido");
     listaProdutos[id][campo] = novaInfo;
@@ -93,14 +98,6 @@ function EditarProduto(id, campo) {
             <p>Campo ${campo} editado com sucesso!</p>
             <button type="button" class="btn btn-success btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`;
-    renderizarProdutos(listaProdutos);
-}
-
-function EditarProduto(id, campo) {
-    let listaProdutos = JSON.parse(localStorage.getItem("listaProdutos")) || [];
-    var novaInfo = document.getElementById(`input_${campo}_${id}`).value;
-    listaProdutos[id][campo] = novaInfo;
-    localStorage.setItem("listaProdutos", JSON.stringify(listaProdutos));
     renderizarProdutos(listaProdutos);
 }
 
