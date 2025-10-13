@@ -24,6 +24,7 @@ function renderizarJogos(listaParaRenderizar) {
                 <div class="card h-100 d-flex flex-column">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
+                        
                             <p id="inicio_${idOriginal}" class="m-0 flex-grow-1"><strong>Data/hora de início:</strong> ${jogo.inicio}</p>
                             <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'inicio')">Editar</a>
                             <input type="datetime-local" id="input_inicio_${idOriginal}" class="form-control ms-2 w-auto" value="${jogo.inicio}" hidden>
@@ -90,12 +91,34 @@ function mostrarEdicao(id, campo) {
     document.getElementById(`ok_${campo}_${i}`).hidden = false;
 }
 
-function editarEvento(id, campo) {
-    let listaEventos = JSON.parse(localStorage.getItem("listaEventos")) || [];
-    var novaInfo = document.getElementById(`input_${campo}_${i}`).value;
+
+function editarJogo(id, campo) {
+    let listaJogos = JSON.parse(localStorage.getItem("listaJogos")) || [];
+    const input = document.getElementById(`input_${campo}_${id}`);
+    const novaInfo = input.value.trim();
+    const mensagem = document.getElementById('mensagem');
+    const regex = /^(?!\s*$).+/;
+    mensagem.innerHTML = "";
+    if (!regex.test(novaInfo)) {
+        input.classList.add("invalido");  
+        input.classList.remove("valido");
+        mensagem.innerHTML = `
+            <div class="alert alert-danger alert-caixa" role="alert"> 
+                <p>Você preencheu o campo ${campo} indevidamente!</p>
+                <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`;
+        return;
+    }
+    input.classList.remove("invalido");
+    input.classList.add("valido");
     listaJogos[id][campo] = novaInfo;
     localStorage.setItem("listaJogos", JSON.stringify(listaJogos));
-    renderizarJogos(lista);
+    mensagem.innerHTML = `
+        <div class="alert alert-success alert-caixa" role="alert">
+            <p>Campo ${campo} editado com sucesso!</p>
+            <button type="button" class="btn btn-success btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>`;
+    renderizarJogos(listaJogos);
 }
 
 function buscarIdOriginal(jogoFiltrado) {

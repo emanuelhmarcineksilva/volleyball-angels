@@ -27,25 +27,25 @@ function renderizarEventos(listaParaRenderizar) {
                             <h3 id="nome_${idOriginal}" class="m-0 flex-grow-1">${evento.nome}</h3>
                             <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'nome')">Editar</a>
                             <input type="text" id="input_nome_${idOriginal}" class="form-control ms-2 w-auto" value="${evento.nome}" hidden>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_nome_${idOriginal}" onclick="editarEvento(${idOriginal}, 'nome')" hidden>Ok</a>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_nome_${idOriginal}" onclick="EditarEvento(${idOriginal}, 'nome')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-1">
                             <p id="data_${idOriginal}" class="m-0 flex-grow-1"><strong>Data:</strong> ${evento.data}</p>
                             <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'data')">Editar</a>
                             <input type="date" id="input_data_${idOriginal}" class="form-control ms-2 w-auto" value="${evento.data}" hidden>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_data_${idOriginal}" onclick="editarEvento(${idOriginal}, 'data')" hidden>Ok</a>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_data_${idOriginal}" onclick="EditarEvento(${idOriginal}, 'data')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-1">
                             <p id="horario_${idOriginal}" class="m-0 flex-grow-1"><strong>Horário:</strong> ${evento.horario}</p>
                             <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'horario')">Editar</a>
                             <input type="time" id="input_horario_${idOriginal}" class="form-control ms-2 w-auto" value="${evento.horario}" hidden>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_horario_${idOriginal}" onclick="editarEvento(${idOriginal}, 'horario')" hidden>Ok</a>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_horario_${idOriginal}" onclick="EditarEvento(${idOriginal}, 'horario')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center">
                             <p id="local_${idOriginal}" class="m-0 flex-grow-1"><strong>Local:</strong> ${evento.local}</p>
                             <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginal}, 'local')">Editar</a>
                             <input type="text" id="input_local_${idOriginal}" class="form-control ms-2 w-auto" value="${evento.local}" hidden>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_local_${idOriginal}" onclick="editarEvento(${idOriginal}, 'local')" hidden>Ok</a>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_local_${idOriginal}" onclick="EditarEvento(${idOriginal}, 'local')" hidden>Ok</a>
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-top-0 text-center">
@@ -72,7 +72,7 @@ function mostrarEdicao(id, campo) {
     document.getElementById(`ok_${campo}_${id}`).hidden = false;
 }
 
-function editarEvento(id, campo) {
+function EditarEvento(id, campo) {
     let listaEventos = JSON.parse(localStorage.getItem("listaEventos")) || [];
     const input = document.getElementById(`input_${campo}_${id}`);
     const novaInfo = input.value.trim();
@@ -80,7 +80,7 @@ function editarEvento(id, campo) {
     const regex = /^(?!\s*$).+/;
     mensagem.innerHTML = "";
     if (!regex.test(novaInfo)) {
-        input.classList.add("invalido"); 
+        input.classList.add("invalido");  
         input.classList.remove("valido");
         mensagem.innerHTML = `
             <div class="alert alert-danger alert-caixa" role="alert"> 
@@ -99,7 +99,7 @@ function editarEvento(id, campo) {
             <button type="button" class="btn btn-success btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`;
     renderizarEventos(listaEventos);
-}
+}  ///isso tb
 
 function buscarIdOriginal(eventoFiltrado) {
     let listaCompleta = JSON.parse(localStorage.getItem("listaEventos")) || [];

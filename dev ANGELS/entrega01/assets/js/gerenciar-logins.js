@@ -25,19 +25,19 @@ function renderizarCadastros(listaParaRenderizar) {
                             <h3 id="nome_${idOriginalCadastro}" class="m-0 flex-grow-1">${cadastro.nome}</h3>
                             <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginalCadastro}, 'nome')">Editar</a>
                             <input type="text" id="input_nome_${idOriginalCadastro}" class="form-control ms-2 w-auto" value="${cadastro.nome}" hidden>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_nome_${idOriginalCadastro}" onclick="editarCadastro(${idOriginalCadastro}, 'nome')" hidden>Ok</a>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_nome_${idOriginalCadastro}" onclick="EditarCadastro(${idOriginalCadastro}, 'nome')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-1">
                             <p id="email_${idOriginalCadastro}" class="m-0 flex-grow-1"><strong>Email:</strong> ${cadastro.email}</p>
                             <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginalCadastro}, 'email')">Editar</a>
                             <input type="email" id="input_email_${idOriginalCadastro}" class="form-control ms-2 w-auto" value="${cadastro.email}" hidden>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_email_${idOriginalCadastro}" onclick="editarCadastro(${idOriginalCadastro}, 'email')" hidden>Ok</a>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_email_${idOriginalCadastro}" onclick="EditarCadastro(${idOriginalCadastro}, 'email')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center mb-1">
                             <p id="senha_${idOriginalCadastro}" class="m-0 flex-grow-1"><strong>Senha:</strong> ${cadastro.senha}</p>
                             <a class="btn btn-sm btn-primary ms-2" onclick="mostrarEdicao(${idOriginalCadastro}, 'senha')">Editar</a>
                             <input type="text" id="input_senha_${idOriginalCadastro}" class="form-control ms-2 w-auto" value="${cadastro.senha}" hidden>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_senha_${idOriginalCadastro}" onclick="editarCadastro(${idOriginalCadastro}, 'senha')" hidden>Ok</a>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_senha_${idOriginalCadastro}" onclick="EditarCadastro(${idOriginalCadastro}, 'senha')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center">
                             <p id="sexo_${idOriginalCadastro}" class="m-0 flex-grow-1"><strong>Sexo:</strong> ${cadastro.sexo}</p>
@@ -48,7 +48,7 @@ function renderizarCadastros(listaParaRenderizar) {
                                     <input class="form-radio-input" type="radio" name="sexo" id="input_sexo_${idOriginalCadastro}" value="Feminino">
                                     <label for="radio-feminino">Feminino</label>
                                 </div>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_sexo_${idOriginalCadastro}" onclick="editarCadastro(${idOriginalCadastro}, 'sexo')" hidden>Ok</a>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_sexo_${idOriginalCadastro}" onclick="EditarCadastro(${idOriginalCadastro}, 'sexo')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center">
                             <p id="cargo_${idOriginalCadastro}" class="m-0 flex-grow-1"><strong>Cargo:</strong> ${cadastro.cargo}</p>
@@ -59,7 +59,7 @@ function renderizarCadastros(listaParaRenderizar) {
                                     <option>Jogador</option>
                                     <option>Administrador</option>
                                 </select>
-                            <a class="btn btn-sm btn-success ms-2" id="ok_cargo_${idOriginalCadastro}" onclick="editarCadastro(${idOriginalCadastro}, 'cargo')" hidden>Ok</a>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_cargo_${idOriginalCadastro}" onclick="EditarCadastro(${idOriginalCadastro}, 'cargo')" hidden>Ok</a>
                         </div>
                     </div>
                     <div class="card-footer bg-transparent border-top-0 text-center">
@@ -86,7 +86,7 @@ function mostrarEdicao(id, campo) {
     document.getElementById(`ok_${campo}_${id}`).hidden = false;
 }
 
-function editarCadastro(id, campo) {
+function EditarCadastro(id, campo) {
     var listaCadastro = JSON.parse(localStorage.getItem("listaCadastro"));
 
     if (campo === 'sexo') {

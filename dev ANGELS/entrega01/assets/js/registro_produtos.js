@@ -1,3 +1,13 @@
+const nome_produto = document.getElementById('nome_produto');
+const descricao_produto = document.getElementById('descricao_produto');
+const preco_produto = document.getElementById('preco_produto');
+const btn_enviar = document.getElementById('enviar_produto');
+const form = document.getElementById('form_produto');
+const regex = /^(?!\s*$).+/;
+
+
+
+
 document.getElementById("enviar_produto").addEventListener("click", function(){
     armazenarProduto();
     window.location.href = "shop.html";
@@ -16,3 +26,32 @@ function armazenarProduto(){
     listaProdutos.push(produto);
     localStorage.setItem("listaProdutos",JSON.stringify(listaProdutos));
 }
+
+
+btn_enviar.addEventListener("click", function(e){ 
+    e.preventDefault();
+    const nome = regex.test(nome_produto.value); 
+    const descricao = regex.test(descricao_produto.value); 
+    const preco = regex.test(preco.value.toString());
+
+    mensagem.innerHTML = "";
+    if(!nome || !descricao || !preco ){
+        mensagem.innerHTML = 
+            `<div class="alert alert-danger alert-caixa" role="alert">
+                <p>Você não preencheu todos os campos devidamente!</p>
+                <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="alert" aria-label="Close"></button> 
+            </div>`;
+        [nome_produto, descricao_produto, preco_produto].forEach(input => { 
+            if(input.value.trim() === "" || !regex.test(input.value)){ 
+                input.classList.add("invalido"); 
+                input.classList.remove("valido"); 
+            } else {
+                input.classList.add("valido"); 
+                input.classList.remove("invalido"); 
+            } 
+        }); 
+        return;
+    } 
+    armazenarProduto();
+    setTimeout(() => {window.location.href = "produtos.html";});
+}); 

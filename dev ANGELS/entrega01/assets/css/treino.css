@@ -1,6 +1,8 @@
 @import url(./header.css);
 @import url(./footer.css);
 
+
+
 #toolbar_treino {
     display: flex; 
     align-items: center; 
@@ -22,6 +24,17 @@
 
 main {
     border-top: 1px solid rgb(255, 255, 255);
+}
+
+
+.invalido{
+    border: 2px solid red;
+    background-color: #ffe6e6;
+}
+
+.valido {
+    border: 2px solid green;
+    background-color: #e6ffe6;
 }
 
 .alert-caixa{
