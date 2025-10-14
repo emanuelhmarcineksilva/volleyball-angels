@@ -6,6 +6,5 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    /* margin-top: 40px; foi trocado por auto para o efeito sticky */
-    margin-top: auto; /* Chave para o sticky footer em um container flex */
+    margin-top: auto; 
 }

@@ -40,10 +40,10 @@ body {
     line-height: 1.2;
 }
 
-/* --- ESTILOS DAS FAIXAS RESTAURADOS --- */
+
 .faixas-container {
     position: relative; 
-    height: 150px; /* Altura original para caber as duas faixas */
+    height: 150px; 
     overflow: hidden;   
     width: 100%;
     margin-bottom: 10px;      
@@ -63,7 +63,7 @@ body {
     white-space: nowrap;
 }
 
-/* Faixa Marrom (RESTAURADA) */
+
 .faixa-marrom {
     background-color: brown;
     transform: rotate(-4deg);
@@ -81,7 +81,7 @@ body {
     text-align: center;
 }
 
-/* Faixa Amarela (RESTAURADA) */
+
 .faixa-amarela {
     background-color: yellow;
     transform: rotate(5deg);
@@ -95,7 +95,7 @@ body {
 .faixa-amarela h1 {
     font-size: 1.8rem;
     font-family: Arial, sans-serif;
-    color: black; /* Cor do texto de volta para preto */
+    color: black; 
     margin: 0;
     padding: 0 25px;
 }
@@ -104,7 +104,7 @@ body {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
 }
-/* --- FIM DOS ESTILOS DAS FAIXAS --- */
+
 
 .conteudo-principal {
     padding: 50px 10%;
@@ -160,7 +160,7 @@ body {
     line-height: 1.8;
 }
 
-/* RESPONSIVIDADE */
+
 @media (max-width: 768px) {
     .faixas-container { height: 120px; }
     .faixa-marrom { height: 30px; top: 30px; }

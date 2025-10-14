@@ -1,7 +1,7 @@
 @import url(./header.css);
 @import url(./footer.css);
 
-/* VISUAL PADRÃO (vindo do login) */
+
 body {
     display: flex;
     flex-direction: column;
@@ -12,34 +12,34 @@ body {
 }
 
 header, footer {
-    display: none; /* Esconde header e footer por padrão */
+    display: none; 
 }
 
 main {
-    flex-grow: 0; /* Main não cresce na visualização simples */
+    flex-grow: 0; 
 }
 
-/* VISUAL COMPLETO (vindo do gerenciamento) */
+
 body.full-layout {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; /* Alinhamento padrão */
+    justify-content: flex-start; 
 }
 
 body.full-layout header,
 body.full-layout footer {
-    display: block; /* Mostra header e footer */
+    display: block; 
 }
 
 body.full-layout main {
-    flex-grow: 1; /* Faz o main ocupar o espaço */
+    flex-grow: 1; 
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 2rem;
 }
 
-/* Estilos do formulário (tema escuro) */
+
 .form-container {
     background-color: #2C2F33;
     color: #FFFFFF;

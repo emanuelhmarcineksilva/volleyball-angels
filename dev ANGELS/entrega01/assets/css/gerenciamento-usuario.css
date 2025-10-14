@@ -1,7 +1,7 @@
 @import url(./header.css);
 @import url(./footer.css);
 
-/* Aplica a base para o sticky footer e o tema escuro */
+
 body {
     display: flex;
     flex-direction: column;
@@ -29,7 +29,7 @@ main {
     padding-bottom: 2%;
 }
 
-/* Estilização dos cards para o tema escuro */
+
 .card {
     background-color: #2C2F33;
     border: 1px solid #4F545C;
@@ -52,7 +52,7 @@ main {
     border-top-color: #4F545C !important;
 }
 
-/* Ajuste nos botões */
+
 #novo_cadastro.btn-primary {
     background-color: #444;
     border-color: #A491D3;
@@ -62,7 +62,7 @@ main {
     border-color: #A491D3;
 }
 
-/* Classes de validação e alerta */
+
 .invalido {
     border: 2px solid #C62828;
     background-color: #412f2f;

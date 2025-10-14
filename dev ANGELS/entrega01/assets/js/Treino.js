@@ -138,7 +138,6 @@ formBusca.addEventListener('input', function() {
     }
 
     const treinosFiltrados = listaCompleta.filter(function(treino) {
-        // Buscando pelo nome do ADM
         return treino.nome.toLowerCase().includes(termoBusca);
     });
 

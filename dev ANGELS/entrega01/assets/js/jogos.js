@@ -65,12 +65,14 @@ function renderizarJogos(listaParaRenderizar) {
                             <input type="number" id="input_pontAdvers_${idOriginal}" class="form-control flex-grow-1" value="${jogo.pontAdvers}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_pontAdvers_${idOriginal}" onclick="editarJogo(${idOriginal}, 'pontAdvers')" hidden>Ok</a>
                         </div>
-                        <div class="d-flex align-items-center">
+                        <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Observações:</strong></p>
                             <a id="observacoes_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'observacoes')" class="m-0 flex-grow-1 text-end editable-field">${jogo.observacoes}</a>
                             <input type="text" id="input_observacoes_${idOriginal}" class="form-control flex-grow-1" value="${jogo.observacoes}" hidden>
                             <a class="btn btn-sm btn-success ms-2" id="ok_observacoes_${idOriginal}" onclick="editarJogo(${idOriginal}, 'observacoes')" hidden>Ok</a>
                         </div>
+
+
                     </div>
                     <div class="card-footer bg-transparent border-top-0 text-center">
                         <a onclick="excluirJogo(${idOriginal})" class="btn btn-danger m-1">Excluir</a>
@@ -100,32 +102,46 @@ function mostrarEdicao(id, campo) {
 
 function editarJogo(id, campo) {
     let listaJogos = JSON.parse(localStorage.getItem("listaJogos")) || [];
-    const input = document.getElementById(`input_${campo}_${id}`);
-    const novaInfo = input.value.trim();
+    let novaInfo;
     const mensagem = document.getElementById('mensagem');
-    const regex = /^(?!\s*$).+/;
     mensagem.innerHTML = "";
 
-    if (!regex.test(novaInfo)) {
-        input.classList.add("invalido");
-        input.classList.remove("valido");
-        mensagem.innerHTML = `
-            <div class="alert alert-danger alert-caixa" role="alert"> 
-                <p>Você preencheu o campo ${campo} indevidamente!</p>
-                <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>`;
-        return;
+    if (campo === 'checkboxes') {
+        novaInfo = [];
+        const checkboxesMarcados = document.querySelectorAll(`.edit-checkboxes-${id}:checked`);
+        checkboxesMarcados.forEach(checkbox => {
+            novaInfo.push(checkbox.value);
+        });
+    } else {
+        const input = document.getElementById(`input_${campo}_${id}`);
+        const valorDoInput = input.value.trim();
+        const regex = /^(?!\s*$).+/;
+
+        if (!regex.test(valorDoInput)) {
+            input.classList.add("invalido");
+            input.classList.remove("valido");
+            mensagem.innerHTML = `
+                <div class="alert alert-danger alert-caixa" role="alert"> 
+                    <p>Você preencheu o campo ${campo} indevidamente!</p>
+                    <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`;
+            return;
+        }
+
+        input.classList.remove("invalido");
+        input.classList.add("valido");
+        novaInfo = valorDoInput;
     }
 
-    input.classList.remove("invalido");
-    input.classList.add("valido");
     listaJogos[id][campo] = novaInfo;
     localStorage.setItem("listaJogos", JSON.stringify(listaJogos));
+
     mensagem.innerHTML = `
         <div class="alert alert-success alert-caixa" role="alert">
             <p>Campo ${campo} editado com sucesso!</p>
             <button type="button" class="btn btn-success btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`;
+        
     renderizarJogos(listaJogos);
 }
 
@@ -144,7 +160,6 @@ formBusca.addEventListener('input', function() {
     }
 
     const jogosFiltrados = listaCompleta.filter(function(jogo) {
-        // Corrigido para buscar pelo time adversário
         return jogo.adversario.toLowerCase().includes(termoBusca);
     });
 
@@ -157,3 +172,39 @@ function carregarTudo() {
 }
 
 carregarTudo();
+
+/*INPUTS
+
+=== Radio ===
+<div class="d-flex align-items-center mb-2">
+    <p class="m-0 me-2"><strong>Tipos de jogos:</strong></p>
+    <a id="tipo_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'tipo')" class="m-0 flex-grow-1 text-end editable-field">${jogo.tipo}</a>
+    <select id="input_tipo_${idOriginal}" class="form-select flex-grow-1" hidden>
+        <option value="externo" ${jogo.tipo === 'Externo' ? 'selected' : ''}>Externo</option>
+        <option value="interno" ${jogo.tipo === 'Interno' ? 'selected' : ''}>Interno</option>
+    </select>
+    <a class="btn btn-sm btn-success ms-2" id="ok_tipo_${idOriginal}" onclick="editarJogo(${idOriginal}, 'tipo')" hidden>Ok</a>
+</div>
+
+=== checkbox ===
+<div class="d-flex align-items-center mb-2">
+    <p class="m-0 me-2"><strong>Checkboxes:</strong></p>
+    <a id="checkboxes_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'checkboxes')" class="m-0 flex-grow-1 text-end editable-field">
+        ${jogo.checkboxes && jogo.checkboxes.length > 0 ? jogo.checkboxes.join(', ') : 'Nenhum'}
+    </a>
+    <div id="input_checkboxes_${idOriginal}" hidden>
+        <input type="checkbox" class="edit-checkboxes-${idOriginal}" value="Termos de uso aceitados" ${(jogo.checkboxes && jogo.checkboxes.includes('Termos de uso aceitados')) ? 'checked' : ''}> Aceito os termos<br>
+        <input type="checkbox" class="edit-checkboxes-${idOriginal}" value="Newsletter aceitada" ${(jogo.checkboxes && jogo.checkboxes.includes('Newsletter aceitada')) ? 'checked' : ''}> Desejo receber a newsletter
+    </div>
+    <a class="btn btn-sm btn-success ms-2" id="ok_checkboxes_${idOriginal}" onclick="editarJogo(${idOriginal}, 'checkboxes')" hidden>Ok</a>
+</div>
+
+
+=== text, date, datetime-local, date, time ===
+<div class="d-flex align-items-center mb-2">
+    <p class="m-0 me-2"><strong>Adversário:</strong></p>
+    <a id="adversario_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'adversario')" class="m-0 flex-grow-1 text-end editable-field">${jogo.adversario}</a>
+    <input type="text" id="input_adversario_${idOriginal}" class="form-control flex-grow-1" value="${jogo.adversario}" hidden>
+    <a class="btn btn-sm btn-success ms-2" id="ok_adversario_${idOriginal}" onclick="editarJogo(${idOriginal}, 'adversario')" hidden>Ok</a>
+</div>
+*/

@@ -13,10 +13,10 @@ function armazenarTreino() {
     if (!listaTreinos) {
         var listaTreinos = [];
     }
-    // A variável foi renomeada para 'treino' para consistência
+
     var treino = { duracao: "", data: "", hora: "", local: "", tipo: "", nome: "" };
 
-    // Gerais
+
     treino.duracao = document.getElementById("duracao_treino").value;
     treino.data = document.getElementById("data_treino").value;
     treino.hora = document.getElementById("hora_treino").value;
@@ -28,7 +28,7 @@ function armazenarTreino() {
     if (radioSelecionado) {
         treino.tipo = radioSelecionado.value;
     } else {
-        treino.tipo = ""; // Armazena vazio se nada for selecionado, para falhar na validação
+        treino.tipo = ""; 
     }
 
     listaTreinos.push(treino);
@@ -39,11 +39,11 @@ btn_enviar.addEventListener("click", function(e) {
     e.preventDefault();
     const duracao = regex.test(duracao_treino.value);
     const data = data_treino.value.trim() !== "";
-    const hora = hora_treino.value.trim() !== ""; // Renomeado para 'hora' para evitar conflito
+    const hora = hora_treino.value.trim() !== ""; 
     const local = regex.test(local_treino.value);
     const nome = regex.test(nome_adm.value);
     const radioSelecionado = document.querySelector('input[name="flexRadioDefault"]:checked');
-    const tipo = radioSelecionado !== null; // Validação correta para radio button
+    const tipo = radioSelecionado !== null; //radio button
 
     mensagem.innerHTML = "";
     if (!duracao || !data || !hora || !local || !nome || !tipo) {
@@ -53,7 +53,7 @@ btn_enviar.addEventListener("click", function(e) {
                 <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="alert" aria-label="Close"></button> 
             </div>`;
         
-        // Validação individual para inputs de texto/data/hora
+        //inputs de texto/data/hora
         [duracao_treino, data_treino, hora_treino, local_treino, nome_adm].forEach(input => {
             if (input.value.trim() === "" || !regex.test(input.value)) {
                 input.classList.add("invalido");
@@ -64,8 +64,8 @@ btn_enviar.addEventListener("click", function(e) {
             }
         });
 
-        // Validação visual para o container dos radio buttons (opcional, mas bom para UX)
-        const radioContainer = document.getElementById('radio_container'); // Supondo que você tenha um container com este ID no seu HTML
+
+        const radioContainer = document.getElementById('radio_container'); 
         if (radioContainer) {
             if (!tipo) {
                 radioContainer.classList.add("invalido");
@@ -79,5 +79,5 @@ btn_enviar.addEventListener("click", function(e) {
         return;
     }
     armazenarTreino();
-    setTimeout(() => { window.location.href = "treino.html"; }); // Corrigido o redirecionamento
+    setTimeout(() => { window.location.href = "treino.html"; }); 
 });

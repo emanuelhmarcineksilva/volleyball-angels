@@ -1,19 +1,19 @@
 @import url(./header.css);
 @import url(./footer.css);
 
-/* Aplica a base para o sticky footer e o tema escuro */
+
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: #23272A; /* Fundo cinza escuro */
-    color: #FFFFFF; /* Texto padrão branco */
+    background-color: #23272A; 
+    color: #FFFFFF; 
 }
 
-/* Faz o conteúdo principal crescer e ocupar o espaço */
+
 main {
     flex-grow: 1;
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Borda sutil */
+    border-top: 1px solid rgba(255, 255, 255, 0.1); 
 }
 
 #toolbar_produtos {
@@ -34,7 +34,7 @@ main {
     color: #FFFFFF;
 }
 
-/* Estilização dos cards para o tema escuro */
+
 .card {
     background-color: #2C2F33;
     border: 1px solid #4F545C;
@@ -50,14 +50,14 @@ main {
     text-decoration-style: dotted;
 }
 .card .editable-field:hover {
-    color: #A491D3; /* Roxo para hover */
+    color: #A491D3; 
 }
 
 .card-footer {
     border-top-color: #4F545C !important;
 }
 
-/* Ajuste nos botões para combinar com o tema */
+
 #novo_produto.btn-primary {
     background-color: #444;
     border-color: #A491D3;
@@ -67,9 +67,9 @@ main {
     border-color: #A491D3;
 }
 
-/* Classes de validação e alerta */
+
 .invalido{
-    border: 2px solid #C62828; /* Vermelho do tema */
+    border: 2px solid #C62828; 
     background-color: #412f2f;
     color: white;
 }
