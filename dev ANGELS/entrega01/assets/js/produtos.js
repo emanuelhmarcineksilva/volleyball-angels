@@ -128,3 +128,39 @@ function carregarTudo() {
 }
 
 carregarTudo();
+
+/*INPUTS
+
+=== Radio ===
+<div class="d-flex align-items-center mb-2">
+    <p class="m-0 me-2"><strong>Radios:</strong></p>
+    <a id="radio_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'radio')" class="m-0 flex-grow-1 text-end editable-field">${jogo.radio}</a>
+    <div id="input_radio_${idOriginal}" hidden>
+        <input type="radio" name="edit-radio-${idOriginal}" value="Radio1" ${jogo.radio === 'Radio1' ? 'checked' : ''}> Radio1
+        <input type="radio" name="edit-radio-${idOriginal}" value="Radio2" ${jogo.radio === 'Radio2' ? 'checked' : ''}> Radio2
+    </div>
+    <a class="btn btn-sm btn-success ms-2" id="ok_radio_${idOriginal}" onclick="editarJogo(${idOriginal}, 'radio')" hidden>Ok</a>
+</div>
+
+=== checkbox ===
+<div class="d-flex align-items-center mb-2">
+    <p class="m-0 me-2"><strong>Checkboxes:</strong></p>
+    <a id="checkboxes_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'checkboxes')" class="m-0 flex-grow-1 text-end editable-field">
+        ${jogo.checkboxes && jogo.checkboxes.length > 0 ? jogo.checkboxes.join(', ') : 'Nenhum'}
+    </a>
+    <div id="input_checkboxes_${idOriginal}" hidden>
+        <input type="checkbox" class="edit-checkboxes-${idOriginal}" value="Termos de uso aceitados" ${(jogo.checkboxes && jogo.checkboxes.includes('Termos de uso aceitados')) ? 'checked' : ''}> Aceito os termos<br>
+        <input type="checkbox" class="edit-checkboxes-${idOriginal}" value="Newsletter aceitada" ${(jogo.checkboxes && jogo.checkboxes.includes('Newsletter aceitada')) ? 'checked' : ''}> Desejo receber a newsletter
+    </div>
+    <a class="btn btn-sm btn-success ms-2" id="ok_checkboxes_${idOriginal}" onclick="editarJogo(${idOriginal}, 'checkboxes')" hidden>Ok</a>
+</div>
+
+
+=== text, date, datetime-local, date, time ===
+<div class="d-flex align-items-center mb-2">
+    <p class="m-0 me-2"><strong>Adversário:</strong></p>
+    <a id="adversario_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'adversario')" class="m-0 flex-grow-1 text-end editable-field">${jogo.adversario}</a>
+    <input type="text" id="input_adversario_${idOriginal}" class="form-control flex-grow-1" value="${jogo.adversario}" hidden>
+    <a class="btn btn-sm btn-success ms-2" id="ok_adversario_${idOriginal}" onclick="editarJogo(${idOriginal}, 'adversario')" hidden>Ok</a>
+</div>
+*/

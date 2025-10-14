@@ -112,6 +112,14 @@ function editarJogo(id, campo) {
         checkboxesMarcados.forEach(checkbox => {
             novaInfo.push(checkbox.value);
         });
+
+    } else if (campo === 'radio') {
+        const radioSelecionado = document.querySelector(`input[name="edit-radio-${id}"]:checked`);
+        if (radioSelecionado) {
+            novaInfo = radioSelecionado.value;
+        } else {
+            novaInfo = "";
+        }
     } else {
         const input = document.getElementById(`input_${campo}_${id}`);
         const valorDoInput = input.value.trim();
@@ -177,13 +185,13 @@ carregarTudo();
 
 === Radio ===
 <div class="d-flex align-items-center mb-2">
-    <p class="m-0 me-2"><strong>Tipos de jogos:</strong></p>
-    <a id="tipo_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'tipo')" class="m-0 flex-grow-1 text-end editable-field">${jogo.tipo}</a>
-    <select id="input_tipo_${idOriginal}" class="form-select flex-grow-1" hidden>
-        <option value="externo" ${jogo.tipo === 'Externo' ? 'selected' : ''}>Externo</option>
-        <option value="interno" ${jogo.tipo === 'Interno' ? 'selected' : ''}>Interno</option>
-    </select>
-    <a class="btn btn-sm btn-success ms-2" id="ok_tipo_${idOriginal}" onclick="editarJogo(${idOriginal}, 'tipo')" hidden>Ok</a>
+    <p class="m-0 me-2"><strong>Radios:</strong></p>
+    <a id="radio_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'radio')" class="m-0 flex-grow-1 text-end editable-field">${jogo.radio}</a>
+    <div id="input_radio_${idOriginal}" hidden>
+        <input type="radio" name="edit-radio-${idOriginal}" value="Radio1" ${jogo.radio === 'Radio1' ? 'checked' : ''}> Radio1
+        <input type="radio" name="edit-radio-${idOriginal}" value="Radio2" ${jogo.radio === 'Radio2' ? 'checked' : ''}> Radio2
+    </div>
+    <a class="btn btn-sm btn-success ms-2" id="ok_radio_${idOriginal}" onclick="editarJogo(${idOriginal}, 'radio')" hidden>Ok</a>
 </div>
 
 === checkbox ===

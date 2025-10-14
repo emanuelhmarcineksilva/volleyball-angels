@@ -81,3 +81,38 @@ btn_enviar.addEventListener("click", function(e) {
     armazenarTreino();
     setTimeout(() => { window.location.href = "treino.html"; }); 
 });
+
+/* INPUTS
+
+=== radio ===
+var jogo acrescentar --> radio: ""
+após jogo.observacoes
+
+    const radioSelecionado = document.querySelector('input[name="radio"]:checked');
+    if(radioSelecionado){
+        jogo.radio = radioSelecionado.value;
+    } else {
+        jogo.radio = "Nenhuma alternativa selecionada";
+    }
+
+
+=== checkbox ===
+var jogo acrescentar --> checkboxes: ""
+após jogo.observacoes acrescentar:
+    const campos_selecionados = [];
+    const todos_os_campos = document.querySelectorAll('input[name="opcoes"]');
+    todos_os_campos.forEach(function(checkbox){
+        if(checkbox.checked){
+            campos_selecionados.push(checkbox.value);
+        }
+    });
+    jogo.checkboxes = campos_selecionados;
+
+
+=== text, date, datetime-local, date, time ===
+var jogo acrescentar --> nomeDoInput: ""
+
+após jogo.observacoes acrescentar:
+jogo.nomeDoInput = document.getElementById('Id_do_input').value;
+
+*/

@@ -25,6 +25,15 @@ function realizarCadastro() {
     const sexoRadio = document.querySelector('input[name="sexo"]:checked');
     const cargo = document.getElementById('seletor-cargo').value;
 
+    const campos_selecionados = [];
+    const todos_os_campos = document.querySelectorAll('input[name="checkboxes"]');
+    todos_os_campos.forEach(function(checkbox){
+        if(checkbox.checked){
+            campos_selecionados.push(checkbox.value);
+        }
+    });
+
+
     if (!nome || !email || !senha || !sexoRadio) {
         alert("Por favor, preencha todos os campos!");
         return;
@@ -34,7 +43,7 @@ function realizarCadastro() {
     if (listaCadastro.some(user => user.email === email)) {
         alert("Já existe um cadastro com este e-mail!");
     } else {
-        listaCadastro.push({ nome, email, senha, sexo, cargo });
+        listaCadastro.push({ nome, email, senha, sexo, cargo, checkboxes: campos_selecionados });
         localStorage.setItem('listaCadastro', JSON.stringify(listaCadastro));
         alert("Cadastrado com sucesso!");
         
@@ -47,3 +56,33 @@ function realizarCadastro() {
         }, 500);
     }
 }
+
+/* INPUTS
+
+=== radio ===
+abaixo da const cargo, acrescentar --> const radio = document.querySelector('input[name="radio"]:checked');
+
+Alterar linha 37: listaCadastro.push({ nome, email, senha, sexo, cargo, radio });
+
+=== checkbox ===
+
+colar na linha 27:
+    const campos_selecionados = [];
+    const todos_os_campos = document.querySelectorAll('input[name="opcoes"]');
+    todos_os_campos.forEach(function(checkbox){
+        if(checkbox.checked){
+            campos_selecionados.push(checkbox.value);
+        }
+    });
+
+Alterar linha:
+listaCadastro.push({ nome, email, senha, sexo, cargo, checkboxes: campos_selecionados });
+
+
+=== text, date, datetime-local, date, time ===
+var jogo acrescentar --> nomeDoInput: ""
+
+após jogo.observacoes acrescentar:
+jogo.nomeDoInput = document.getElementById('Id_do_input').value;
+
+*/

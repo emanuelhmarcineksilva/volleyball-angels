@@ -70,14 +70,14 @@ btn_enviar.addEventListener("click", function(e) {
 /* INPUTS
 
 === radio ===
-var jogo acrescentar --> tipo: ""
+var jogo acrescentar --> radio: ""
 após jogo.observacoes
 
-    const radioSelecionado = document.querySelector('input[name="tipo"]:checked');
+    const radioSelecionado = document.querySelector('input[name="radio"]:checked');
     if(radioSelecionado){
-        jogo.tipo = radioSelecionado.value;
+        jogo.radio = radioSelecionado.value;
     } else {
-        jogo.tipo = "Nenhuma alternativa selecionada";
+        jogo.radio = "Nenhuma alternativa selecionada";
     }
 
 

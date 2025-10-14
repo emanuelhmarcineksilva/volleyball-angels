@@ -44,10 +44,10 @@ function renderizarCadastros(listaParaRenderizar) {
                         <div class="d-flex align-items-center mb-2">
                             <p class="m-0 me-2"><strong>Sexo:</strong></p>
                             <a id="sexo_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'sexo')" class="m-0 flex-grow-1 text-end editable-field">${cadastro.sexo}</a>
-                            <select id="input_sexo_${idOriginal}" class="form-select flex-grow-1" hidden>
-                                <option value="Masculino" ${cadastro.sexo === 'Masculino' ? 'selected' : ''}>Masculino</option>
-                                <option value="Feminino" ${cadastro.sexo === 'Feminino' ? 'selected' : ''}>Feminino</option>
-                            </select>
+                            <div id="input_sexo_${idOriginal}" hidden>
+                                <input type="radio" name="edit-sexo-${idOriginal}" value="Masculino" ${cadastro.sexo === 'Masculino' ? 'checked' : ''}> Masculino
+                                <input type="radio" name="edit-sexo-${idOriginal}" value="Feminino" ${cadastro.sexo === 'Feminino' ? 'checked' : ''}> Feminino
+                            </div>
                             <a class="btn btn-sm btn-success ms-2" id="ok_sexo_${idOriginal}" onclick="editarCadastro(${idOriginal}, 'sexo')" hidden>Ok</a>
                         </div>
                         <div class="d-flex align-items-center">
@@ -61,6 +61,19 @@ function renderizarCadastros(listaParaRenderizar) {
                             </select>
                             <a class="btn btn-sm btn-success ms-2" id="ok_cargo_${idOriginal}" onclick="editarCadastro(${idOriginal}, 'cargo')" hidden>Ok</a>
                         </div>
+
+                        <div class="d-flex align-items-center mb-2">
+                            <p class="m-0 me-2"><strong>Checkboxes:</strong></p>
+                            <a id="checkboxes_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'checkboxes')" class="m-0 flex-grow-1 text-end editable-field">
+                                ${cadastro.checkboxes && cadastro.checkboxes.length > 0 ? cadastro.checkboxes.join(', ') : 'Nenhum'}
+                            </a>
+                            <div id="input_checkboxes_${idOriginal}" hidden>
+                                <input type="checkbox" class="edit-checkboxes-${idOriginal}" id="check1" value="Termos de uso aceitados" ${(cadastro.checkboxes && cadastro.checkboxes.includes('Termos de uso aceitados')) ? 'checked' : ''}> Aceito os termos<br>
+                                <input type="checkbox" class="edit-checkboxes-${idOriginal}" id="check2" value="Newsletter aceitada" ${(cadastro.checkboxes && cadastro.checkboxes.includes('Newsletter aceitada')) ? 'checked' : ''}> Desejo receber a newsletter
+                            </div>
+                            <a class="btn btn-sm btn-success ms-2" id="ok_checkboxes_${idOriginal}" onclick="editarCadastro(${idOriginal}, 'checkboxes')" hidden>Ok</a>
+                        </div>
+
                     </div>
                     <div class="card-footer bg-transparent border-top-0 text-center">
                         <a onclick="excluirCadastro(${idOriginal})" class="btn btn-danger m-1">Excluir</a>
@@ -89,32 +102,53 @@ function mostrarEdicao(id, campo) {
 
 function editarCadastro(id, campo) {
     let listaCadastro = JSON.parse(localStorage.getItem("listaCadastro")) || [];
-    const input = document.getElementById(`input_${campo}_${id}`);
-    const novaInfo = input.value.trim();
+    let novaInfo;
     const mensagem = document.getElementById('mensagem');
-    const regex = /^(?!\s*$).+/;
     mensagem.innerHTML = "";
 
-    if (!regex.test(novaInfo)) {
-        input.classList.add("invalido");
-        input.classList.remove("valido");
-        mensagem.innerHTML = `
-            <div class="alert alert-danger alert-caixa" role="alert"> 
-                <p>O campo ${campo} não pode ficar vazio!</p>
-                <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>`;
-        return;
+    if (campo === 'checkboxes') {
+        novaInfo = [];
+        const checkboxesMarcados = document.querySelectorAll(`.edit-checkboxes-${id}:checked`);
+        checkboxesMarcados.forEach(checkbox => {
+            novaInfo.push(checkbox.value);
+        });
+    } else if (campo === 'sexo') {
+        const radioSelecionado = document.querySelector(`input[name="edit-sexo-${id}"]:checked`);
+        if (radioSelecionado) {
+            novaInfo = radioSelecionado.value;
+        } else {
+            novaInfo = "";
+        }
+    } else {
+        const input = document.getElementById(`input_${campo}_${id}`);
+        const valorDoInput = input.value.trim();
+        const regex = /^(?!\s*$).+/;
+
+        if (!regex.test(valorDoInput)) {
+            input.classList.add("invalido");
+            input.classList.remove("valido");
+            mensagem.innerHTML = `
+                <div class="alert alert-danger alert-caixa" role="alert"> 
+                    <p>Você preencheu o campo ${campo} indevidamente!</p>
+                    <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`;
+            return;
+        }
+
+        input.classList.remove("invalido");
+        input.classList.add("valido");
+        novaInfo = valorDoInput;
     }
 
-    input.classList.remove("invalido");
-    input.classList.add("valido");
     listaCadastro[id][campo] = novaInfo;
     localStorage.setItem("listaCadastro", JSON.stringify(listaCadastro));
+
     mensagem.innerHTML = `
         <div class="alert alert-success alert-caixa" role="alert">
             <p>Campo ${campo} editado com sucesso!</p>
             <button type="button" class="btn btn-success btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>`;
+        
     renderizarCadastros(listaCadastro);
 }
 
@@ -145,4 +179,40 @@ function carregarTudo() {
 }
 
 carregarTudo();
+
+/*INPUTS
+
+=== Radio ===
+<div class="d-flex align-items-center mb-2">
+    <p class="m-0 me-2"><strong>Radios:</strong></p>
+    <a id="radio_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'radio')" class="m-0 flex-grow-1 text-end editable-field">${jogo.radio}</a>
+    <div id="input_radio_${idOriginal}" hidden>
+        <input type="radio" name="edit-radio-${idOriginal}" value="Radio1" ${jogo.radio === 'Radio1' ? 'checked' : ''}> Radio1
+        <input type="radio" name="edit-radio-${idOriginal}" value="Radio2" ${jogo.radio === 'Radio2' ? 'checked' : ''}> Radio2
+    </div>
+    <a class="btn btn-sm btn-success ms-2" id="ok_radio_${idOriginal}" onclick="editarJogo(${idOriginal}, 'radio')" hidden>Ok</a>
+</div>
+
+=== checkbox ===
+<div class="d-flex align-items-center mb-2">
+    <p class="m-0 me-2"><strong>Checkboxes:</strong></p>
+    <a id="checkboxes_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'checkboxes')" class="m-0 flex-grow-1 text-end editable-field">
+        ${jogo.checkboxes && jogo.checkboxes.length > 0 ? jogo.checkboxes.join(', ') : 'Nenhum'}
+    </a>
+    <div id="input_checkboxes_${idOriginal}" hidden>
+        <input type="checkbox" class="edit-checkboxes-${idOriginal}" value="Termos de uso aceitados" ${(jogo.checkboxes && jogo.checkboxes.includes('Termos de uso aceitados')) ? 'checked' : ''}> Aceito os termos<br>
+        <input type="checkbox" class="edit-checkboxes-${idOriginal}" value="Newsletter aceitada" ${(jogo.checkboxes && jogo.checkboxes.includes('Newsletter aceitada')) ? 'checked' : ''}> Desejo receber a newsletter
+    </div>
+    <a class="btn btn-sm btn-success ms-2" id="ok_checkboxes_${idOriginal}" onclick="editarJogo(${idOriginal}, 'checkboxes')" hidden>Ok</a>
+</div>
+
+
+=== text, date, datetime-local, date, time ===
+<div class="d-flex align-items-center mb-2">
+    <p class="m-0 me-2"><strong>Adversário:</strong></p>
+    <a id="adversario_${idOriginal}" onclick="mostrarEdicao(${idOriginal}, 'adversario')" class="m-0 flex-grow-1 text-end editable-field">${jogo.adversario}</a>
+    <input type="text" id="input_adversario_${idOriginal}" class="form-control flex-grow-1" value="${jogo.adversario}" hidden>
+    <a class="btn btn-sm btn-success ms-2" id="ok_adversario_${idOriginal}" onclick="editarJogo(${idOriginal}, 'adversario')" hidden>Ok</a>
+</div>
+*/
 
