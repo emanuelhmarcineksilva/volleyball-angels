@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../assets/css/registro_jogos.css">
+    <link rel="icon" href="../../assets/img/Logo_Volleyball_Angels.png">
+    <title>Volleyball Angels - Alteração de Jogo</title>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <div class="header-spacer"></div>
+            <div class="container-logo">
+                <h1 id="texto-logo">Volleyball Angels</h1>
+            </div>
+            <div class="login">
+    
+                <div id="welcome-message-container" class="welcome-container"> 
+                    <span id="welcome-prefix"></span>
+                    <span id="welcome-username"></span>
+                </div>
+
+                <a href="#" class="btn btn-danger btn-sm" id="logout-btn">
+                    Sair
+                </a>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <nav class="navbar">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Menu</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="index.html">Home</a></li>
+                            <li><a class="dropdown-item" href="eventos.html">Eventos</a></li>
+                            <li><a class="dropdown-item" href="jogos.html">Jogos</a></li>
+                            <li><a class="dropdown-item" href="treino.html">Treinos</a></li>
+                            <li><a class="dropdown-item" href="produtos.html">Produtos</a></li>
+                            <li><a class="dropdown-item" href="usuario.html">Usuários</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link"  href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item nav-item-desktop">
+                        <a class="nav-link" href="eventos.html">Eventos</a>
+                    </li>
+                    <li class="nav-item nav-item-desktop">
+                        <a class="nav-link" href="jogos.html">Jogos</a>
+                    </li>
+                    <li class="nav-item nav-item-desktop">
+                        <a class="nav-link" href="treino.html">Treinos</a>
+                    </li>
+                    <li class="nav-item nav-item-desktop">
+                        <a class="nav-link" href="produtos.html">Produtos</a>
+                    </li>
+                    <li class="nav-item nav-item-desktop">
+                        <a class="nav-link" href="usuario.html">Usuários</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="shadow-lg border p-5 form-container">
+            <form id="form_jogo">
+                <h1>Alteração de Jogo:</h1>
+                <div class="mb-3">
+                    <label class="form-label" for="inicio">Data/hora de início:</label>
+                    <input type="datetime-local" class="form-control" id="inicio">
+                    <input type="hidden" id="id">
+                </div>
+                <div class="mb-3">
+                    <label for="fim" class="form-label">Data/hora final:</label>
+                    <input type="datetime-local" class="form-control" id="fim">
+                </div>
+                <div class="mb-3">
+                    <label for="adversario" class="form-label">Time adversário:</label>
+                    <input type="text" class="form-control" id="adversario">
+                </div>
+                <div class="mb-3">
+                    <label for="tipo" class="form-label">Tipo de jogo:</label>
+                    <select class="form-select" id="tipo">
+                        <option value="" selected>Selecione...</option>
+                        <option value="Competitivo">Competitivo</option>
+                        <option value="Amistoso">Amistoso</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="pontclube" class="form-label">Pontuação do clube:</label>
+                    <input type="number" class="form-control" id="pontclube" min="0">
+                </div>
+                <div class="mb-3">
+                    <label for="pontadvers" class="form-label">Pontuação do time adversário:</label>
+                    <input type="number" class="form-control" id="pontadvers" min="0">
+                </div>
+                <div class="mb-3">
+                    <label for="observ" class="form-label">Observações:</label>
+                    <input type="text" class="form-control" id="observ">
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="enviar">Enviar</button>
+                <a href="jogos.html" id="voltar" type="button" class="btn btn-primary">Voltar</a>
+            </form>
+            <div id="mensagem"></div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; Copyright Volleyball-Angels.com 2025</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="../../assets/js/valida_sessao.js"></script>
+    <script src="../../assets/js/jogo/jogo_alterar.js"></script>
+</body>
+</html> 

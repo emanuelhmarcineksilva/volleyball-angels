@@ -1,0 +1,36 @@
+EXEMPLO
+
+passo 1: alterar banco
+    ALTER TABLE [nome da tabela]
+    ADD COLUMN instagram VARCHAR(255);
+
+passo 2: adicionar coluna no _novo.php
+    $instagram = $_POST['instagram];
+
+    NO INSERT: 
+        INSERT INTO usuario (nome, email, telefone, senha, sexo, cargo, instagram) VALUES (?, ?, ?, ?, ?, ?, ?)
+    
+    NO BIND_PARAM: 
+        $stmt->bind_param("sssssss", $nome, $email, $telefone, $senha, $sexo, $cargo, $instagram);
+        // note q há um "s" a mais ali para o campo _novo
+    
+passo 3: colocar input no _novo.html (PS.: PARA USUARIO, O _NOVO É CADASTRO!!!)
+    <div class="mb-3">
+        <label for="instagram" class="form-label">Instagram</label>
+        <input type="text" id="instagram" class="form-control" placeholder="Digite seu instagram">
+    </div>
+
+passo 4: colocar no _novo.js (PS.: PARA USUARIO, O _NOVO É CADASTRO!!!)
+    const instagram = document.getElementById('instagram').value;
+
+    fd.append("instagram", instagram);
+
+passo 5: no [nome da tabela].js, colocar:
+    <th> Instagram </th>
+
+    <td>${tabela[i].instagram}</td>
+
+
+CONEXAO: NAO ESQUECER DE MUDAR CREDENCIAIS!!
+
+SENHA: PUC@1234

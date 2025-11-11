@@ -1,0 +1,66 @@
+@import url(./header.css);
+@import url(./footer.css);
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #23272A;
+}
+
+header, footer {
+    display: none; 
+}
+
+main {
+    flex-grow: 0; 
+}
+
+
+body.full-layout {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; 
+}
+
+body.full-layout header,
+body.full-layout footer {
+    display: block; 
+}
+
+body.full-layout main {
+    flex-grow: 1; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+
+.form-container {
+    background-color: #2C2F33;
+    color: #FFFFFF;
+}
+
+.form-control, .form-select {
+    background-color: #40444B;
+    border: 1px solid #5c5c5c;
+    color: #FFFFFF;
+}
+.form-control:focus, .form-select:focus {
+    background-color: #40444B;
+    border-color: #A491D3;
+    color: #FFFFFF;
+    box-shadow: 0 0 0 0.25rem rgba(164, 145, 211, 0.25);
+}
+.form-check-input:checked {
+    background-color: #A491D3;
+    border-color: #A491D3;
+}
+#botao-cadastrar.btn-primary {
+    background-color: #444;
+    border-color: #A491D3;
+}

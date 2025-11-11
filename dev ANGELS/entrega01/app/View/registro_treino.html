@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="../../assets/js/autenticacao.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../assets/css/registro_treino.css">
+    <link rel="icon" href="../../assets/img/Logo_Volleyball_Angels.png">
+    <title>Volleyball Angels - Registro de Treino</title>
+</head>
+<body>
+    <header>
+        <div class="header-top">
+            <div class="header-spacer"></div>
+            <div class="container-logo">
+                <h1 id="texto-logo">Volleyball Angels</h1>
+            </div>
+            <div class="login">
+                <a href="login.html" class="login-link">
+                    <span class="login-text">Entrar</span>
+                    <img src="" alt="Acessar perfil de usuário">
+                </a>
+            </div>
+        </div>
+        <div class="header-bottom">
+            <nav class="navbar">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Menu</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="index.html">Home</a></li>
+                            <li><a class="dropdown-item" href="eventos.html">Eventos</a></li>
+                            <li><a class="dropdown-item" href="jogos.html">Jogos</a></li>
+                            <li><a class="dropdown-item" href="treino.html">Treinos</a></li>
+                            <li><a class="dropdown-item" href="produtos.html">Produtos</a></li>
+                            <li><a class="dropdown-item" href="gerenciamento-usuario.html">Usuários</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                    <li class="nav-item nav-item-desktop"><a class="nav-link" href="eventos.html">Eventos</a></li>
+                    <li class="nav-item nav-item-desktop"><a class="nav-link" href="jogos.html">Jogos</a></li>
+                    <li class="nav-item nav-item-desktop"><a class="nav-link active" aria-current="page" href="treino.html">Treinos</a></li>
+                    <li class="nav-item nav-item-desktop"><a class="nav-link" href="produtos.html">Produtos</a></li>
+                    <li class="nav-item nav-item-desktop"><a class="nav-link" href="gerenciamento-usuario.html">Usuários</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="shadow-lg border p-5 form-container">
+            <form id="form_treino">
+                <h1>Agenda de Treinos:</h1>
+                <div class="mb-3">
+                    <label for="duracao_treino" class="form-label">Tempo de duração:</label>
+                    <input type="text" class="form-control" id="duracao_treino" placeholder="Ex: 1h 30m">
+                </div> 
+                <div class="mb-3">
+                    <label for="data_treino" class="form-label">Data do treino:</label>
+                    <input type="date" class="form-control" id="data_treino">
+                </div>
+                <div class="mb-3">
+                    <label for="hora_treino" class="form-label">Horário de início:</label>
+                    <input type="time" class="form-control" id="hora_treino">
+                </div> 
+                <div class="mb-3">
+                    <label for="local_treino" class="form-label">Onde será:</label>
+                    <input type="text" class="form-control" id="local_treino" placeholder="Local do treino">
+                </div>
+                <div class="mb-3" id="radio_container">
+                    <label class="form-label">Tipo de treino:</label>
+                    <div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" id="radio1" value="Aerobico"><label class="form-check-label" for="radio1">Aeróbico</label></div>
+                    <div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" id="radio2" value="Forca"><label class="form-check-label" for="radio2">Força</label></div>
+                    <div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" id="radio3" value="Funcional"><label class="form-check-label" for="radio3">Funcional</label></div>
+                    <div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" id="radio4" value="HIIT"><label class="form-check-label" for="radio4">HIIT</label></div>
+                    <div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" id="radio5" value="Resistencia"><label class="form-check-label" for="radio5">Resistência</label></div>
+                    <div class="form-check"><input class="form-check-input" type="radio" name="flexRadioDefault" id="radio6" value="Jogo"><label class="form-check-label" for="radio6">Jogo</label></div>
+                </div>
+                <div class="mb-3">
+                    <label for="nome_adm" class="form-label">Nome do ADM:</label>
+                    <input type="text" class="form-control" id="nome_adm" placeholder="Digite seu nome aqui">
+                </div>
+                <button type="button" class="btn btn-primary" id="enviar_treino">Enviar</button>
+            </form>
+            <div id="mensagem"></div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; Copyright Volleyball-Angels.com 2025</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="../../assets/js/registro_treino.js"></script>
+</body>
+</html>
+
+<!-- INPUTS (alterar jogos.js, registro_jogos.js)
+
+==== radio ====
+<div class="mb-3">
+    <label class="form-label">Radio</label>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="radio" id="Radio1" value="Radio1">
+        <label class="form-check-label" for="Radio1">Radio1</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" name="radio" id="Radio2" value="Radio2">
+        <label class="form-check-label" for="Radio2">Radio2</label>
+    </div>
+</div>
+
+=== checkbox ===
+<div class="mb-3">
+    <label class="form-label">Marque os itens de interesse:</label>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Termos de uso aceitados" name="opcoes" id="check1">
+        <label class="form-check-label" for="check1">
+            Aceito os termos de uso.
+        </label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="Newsletter aceitada" name="opcoes" id="check2">
+        <label class="form-check-label" for="check2">
+            Desejo receber a newsletter.
+        </label>
+    </div>
+</div>
+
+
+=== text, date, datetime-local, date, time === 
+<div class="mb-3">
+    <label for="adversario_jogo" class="form-label">Time adversário:</label>
+    <input type="text" class="form-control" id="adversario_jogo">
+</div>
+-->

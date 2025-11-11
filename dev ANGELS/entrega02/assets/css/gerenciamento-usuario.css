@@ -1,0 +1,85 @@
+@import url(./header.css);
+@import url(./footer.css);
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #23272A;
+    color: #FFFFFF;
+}
+
+main {
+    flex-grow: 1;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#toolbar_gerenciamento {
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+}
+
+.titulo_gerenciamento {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+
+.card {
+    background-color: #2C2F33;
+    border: 1px solid #4F545C;
+    color: #FFFFFF;
+}
+
+.card p strong {
+    color: #FFFFFF;
+}
+
+.card .editable-field {
+    color: #FFFFFF;
+    text-decoration-style: dotted;
+}
+.card .editable-field:hover {
+    color: #A491D3;
+}
+
+.card-footer {
+    border-top-color: #4F545C !important;
+}
+
+
+#novo_cadastro.btn-primary {
+    background-color: #444;
+    border-color: #A491D3;
+}
+#novo_cadastro.btn-primary:hover {
+    background-color: #A491D3;
+    border-color: #A491D3;
+}
+
+
+.invalido {
+    border: 2px solid #C62828;
+    background-color: #412f2f;
+    color: white;
+}
+
+.valido {
+    border: 2px solid green;
+    background-color: #2a3b2a;
+    color: white;
+}
+
+.alert-caixa {
+    display: flex;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    z-index: 1;
+}
