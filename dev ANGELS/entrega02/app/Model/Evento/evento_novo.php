@@ -1,5 +1,10 @@
 <?php
-    include_once('C:\xampp\htdocs\angels\dev ANGELS\entrega02\core\conexao.php');
+    include_once(__DIR__ . '/../../../core/permissao.php');
+    include_once(__DIR__ . '/../../../core/conexao.php');
+
+    // Usuario, Membro e Jogador não cadastram evento. A conference fica no
+    // servidor: esconder o botão no front não impede chamada direta por URL.
+    exigir_administrador('cadastrar eventos');
 
     $retorno = [
         'status' => '',

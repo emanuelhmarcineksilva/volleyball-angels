@@ -41,6 +41,8 @@
                             <li><a class="dropdown-item" href="treino.html">Treinos</a></li>
                             <li><a class="dropdown-item" href="produtos.html">Produtos</a></li>
                             <li><a class="dropdown-item" href="usuario.html">Usuários</a></li>
+                            <li><a class="dropdown-item" href="carrinho.html">Carrinho</a></li>
+                            <li><a class="dropdown-item" href="meus_pedidos.html">Meus pedidos</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -58,8 +60,11 @@
                     <li class="nav-item nav-item-desktop">
                         <a class="nav-link" href="produtos.html">Produtos</a>
                     </li>
+                    <li class="nav-item nav-item-desktop" id="nav-carrinho">
+                        <a class="nav-link" href="carrinho.html">Carrinho <span class="badge bg-secondary" id="carrinho-contador">0</span></a>
+                    </li>
                     <li class="nav-item nav-item-desktop">
-                        <a class="nav-link" href="usuario.html">Usuários</a>
+                        <a class="nav-link" href="meus_pedidos.html">Meus pedidos</a>
                     </li>
                 </ul>
             </nav>
@@ -81,7 +86,8 @@
                 </div>
                 <div class="mb-3">
                     <label for="senha" class="form-label">Senha</label>
-                    <input type="password" id="senha" class="form-control" placeholder="Digite sua senha aqui">
+                    <input type="password" id="senha" class="form-control" placeholder="Deixe em branco para manter a senha">
+                    <small class="form-text">Preencha somente para trocar a senha.</small>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Sexo</label>

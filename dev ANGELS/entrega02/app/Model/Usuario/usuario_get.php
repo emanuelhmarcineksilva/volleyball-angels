@@ -1,5 +1,10 @@
 <?php
-    include_once('C:\xampp\htdocs\angels\dev ANGELS\entrega02\core\conexao.php');
+    include_once(__DIR__ . '/../../../core/permissao.php');
+    include_once(__DIR__ . '/../../../core/conexao.php');
+
+    // Somente admin gerencia usuarios. Antes qualquer visitante — inclusive
+    // deslogado — listava todo mundo e a coluna de senha em texto puro.
+    exigir_administrador('gerenciar usuários');
 
     $retorno = [
         'status'    => '',
@@ -7,11 +12,13 @@
         'data'      => []
     ];
 
+    // senha fora da lista: nao ha nenhum uso legitimo para o front ler a senha
+    // de outra pessoa, e mandar isso em JSON expõe a conta inteira.
     if(isset($_GET['id'])){
-        $stmt = $conexao->prepare("SELECT * FROM usuario WHERE id = ?");
+        $stmt = $conexao->prepare("SELECT id, nome, email, telefone, sexo, cargo FROM usuario WHERE id = ?");
         $stmt->bind_param("i", $_GET['id']);
     }else{
-        $stmt = $conexao->prepare("SELECT * FROM usuario");
+        $stmt = $conexao->prepare("SELECT id, nome, email, telefone, sexo, cargo FROM usuario");
     }
 
     $stmt->execute();

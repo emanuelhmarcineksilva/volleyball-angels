@@ -43,6 +43,8 @@
                             <li><a class="dropdown-item" href="treino.html">Treinos</a></li>
                             <li><a class="dropdown-item" href="produtos.html">Produtos</a></li>
                             <li><a class="dropdown-item" href="usuario.html">Usuários</a></li>
+                            <li><a class="dropdown-item" href="carrinho.html">Carrinho</a></li>
+                            <li><a class="dropdown-item" href="meus_pedidos.html">Meus pedidos</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -63,6 +65,12 @@
                     <li class="nav-item nav-item-desktop">
                         <a class="nav-link" href="usuario.html">Usuários</a>
                     </li>
+                    <li class="nav-item nav-item-desktop" id="nav-carrinho">
+                        <a class="nav-link" href="carrinho.html">Carrinho <span class="badge bg-secondary" id="carrinho-contador">0</span></a>
+                    </li>
+                    <li class="nav-item nav-item-desktop">
+                        <a class="nav-link" href="meus_pedidos.html">Meus pedidos</a>
+                    </li>
                 </ul>
             </nav>
         </div>
@@ -77,7 +85,7 @@
                     <input id="input_busca" class="form-control me-2" type="search" placeholder="Buscar Eventos" aria-label="Search"/>
                 </form>
             </div>
-            <div id="botao_novo_evento">
+            <div id="botao_novo_evento" class="d-none">
                 <a href="evento_novo.html" id="novo_evento" type="button" class="btn btn-primary">Novo evento</a>
             </div>
         </div>

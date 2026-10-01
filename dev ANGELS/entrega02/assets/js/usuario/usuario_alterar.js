@@ -1,12 +1,12 @@
 let userId = null;
 
+// tela de edicao de usuario: so admin
 document.addEventListener("DOMContentLoaded", () => {
-    valida_sessao();
-    configurarHeader();
-    const url = new URLSearchParams(window.location.search);
-    const id = url.get('id');
-    userId = id;
-    buscar(id);
+    iniciar_pagina(() => {
+        const url = new URLSearchParams(window.location.search);
+        userId = url.get('id');
+        buscar(userId);
+    }, true);
 });
 
 document.getElementById("logout-btn").addEventListener("click", (e) => {
@@ -43,7 +43,6 @@ async function buscar(id){
         var registro = resposta.data[0];
         document.getElementById("nome").value = registro.nome;
         document.getElementById("email").value = registro.email;
-        document.getElementById("senha").value = registro.senha;
         document.getElementById("telefone").value = registro.telefone;
         document.querySelector(`input[name="sexo"][value="${registro.sexo}"]`).checked = true;
         document.getElementById("seletor-cargo").value = registro.cargo;
@@ -53,8 +52,10 @@ async function buscar(id){
     }
 }
 
-document.getElementById("enviar").addEventListener("click", (e) => {
-    e.preventDefault;
+// o preventDefault sem parenteses nao fazia nada: o form recarregava a pagina
+// e o alterar() nao chegava a rodar direito
+document.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault();
     alterar(userId);
 });
 

@@ -1,11 +1,14 @@
+// Lista de eventos. Administrador gerencia o evento (Novo/Alterar/Excluir);
+// qualquer usuario logado se inscreve ou cancela a inscricao. Usuario, Membro
+// e Jogador nunca veem os botoes de edicao — e o endpoint tambem recusaria,
+// se chamassem direto.
+
 document.addEventListener("DOMContentLoaded", () => {
-    valida_sessao();
-    configurarHeader();
-    buscar();
+    iniciar_pagina(buscar);
 });
 
 document.getElementById("logout-btn").addEventListener("click", (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     logout();
 });
 
@@ -17,45 +20,96 @@ async function logout(){
     }
 }
 
-async function configurarHeader(){
-    const retorno = await fetch("../../core/valida_sessao.php"); 
-    const resposta = await retorno.json();
-
-    if(resposta.status == "ok" && resposta.data.nome){
-        document.getElementById("welcome-prefix").textContent = `Bem-vindo,`;
-        document.getElementById("welcome-username").textContent = resposta.data.nome;
-    } else {
-        document.getElementById("welcome-prefix").textContent = ``;
-        document.getElementById("welcome-username").textContent = ``;
-    }
+async function configurarHeader(usuario){
+    document.getElementById("welcome-prefix").textContent = `Bem-vindo,`;
+    document.getElementById("welcome-username").textContent = usuario.nome;
 }
 
-document.getElementById("novo_evento").addEventListener("click", function() {
-    window.location.href = "evento_novo.html";
-});
-
 async function buscar() {
+    // inscribed_ids diz quais eventos a pessoa ja assinou, para o botao virar
+    // "Inscrito" em vez de oferecer a inscricao de novo.
+    const inscritos = await carregar_inscricoes();
+
     const retorno = await fetch("../../app/Model/Evento/evento_get.php");
     const resposta = await retorno.json();
     if(resposta.status == "ok"){
-        preencherTabela(resposta.data);
+        preencherTabela(resposta.data, inscritos);
     }else{
-        alert(resposta.mensagem);
+        document.getElementById("mensagem").innerHTML =
+            `<div class="alert alert-secondary">${resposta.mensagem}</div>`;
+    }
+}
+
+async function carregar_inscricoes(){
+    try{
+        const retorno = await fetch("../../app/Model/Compra/inscricao_get.php");
+        const resposta = await retorno.json();
+        if(resposta.status !== "ok"){
+            return [];
+        }
+        return resposta.data.map(inscricao => inscricao.id_evento);
+    }catch(erro){
+        return [];
+    }
+}
+
+async function inscrever(id_evento){
+    const fd = new FormData();
+    fd.append("id_evento", id_evento);
+
+    const retorno = await fetch("../../app/Model/Compra/inscricao_novo.php",
+        {
+            method: "POST",
+            body: fd
+        }
+    );
+    const resposta = await retorno.json();
+
+    if(resposta.status == 'ok'){
+        document.getElementById("mensagem").innerHTML =
+            `<div class="alert alert-success">${resposta.mensagem}</div>`;
+        buscar();
+    }else{
+        document.getElementById("mensagem").innerHTML =
+            `<div class="alert alert-danger">${resposta.mensagem}</div>`;
+    }
+}
+
+async function cancelar_inscricao(id_evento){
+    if(!confirm("Deseja mesmo cancelar sua inscrição neste evento?")){
+        return;
+    }
+    const retorno = await fetch("../../app/Model/Compra/inscricao_excluir.php?id_evento="+id_evento);
+    const resposta = await retorno.json();
+
+    if(resposta.status == 'ok'){
+        document.getElementById("mensagem").innerHTML =
+            `<div class="alert alert-info">${resposta.mensagem}</div>`;
+        buscar();
+    }else{
+        document.getElementById("mensagem").innerHTML =
+            `<div class="alert alert-danger">${resposta.mensagem}</div>`;
     }
 }
 
 async function excluir(id) {
     const retorno = await fetch("../../app/Model/Evento/evento_excluir.php?id="+id);
     const resposta = await retorno.json();
-    if(resposta.status == "ok"){
+    if(resposta.status == 'ok'){
         alert(resposta.mensagem);
         window.location.reload();
-    }else {
+    } else {
         alert(resposta.mensagem);
     }
 }
 
-function preencherTabela(tabela) {
+function preencherTabela(tabela, inscritos) {
+    const eh_admin = eh_administrador();
+
+    if(eh_admin){
+        document.getElementById("botao_novo_evento").classList.remove("d-none");
+    }
+
     var html = `
             <table class="table table-dark table-striped table-hover">
                 <tr>
@@ -66,19 +120,32 @@ function preencherTabela(tabela) {
                     <th>Descrição</th>
                     <th>#</th>
                 </tr>`;
-    
+
     for(var i = 0; i<tabela.length; i++){
+        const evento = tabela[i];
+        let acoes = '';
+
+        if(eh_admin){
+            acoes = `
+                <a href="evento_alterar.html?id=${evento.id}" class="btn btn-sm btn-info me-2">Alterar</a>
+                <a href='#' onclick="excluir(${evento.id})" class="btn btn-sm btn-danger">Excluir</a>`;
+        }else if(inscritos.includes(evento.id)){
+            acoes = `
+                <button type="button" class="btn btn-sm btn-outline-light me-2" disabled>Inscrito</button>
+                <a href="#" onclick="cancelar_inscricao(${evento.id})" class="btn btn-sm btn-outline-danger">Cancelar</a>`;
+        }else{
+            acoes = `<button type="button" class="btn btn-sm btn-success"
+                        onclick="inscrever(${evento.id})">Inscrever-se</button>`;
+        }
+
         html += `
                 <tr>
-                <td>${tabela[i].nome}</td>
-                <td>${tabela[i].data_hora}</td>
-                <td>${tabela[i].duracao}</td>
-                <td>${tabela[i].local}</td>
-                <td>${tabela[i].descricao}</td>
-                <td>
-                    <a href='evento_alterar.html?id=${tabela[i].id}' class="btn btn-sm btn-info me-2">Alterar</a>
-                    <a href='#' onclick='excluir(${tabela[i].id})' class="btn btn-sm btn-danger">Excluir</a>
-                </td>
+                <td>${evento.nome}</td>
+                <td>${evento.data_hora}</td>
+                <td>${evento.duracao}</td>
+                <td>${evento.local}</td>
+                <td>${evento.descricao}</td>
+                <td>${acoes}</td>
                 </tr>
                 `;
     }

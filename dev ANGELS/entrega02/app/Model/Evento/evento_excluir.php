@@ -1,5 +1,8 @@
 <?php
-include_once('C:\xampp\htdocs\angels\dev ANGELS\entrega02\core\conexao.php');
+include_once(__DIR__ . '/../../../core/permissao.php');
+    include_once(__DIR__ . '/../../../core/conexao.php');
+
+    exigir_administrador('excluir eventos');
 
 $retorno = [
     'status' => '',

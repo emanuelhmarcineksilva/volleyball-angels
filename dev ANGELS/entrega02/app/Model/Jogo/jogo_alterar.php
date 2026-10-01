@@ -1,5 +1,5 @@
 <?php
-    include_once('C:\xampp\htdocs\angels\dev ANGELS\entrega02\core\conexao.php');
+    include_once(__DIR__ . '/../../../core/conexao.php');
 
     $retorno = [
         'status'    => '',
@@ -40,7 +40,7 @@
         }else{
             $retorno = [
                 'status'    => 'nok',
-                'mensagem'  => 'Não posso alterar um jogo.'.json_encode($_GET),
+                'mensagem'  => 'Registro não encontrado ou sem alterações (affected_rows = 0).',
                 'data'      => []
             ];
         }

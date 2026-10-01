@@ -1,12 +1,12 @@
 let userId = null;
 
+// tela de edicao de evento: so admin
 document.addEventListener("DOMContentLoaded", () => {
-    valida_sessao();
-    configurarHeader();
-    const url = new URLSearchParams(window.location.search); 
-    const id = url.get("id"); 
-    userId = id;
-    buscar(id);  
+    iniciar_pagina(() => {
+        const url = new URLSearchParams(window.location.search);
+        userId = url.get("id");
+        buscar(userId);
+    }, true);
 });
 
 document.getElementById("logout-btn").addEventListener("click", (e) => {

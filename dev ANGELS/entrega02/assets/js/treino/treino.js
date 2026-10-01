@@ -75,8 +75,8 @@ function preencherTabela(tabela){
                 <td>${tabela[i].tipo}</td>       
                 
                 <td> 
-                    <a href='treino_alterar.html?id=${tabela[i].id}' class="btn btn-sm btn-info me-2">Alterar</a>
-                    <a href='#' onclick='excluir(${tabela[i].id})' class="btn btn-sm btn-danger">Excluir</a>
+                    <a href="treino_alterar.html?id=${tabela[i].id}" class="btn btn-sm btn-info me-2">Alterar</a>
+                    <a href='#' onclick="excluir(${tabela[i].id})" class="btn btn-sm btn-danger">Excluir</a>
                 </td>
             </tr>`;
     }

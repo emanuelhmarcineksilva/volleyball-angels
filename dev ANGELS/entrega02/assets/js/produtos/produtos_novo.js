@@ -1,6 +1,7 @@
+// tela de cadastro de produto: so admin chega aqui. iniciar_pagina(_, true)
+// redireciona quem nao e antes de o formulario aparecer.
 document.addEventListener("DOMContentLoaded", () => {
-    valida_sessao();
-    configurarHeader();
+    iniciar_pagina(null, true);
 });
 
 document.getElementById("logout-btn").addEventListener("click", (e) => {

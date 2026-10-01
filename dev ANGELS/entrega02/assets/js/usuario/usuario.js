@@ -1,7 +1,6 @@
+// tela de gerenciamento de usuarios: so admin
 document.addEventListener("DOMContentLoaded", () => {
-    valida_sessao();
-    configurarHeader();
-    buscar();
+    iniciar_pagina(buscar, true);
 });
 
 document.getElementById("novo_cadastro").addEventListener("click", () => {
@@ -61,7 +60,6 @@ function preencherTabela(tabela){
             <tr>
                 <th> Nome </th>
                 <th> Email </th>
-                <th> Senha </th>
                 <th> Telefone </th>
                 <th> Sexo </th>
                 <th> Cargo </th>
@@ -72,13 +70,12 @@ function preencherTabela(tabela){
             <tr>
                 <td>${tabela[i].nome}</td>
                 <td>${tabela[i].email}</td>
-                <td>${tabela[i].senha}</td>
                 <td>${tabela[i].telefone}</td>
                 <td>${tabela[i].sexo}</td>
                 <td>${tabela[i].cargo}</td>
                 <td>
-                    <a href='usuario_alterar.html?id=${tabela[i].id}' class="btn btn-sm btn-info me-2">Alterar</a> 
-                    <a href='#' onclick='excluir(${tabela[i].id})' class="btn btn-sm btn-danger">Excluir</a>
+                    <a href="usuario_alterar.html?id=${tabela[i].id}" class="btn btn-sm btn-info me-2">Alterar</a> 
+                    <a href='#' onclick="excluir(${tabela[i].id})" class="btn btn-sm btn-danger">Excluir</a>
                 </td>
             </tr>
         `;

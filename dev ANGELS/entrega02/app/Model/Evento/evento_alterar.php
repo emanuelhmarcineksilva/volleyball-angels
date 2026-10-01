@@ -1,5 +1,8 @@
 <?php
-    include_once('C:\xampp\htdocs\angels\dev ANGELS\entrega02\core\conexao.php');
+    include_once(__DIR__ . '/../../../core/permissao.php');
+    include_once(__DIR__ . '/../../../core/conexao.php');
+
+    exigir_administrador('alterar eventos');
 
     $retorno = [
         'status'    => '',
@@ -29,7 +32,7 @@ if (isset($_GET['id'])) {
     } else {
         $retorno = [
             'status'    => 'nok',
-            'mensagem'  => 'Não posso alterar um registro.' . json_encode($_GET),
+            'mensagem'  => 'Registro não encontrado ou sem alterações (affected_rows = 0).',
             'data'      => []
         ];
     }

@@ -1,5 +1,8 @@
 <?php
-    include_once('C:\xampp\htdocs\angels\dev ANGELS\entrega02\core\conexao.php');
+    // O cadastro e publico, entao nao ha exigir_login() aqui. O include existe
+    // pela constante CARGOS_CADASTRO, que limita o cargo escolhido no form.
+    include_once(__DIR__ . '/../../../core/permissao.php');
+    include_once(__DIR__ . '/../../../core/conexao.php');
 
     $retorno = [
         'status'    => '',
@@ -13,7 +16,14 @@
     $senha      = $_POST['senha'];
     $telefone   = $_POST['telefone'];
     $sexo       = $_POST['sexo'];
-    $cargo      = $_POST['cargo'];
+
+    // O cadastro e aberto, mas o cargo vai contra a whitelist. Sem isso,
+    // qualquer visitante criava conta como Administrador chamando este arquivo
+    // direto, e a restricao de edicao vira enfeite. Cargo so muda por um admin,
+    // em usuario_alterar.php.
+    $cargo      = isset($_POST['cargo']) && in_array($_POST['cargo'], CARGOS_CADASTRO, true)
+                    ? $_POST['cargo']
+                    : 'Usuário';
 
     $stmt = $conexao->prepare("INSERT INTO usuario (nome, email, telefone, senha, sexo, cargo) VALUES (?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssss", $nome, $email, $telefone, $senha, $sexo, $cargo);

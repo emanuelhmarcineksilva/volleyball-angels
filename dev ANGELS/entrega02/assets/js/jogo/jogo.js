@@ -30,7 +30,7 @@ async function configurarHeader(){
     }
 }
 
-document.getElementById("novo").addEventListener("click", () => {
+document.getElementById("novo_jogo").addEventListener("click", () => {
     window.location.href = 'jogo_novo.html'; // alterar nome do html se for necessário
 });
 
@@ -79,8 +79,8 @@ function preencherTabela(tabela){
                 <td>${tabela[i].ponto_adversario}</td>
                 <td>${tabela[i].observacoes}</td>
                 <td>
-                    <a href='jogo_alterar.html?id=${tabela[i].id}' class="btn btn-sm btn-info me-2">Alterar</a>
-                    <a href='#' onclick='excluir(${tabela[i].id})' class="btn btn-sm btn-danger">Excluir</a>
+                    <a href="jogo_alterar.html?id=${tabela[i].id}" class="btn btn-sm btn-info me-2">Alterar</a>
+                    <a href='#' onclick="excluir(${tabela[i].id})" class="btn btn-sm btn-danger">Excluir</a>
                 </td>
             </tr>
         `;

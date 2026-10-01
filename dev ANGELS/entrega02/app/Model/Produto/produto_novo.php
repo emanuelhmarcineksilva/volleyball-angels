@@ -1,11 +1,12 @@
 <?php
-    include_once('C:\xampp\htdocs\angels\dev ANGELS\entrega02\core\conexao.php');
+    include_once(__DIR__ . '/../../../core/permissao.php');
+    include_once(__DIR__ . '/../../../core/conexao.php');
 
-    $retorno = [
-        'status'    => '',
-        'mensagem'  => '',
-        'data'      => []
-    ];
+    // Usuario, Membro e Jogador sao proibidos de mexer em produtos. A
+    // permissao e conferida no servidor porque o botao escondido no front
+    // nao impede ninguem de chamar este arquivo direto pela URL.
+    exigir_administrador('cadastrar produtos');
+
     // Simulando as informações que vem do front
     $nome       = $_POST['nome']; // $_POST['nome'];
     $descricao  = $_POST['descricao'];

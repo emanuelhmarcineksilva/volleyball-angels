@@ -1,4 +1,7 @@
-document.getElementById("enviar").addEventListener("click", () => {
+// escuta o submit do form, e nao o click do botao: sem preventDefault no
+// click, o form fazia o GET nativo e recarregava a pagina antes do fetch
+document.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault();
     login();
 });
 

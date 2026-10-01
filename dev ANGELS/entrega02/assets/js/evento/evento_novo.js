@@ -1,6 +1,6 @@
+// tela de cadastro de evento: so admin
 document.addEventListener("DOMContentLoaded", () => {
-    valida_sessao();
-    configurarHeader();
+    iniciar_pagina(null, true);
 });
 
 document.getElementById("logout-btn").addEventListener("click", (e) => {
@@ -29,7 +29,9 @@ async function configurarHeader(){
     }
 }
 
-document.getElementById("enviar").addEventListener("click",() => { 
+// submit do form em vez do click do botao, para o form nao recarregar a pagina
+document.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault();
     novo();
 });
 

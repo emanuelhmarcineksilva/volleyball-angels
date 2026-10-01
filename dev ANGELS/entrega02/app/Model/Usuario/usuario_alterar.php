@@ -1,5 +1,8 @@
 <?php
-    include_once('C:\xampp\htdocs\angels\dev ANGELS\entrega02\core\conexao.php');
+    include_once(__DIR__ . '/../../../core/permissao.php');
+    include_once(__DIR__ . '/../../../core/conexao.php');
+
+    exigir_administrador('gerenciar usuários');
 
     $retorno = [
         'status'    => '',
@@ -10,13 +13,21 @@
     if(isset($_GET['id'])){
         $nome       = $_POST['nome'];
         $email      = $_POST['email'];
-        $senha      = $_POST['senha'];
         $telefone   = $_POST['telefone'];
         $sexo       = $_POST['sexo'];
         $cargo      = $_POST['cargo'];
 
-        $stmt = $conexao->prepare("UPDATE usuario SET nome = ?, email = ?, senha = ?, telefone = ?, sexo = ?, cargo = ? WHERE id = ?");
-        $stmt->bind_param("ssssssi", $nome, $email, $senha, $telefone, $sexo, $cargo, $_GET['id']);
+        // Senha em branco no formulario = manter a senha atual. Sem esse
+        // desvio, editar o cargo de alguem zeraria a senha da pessoa.
+        $senha = senha_do_post();
+
+        if($senha === null){
+            $stmt = $conexao->prepare("UPDATE usuario SET nome = ?, email = ?, telefone = ?, sexo = ?, cargo = ? WHERE id = ?");
+            $stmt->bind_param("sssssi", $nome, $email, $telefone, $sexo, $cargo, $_GET['id']);
+        }else{
+            $stmt = $conexao->prepare("UPDATE usuario SET nome = ?, email = ?, senha = ?, telefone = ?, sexo = ?, cargo = ? WHERE id = ?");
+            $stmt->bind_param("ssssssi", $nome, $email, $senha, $telefone, $sexo, $cargo, $_GET['id']);
+        }
         $stmt->execute();
 
         if($stmt->affected_rows > 0){
@@ -28,7 +39,7 @@
         }else{
                 $retorno = [
                 'status'    => 'nok',
-                'mensagem'  => 'Não posso alterar um registro.'.json_encode($_GET),
+                'mensagem'  => 'Registro não encontrado ou sem alterações (affected_rows = 0).',
                 'data'      => []
             ];
         }

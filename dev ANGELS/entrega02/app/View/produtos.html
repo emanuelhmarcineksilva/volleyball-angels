@@ -40,6 +40,8 @@
                             <li><a class="dropdown-item" href="treino.html">Treinos</a></li>
                             <li><a class="dropdown-item" href="produtos.html">Produtos</a></li>
                             <li><a class="dropdown-item" href="usuario.html">Usuários</a></li>
+                            <li><a class="dropdown-item" href="carrinho.html">Carrinho</a></li>
+                            <li><a class="dropdown-item" href="meus_pedidos.html">Meus pedidos</a></li>
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -57,8 +59,11 @@
                     <li class="nav-item nav-item-desktop">
                         <a class="nav-link active" aria-current="page" href="produtos.html">Produtos</a>
                     </li>
+                    <li class="nav-item nav-item-desktop" id="nav-carrinho">
+                        <a class="nav-link" href="carrinho.html">Carrinho <span class="badge bg-secondary" id="carrinho-contador">0</span></a>
+                    </li>
                     <li class="nav-item nav-item-desktop">
-                        <a class="nav-link" href="usuario.html">Usuários</a>
+                        <a class="nav-link" href="meus_pedidos.html">Meus pedidos</a>
                     </li>
                 </ul>
             </nav>
@@ -74,7 +79,7 @@
                     <input id="input_busca" class="form-control me-2" type="search" placeholder="Buscar Produtos" aria-label="Search"/>
                 </form>
             </div>
-            <div id="botao_novo_produto">
+            <div id="botao_novo_produto" class="d-none">
                 <a href="produtos_novo.html" id="novo_produto" type="button" class="btn btn-primary">Novo produto</a>
             </div>
         </div>

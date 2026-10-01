@@ -1,5 +1,5 @@
 <?php
-    include_once('C:\xampp\htdocs\angels\dev ANGELS\entrega02\core\conexao.php');
+    include_once(__DIR__ . '/../../../core/conexao.php');
     
     $retorno = [
         'status'    => '', 

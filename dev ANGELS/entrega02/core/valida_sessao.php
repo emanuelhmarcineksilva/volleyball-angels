@@ -1,12 +1,21 @@
 <?php
-    session_start();
-    if(isset($_SESSION['email']) && !empty($_SESSION['email'][0]['nome'])){
-        $nome_usuario = $_SESSION['email'][0]['nome'];
+    include_once(__DIR__ . '/permissao.php');
 
+    // O front precisa saber o cargo para esconder os botoes de Alterar/Excluir/
+    // Novo Produto e Novo Evento. Isso e conveniencia de UX, nao seguranca: a
+    // autoridade real esta nos endpoints, via exigir_administrador().
+    $usuario = usuario_atual();
+
+    if($usuario !== null){
         $retorno = [
             'status'    => 'ok',
-            'mensagem'  => 'Nome do usuário retornado com sucesso.',
-            'data'      => ['nome' => $nome_usuario]
+            'mensagem'  => 'Sessão validada com sucesso.',
+            'data'      => [
+                'id'    => (int) $usuario['id'],
+                'nome'  => $usuario['nome'],
+                'cargo' => $usuario['cargo'],
+                'administrador' => eh_administrador()
+            ]
         ];
     }else{
         $retorno = [
@@ -15,5 +24,6 @@
             'data'      => []
         ];
     }
+
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode($retorno);

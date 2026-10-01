@@ -53,7 +53,8 @@ async function buscar(id){
 }
 
 // Fase 2
-document.getElementById("enviar").addEventListener("click", () => {
+document.querySelector("form").addEventListener("submit", (e) => {
+    e.preventDefault();
     alterar();
 });
 
