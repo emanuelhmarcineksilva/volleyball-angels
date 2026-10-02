@@ -28,6 +28,13 @@ async function configurarHeader(usuario){
 }
 
 async function buscar(){
+    // Destrava o botao de criar produto aqui, e nao dentro de preencherTabela:
+    // com a tabela vazia produto_get.php devolve 'nok' e preencherTabela nunca
+    // roda — o admin ficaria sem botao justamente quando mais precisa dele.
+    if(eh_administrador()){
+        document.getElementById("botao_novo_produto").classList.remove("d-none");
+    }
+
     const retorno = await fetch("../../app/Model/Produto/produto_get.php");
     const resposta = await retorno.json();
     if(resposta.status == "ok"){
@@ -93,10 +100,6 @@ function formatar_preco(valor){
 
 function preencherTabela(tabela){
     const eh_admin = eh_administrador();
-
-    if(eh_admin){
-        document.getElementById("botao_novo_produto").classList.remove("d-none");
-    }
 
     var html = `
         <table class="table table-dark table-striped table-hover">

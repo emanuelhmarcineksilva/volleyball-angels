@@ -26,7 +26,14 @@ async function configurarHeader(usuario){
 }
 
 async function buscar() {
-    // inscribed_ids diz quais eventos a pessoa ja assinou, para o botao virar
+    // O botao de criar evento e destravado aqui, e nao dentro de preencherTabela:
+    // com a tabela vazia evento_get.php devolve 'nok' e preencherTabela nunca
+    // roda — o admin ficava sem botao justamente quando mais precisava dele.
+    if(eh_administrador()){
+        document.getElementById("botao_novo_evento").classList.remove("d-none");
+    }
+
+    // inscricao_ids diz quais eventos a pessoa ja assinou, para o botao virar
     // "Inscrito" em vez de oferecer a inscricao de novo.
     const inscritos = await carregar_inscricoes();
 
@@ -105,10 +112,6 @@ async function excluir(id) {
 
 function preencherTabela(tabela, inscritos) {
     const eh_admin = eh_administrador();
-
-    if(eh_admin){
-        document.getElementById("botao_novo_evento").classList.remove("d-none");
-    }
 
     var html = `
             <table class="table table-dark table-striped table-hover">
