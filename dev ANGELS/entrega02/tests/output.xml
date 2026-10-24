@@ -1,0 +1,1272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.5 (Python 3.14.7 on linux)" generated="2026-10-23T20:53:47.098064" rpa="false" schemaversion="5">
+<suite id="s1" name="Caixa Branca" source="/opt/lampp/htdocs/volleyball-angels/dev ANGELS/entrega02/tests/caixa_branca.robot">
+<kw name="Reset Database" owner="SystemBackend" type="SETUP">
+<status status="PASS" start="2026-10-23T20:53:47.614221" elapsed="0.008620"/>
+</kw>
+<test id="s1-t1" name="Caso 01 - Validacao de Criptografia de Senha" line="17">
+<kw name="Reset Database" owner="SystemBackend" type="SETUP">
+<status status="PASS" start="2026-10-23T20:53:47.626418" elapsed="0.009732"/>
+</kw>
+<kw name="Register Member" owner="SystemBackend">
+<msg time="2026-10-23T20:53:47.914297" level="INFO">${resultado} = {'user_id': 1, 'nome': 'Ana Silva', 'email': 'ana.silva@angels.test', 'cargo': 'membro', 'hash_calls': 1, 'hash_calls_total': 1, 'elapsed_ms': 275.23404699968523}</msg>
+<var>${resultado}</var>
+<arg>Ana Silva</arg>
+<arg>ana.silva@angels.test</arg>
+<arg>${SENHA}</arg>
+<arg>telefone=41999990001</arg>
+<arg>sexo=feminino</arg>
+<status status="PASS" start="2026-10-23T20:53:47.637149" elapsed="0.277470"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${resultado}[cargo]</arg>
+<arg>membro</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:47.915672" elapsed="0.002878"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${resultado}[hash_calls] == 1</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-10-23T20:53:47.919392" elapsed="0.002761"/>
+</kw>
+<kw name="Query Scalar" owner="SystemBackend">
+<msg time="2026-10-23T20:53:47.924054" level="INFO">${senha_no_banco} = $2b$09$vYW5xSh8gooHldKBV8hcCOaN8Bm/pIYIqv4K.rEuLh0UjYfDTVns2</msg>
+<var>${senha_no_banco}</var>
+<arg>SELECT senha FROM usuarios WHERE email = ?</arg>
+<arg>ana.silva@angels.test</arg>
+<status status="PASS" start="2026-10-23T20:53:47.922803" elapsed="0.001455"/>
+</kw>
+<kw name="Should Not Be Equal" owner="BuiltIn">
+<arg>${senha_no_banco}</arg>
+<arg>${SENHA}</arg>
+<doc>Fails if the given objects are equal.</doc>
+<status status="PASS" start="2026-10-23T20:53:47.924991" elapsed="0.002134"/>
+</kw>
+<kw name="Get Password Hash Prefix" owner="SystemBackend">
+<msg time="2026-10-23T20:53:47.928564" level="INFO">${prefixo} = $2b$</msg>
+<var>${prefixo}</var>
+<status status="PASS" start="2026-10-23T20:53:47.927768" elapsed="0.000979"/>
+</kw>
+<kw name="Should Start With" owner="BuiltIn">
+<arg>${senha_no_banco}</arg>
+<arg>${prefixo}</arg>
+<doc>Fails if the string `str1` does not start with the string `str2`.</doc>
+<status status="PASS" start="2026-10-23T20:53:47.929482" elapsed="0.004223"/>
+</kw>
+<kw name="Verify Password" owner="SystemBackend">
+<msg time="2026-10-23T20:53:48.109064" level="INFO">${confere} = True</msg>
+<var>${confere}</var>
+<arg>${SENHA}</arg>
+<arg>${senha_no_banco}</arg>
+<status status="PASS" start="2026-10-23T20:53:47.934590" elapsed="0.174742"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${confere}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-10-23T20:53:48.110137" elapsed="0.001864"/>
+</kw>
+<kw name="Assert Password Is Protected" owner="SystemBackend">
+<msg time="2026-10-23T20:53:48.247517" level="INFO">${protegida} = True</msg>
+<var>${protegida}</var>
+<arg>ana.silva@angels.test</arg>
+<arg>${SENHA}</arg>
+<status status="PASS" start="2026-10-23T20:53:48.112669" elapsed="0.135076"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${protegida}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-10-23T20:53:48.248627" elapsed="0.002059"/>
+</kw>
+<kw name="Get Password Algorithm" owner="SystemBackend">
+<msg time="2026-10-23T20:53:48.252543" level="INFO">${algoritmo} = bcrypt</msg>
+<var>${algoritmo}</var>
+<arg>ana.silva@angels.test</arg>
+<status status="PASS" start="2026-10-23T20:53:48.251335" elapsed="0.001402"/>
+</kw>
+<kw name="Should Match Regexp" owner="BuiltIn">
+<arg>${algoritmo}</arg>
+<arg>^(bcrypt|scrypt|pbkdf2_sha256)$</arg>
+<doc>Fails if the `string` does not match the regular expression `pattern`.</doc>
+<status status="PASS" start="2026-10-23T20:53:48.253661" elapsed="0.002633"/>
+</kw>
+<doc>O cadastro deve chamar o hasher e persistir apenas o hash.</doc>
+<tag>backend</tag>
+<tag>caixa-branca</tag>
+<tag>seguranca</tag>
+<tag>senha</tag>
+<status status="PASS" start="2026-10-23T20:53:47.623574" elapsed="0.633432"/>
+</test>
+<test id="s1-t2" name="Caso 02 - Controle de Acesso RBAC na Exclusao de Evento" line="35">
+<kw name="Reset Database" owner="SystemBackend" type="SETUP">
+<status status="PASS" start="2026-10-23T20:53:48.261078" elapsed="0.008604"/>
+</kw>
+<kw name="Create User" owner="SystemBackend">
+<msg time="2026-10-23T20:53:48.542589" level="INFO">${admin} = {'user_id': 1, 'nome': 'Admin QA', 'email': 'admin.qa@angels.test', 'cargo': 'administrador', 'hash_calls': 1, 'hash_calls_total': 1, 'elapsed_ms': 270.08109700000205}</msg>
+<var>${admin}</var>
+<arg>Admin QA</arg>
+<arg>admin.qa@angels.test</arg>
+<arg>${SENHA}</arg>
+<arg>cargo=Administrador</arg>
+<status status="PASS" start="2026-10-23T20:53:48.270384" elapsed="0.272407"/>
+</kw>
+<kw name="Create User" owner="SystemBackend">
+<msg time="2026-10-23T20:53:48.811961" level="INFO">${membro} = {'user_id': 2, 'nome': 'Membro QA', 'email': 'membro.qa@angels.test', 'cargo': 'membro', 'hash_calls': 1, 'hash_calls_total': 2, 'elapsed_ms': 265.4433830002745}</msg>
+<var>${membro}</var>
+<arg>Membro QA</arg>
+<arg>membro.qa@angels.test</arg>
+<arg>${SENHA}</arg>
+<arg>cargo=Membro</arg>
+<status status="PASS" start="2026-10-23T20:53:48.543411" elapsed="0.268751"/>
+</kw>
+<kw name="Create User" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.073574" level="INFO">${presidente} = {'user_id': 3, 'nome': 'Presidente QA', 'email': 'presidente.qa@angels.test', 'cargo': 'presidente', 'hash_calls': 1, 'hash_calls_total': 3, 'elapsed_ms': 259.4477439997718}</msg>
+<var>${presidente}</var>
+<arg>Presidente QA</arg>
+<arg>presidente.qa@angels.test</arg>
+<arg>${SENHA}</arg>
+<arg>cargo=Presidente</arg>
+<status status="PASS" start="2026-10-23T20:53:48.812785" elapsed="0.260971"/>
+</kw>
+<kw name="Create Event" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.076038" level="INFO">${evento} = {'event_id': 1, 'nome': 'Evento RBAC', 'criado_por': 1}</msg>
+<var>${evento}</var>
+<arg>${admin}[user_id]</arg>
+<arg>Evento RBAC</arg>
+<arg>2026-11-01 10:00</arg>
+<arg>Ginasio</arg>
+<arg>duracao=02:00</arg>
+<arg>descricao=Evento de teste</arg>
+<status status="PASS" start="2026-10-23T20:53:49.074335" elapsed="0.001872"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Delete Event" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.079692" level="FAIL">PermissionDeniedError: Apenas Administrador ou Presidente podem excluir eventos.</msg>
+<arg>${membro}[user_id]</arg>
+<arg>${evento}[event_id]</arg>
+<status status="FAIL" start="2026-10-23T20:53:49.078600" elapsed="0.008655">PermissionDeniedError: Apenas Administrador ou Presidente podem excluir eventos.</status>
+</kw>
+<arg>PermissionDeniedError: *</arg>
+<arg>Delete Event</arg>
+<arg>${membro}[user_id]</arg>
+<arg>${evento}[event_id]</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.076953" elapsed="0.011165"/>
+</kw>
+<kw name="Event Exists" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.089731" level="INFO">${existe} = True</msg>
+<var>${existe}</var>
+<arg>${evento}[event_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:49.088596" elapsed="0.001295"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${existe}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.090552" elapsed="0.001374"/>
+</kw>
+<kw name="Delete Event" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.093734" level="INFO">${excluido_admin} = {'deleted': True, 'event_id': 1, 'nome': 'Evento RBAC'}</msg>
+<var>${excluido_admin}</var>
+<arg>${admin}[user_id]</arg>
+<arg>${evento}[event_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:49.092378" elapsed="0.001549"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${excluido_admin}[deleted]</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.094795" elapsed="0.001691"/>
+</kw>
+<kw name="Create Event" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.098364" level="INFO">${evento2} = {'event_id': 2, 'nome': 'Evento Presidente', 'criado_por': 3}</msg>
+<var>${evento2}</var>
+<arg>${presidente}[user_id]</arg>
+<arg>Evento Presidente</arg>
+<arg>2026-11-02 10:00</arg>
+<arg>Ginasio</arg>
+<status status="PASS" start="2026-10-23T20:53:49.096917" elapsed="0.001657"/>
+</kw>
+<kw name="Delete Event" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.101186" level="INFO">${excluido_presidente} = {'deleted': True, 'event_id': 2, 'nome': 'Evento Presidente'}</msg>
+<var>${excluido_presidente}</var>
+<arg>${presidente}[user_id]</arg>
+<arg>${evento2}[event_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:49.099385" elapsed="0.001977"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${excluido_presidente}[deleted]</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.101975" elapsed="0.001654"/>
+</kw>
+<doc>Membro nao pode excluir evento; Admin e Presidente podem.</doc>
+<tag>backend</tag>
+<tag>caixa-branca</tag>
+<tag>eventos</tag>
+<tag>rbac</tag>
+<status status="PASS" start="2026-10-23T20:53:48.258562" elapsed="0.845780"/>
+</test>
+<test id="s1-t3" name="Caso 03 - Calculo de Assiduidade do Jogador" line="54">
+<kw name="Reset Database" owner="SystemBackend" type="SETUP">
+<status status="PASS" start="2026-10-23T20:53:49.107880" elapsed="0.006624"/>
+</kw>
+<kw name="Register Member" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.364389" level="INFO">${aluno} = {'user_id': 1, 'nome': 'Aluno Presenca', 'email': 'aluno.presenca@angels.test', 'cargo': 'membro', 'hash_calls': 1, 'hash_calls_total': 1, 'elapsed_ms': 248.30170199948043}</msg>
+<var>${aluno}</var>
+<arg>Aluno Presenca</arg>
+<arg>aluno.presenca@angels.test</arg>
+<arg>${SENHA}</arg>
+<status status="PASS" start="2026-10-23T20:53:49.114970" elapsed="0.249625"/>
+</kw>
+<kw name="Create Training" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.366461" level="INFO">${t1} = {'treino_id': 1, 'data_hora': '2026-10-01 18:00'}</msg>
+<var>${t1}</var>
+<arg>2026-10-01 18:00</arg>
+<arg>Ginasio</arg>
+<arg>duracao=01:30</arg>
+<arg>tipo=Coletivo</arg>
+<status status="PASS" start="2026-10-23T20:53:49.365180" elapsed="0.001451"/>
+</kw>
+<kw name="Create Training" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.368143" level="INFO">${t2} = {'treino_id': 2, 'data_hora': '2026-10-03 18:00'}</msg>
+<var>${t2}</var>
+<arg>2026-10-03 18:00</arg>
+<arg>Ginasio</arg>
+<arg>duracao=01:30</arg>
+<arg>tipo=Coletivo</arg>
+<status status="PASS" start="2026-10-23T20:53:49.367162" elapsed="0.001127"/>
+</kw>
+<kw name="Create Training" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.369689" level="INFO">${t3} = {'treino_id': 3, 'data_hora': '2026-10-05 18:00'}</msg>
+<var>${t3}</var>
+<arg>2026-10-05 18:00</arg>
+<arg>Ginasio</arg>
+<arg>duracao=01:30</arg>
+<arg>tipo=Coletivo</arg>
+<status status="PASS" start="2026-10-23T20:53:49.368734" elapsed="0.001142"/>
+</kw>
+<kw name="Record Attendance" owner="SystemBackend">
+<arg>${t1}[treino_id]</arg>
+<arg>${aluno}[user_id]</arg>
+<arg>presente</arg>
+<status status="PASS" start="2026-10-23T20:53:49.370399" elapsed="0.002159"/>
+</kw>
+<kw name="Record Attendance" owner="SystemBackend">
+<arg>${t2}[treino_id]</arg>
+<arg>${aluno}[user_id]</arg>
+<arg>presente</arg>
+<status status="PASS" start="2026-10-23T20:53:49.373227" elapsed="0.001777"/>
+</kw>
+<kw name="Record Attendance" owner="SystemBackend">
+<arg>${t3}[treino_id]</arg>
+<arg>${aluno}[user_id]</arg>
+<arg>falta</arg>
+<status status="PASS" start="2026-10-23T20:53:49.375594" elapsed="0.001591"/>
+</kw>
+<kw name="Calculate Attendance Percentage" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.378998" level="INFO">${percentual} = 66.6</msg>
+<var>${percentual}</var>
+<arg>${aluno}[user_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:49.377732" elapsed="0.001422"/>
+</kw>
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:49.381619" level="INFO">Argument types are:
+&lt;class 'float'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${percentual}</arg>
+<arg>66.6</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.379879" elapsed="0.002261"/>
+</kw>
+<kw name="Attendance Report" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.383857" level="INFO">${relatorio} = {'usuario_id': 1, 'total': 3, 'present': 2, 'absent': 1, 'justified': 0, 'percentage': 66.6}</msg>
+<var>${relatorio}</var>
+<arg>${aluno}[user_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:49.382715" elapsed="0.001321"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:49.386164" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${relatorio}[total]</arg>
+<arg>3</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.384705" elapsed="0.001759"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:49.387865" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${relatorio}[present]</arg>
+<arg>2</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.386904" elapsed="0.001167"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:49.389488" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${relatorio}[absent]</arg>
+<arg>1</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.388530" elapsed="0.001161"/>
+</kw>
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:49.391350" level="INFO">Argument types are:
+&lt;class 'float'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${relatorio}[percentage]</arg>
+<arg>66.6</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.390356" elapsed="0.001253"/>
+</kw>
+<doc>Duas presencas em tres treinos deve retornar 66.6%.</doc>
+<tag>assiduidade</tag>
+<tag>backend</tag>
+<tag>caixa-branca</tag>
+<tag>presenca</tag>
+<status status="PASS" start="2026-10-23T20:53:49.105760" elapsed="0.286324"/>
+</test>
+<test id="s1-t4" name="Caso 04 - Decremento Transacional de Estoque" line="72">
+<kw name="Reset Database" owner="SystemBackend" type="SETUP">
+<status status="PASS" start="2026-10-23T20:53:49.394077" elapsed="0.005522"/>
+</kw>
+<kw name="Register Member" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.657235" level="INFO">${membro} = {'user_id': 1, 'nome': 'Comprador QA', 'email': 'comprador.qa@angels.test', 'cargo': 'membro', 'hash_calls': 1, 'hash_calls_total': 1, 'elapsed_ms': 255.980597999951}</msg>
+<var>${membro}</var>
+<arg>Comprador QA</arg>
+<arg>comprador.qa@angels.test</arg>
+<arg>${SENHA}</arg>
+<status status="PASS" start="2026-10-23T20:53:49.400043" elapsed="0.257406"/>
+</kw>
+<kw name="Create Product" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.659473" level="INFO">${produto} = {'product_id': 1, 'nome': 'Camisa Oficial', 'preco_cents': 8990, 'preco': '89.90', 'estoque': 5}</msg>
+<var>${produto}</var>
+<arg>Camisa Oficial</arg>
+<arg>89.90</arg>
+<arg>5</arg>
+<arg>descricao=Camisa do clube</arg>
+<arg>categoria=Vestuario</arg>
+<status status="PASS" start="2026-10-23T20:53:49.658004" elapsed="0.001639"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-10-23T20:53:49.663480" level="INFO">${item} = {'produto_id': 1, 'quantidade': '2'}</msg>
+<var>${item}</var>
+<arg>produto_id=${produto}[product_id]</arg>
+<arg>quantidade=2</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.660542" elapsed="0.003124"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-10-23T20:53:49.666101" level="INFO">${itens} = [{'produto_id': 1, 'quantidade': '2'}]</msg>
+<var>${itens}</var>
+<arg>${item}</arg>
+<doc>Creates and returns a list containing the given items.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.664376" elapsed="0.001905"/>
+</kw>
+<kw name="Process Order" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.669333" level="INFO">${pedido} = {'order_id': 1, 'usuario_id': 1, 'total_cents': 17980, 'total': '179.80', 'forma_pagamento': 'PIX', 'situacao': 'Aguardando pagamento', 'items': [{'produto_id': 1, 'nome': 'Camisa Oficial', 'quantidad...</msg>
+<var>${pedido}</var>
+<arg>${membro}[user_id]</arg>
+<arg>${itens}</arg>
+<status status="PASS" start="2026-10-23T20:53:49.666825" elapsed="0.002686"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:49.671825" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${pedido}[total_cents]</arg>
+<arg>17980</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.670159" elapsed="0.002010"/>
+</kw>
+<kw name="Query Scalar" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.673883" level="INFO">${estoque_no_banco} = 3</msg>
+<var>${estoque_no_banco}</var>
+<arg>SELECT estoque FROM produtos WHERE id = ?</arg>
+<arg>${produto}[product_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:49.672735" elapsed="0.001313"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:49.676260" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${estoque_no_banco}</arg>
+<arg>3</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.674743" elapsed="0.001871"/>
+</kw>
+<kw name="Query Scalar" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.678671" level="INFO">${itens_no_banco} = 1</msg>
+<var>${itens_no_banco}</var>
+<arg>SELECT COUNT(*) FROM pedido_itens WHERE pedido_id = ?</arg>
+<arg>${pedido}[order_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:49.677176" elapsed="0.001671"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:49.681339" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${itens_no_banco}</arg>
+<arg>1</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.679698" elapsed="0.001987"/>
+</kw>
+<doc>Estoque 5 menos pedido de 2 deve resultar em 3 no banco.</doc>
+<tag>backend</tag>
+<tag>caixa-branca</tag>
+<tag>estoque</tag>
+<tag>pedido</tag>
+<status status="PASS" start="2026-10-23T20:53:49.392805" elapsed="0.289416"/>
+</test>
+<test id="s1-t5" name="Caso 05 - Bloqueio de Venda sem Estoque" line="89">
+<kw name="Reset Database" owner="SystemBackend" type="SETUP">
+<status status="PASS" start="2026-10-23T20:53:49.685474" elapsed="0.009336"/>
+</kw>
+<kw name="Register Member" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.972724" level="INFO">${membro} = {'user_id': 1, 'nome': 'Comprador Falha', 'email': 'comprador.falha@angels.test', 'cargo': 'membro', 'hash_calls': 1, 'hash_calls_total': 1, 'elapsed_ms': 275.73149299951183}</msg>
+<var>${membro}</var>
+<arg>Comprador Falha</arg>
+<arg>comprador.falha@angels.test</arg>
+<arg>${SENHA}</arg>
+<status status="PASS" start="2026-10-23T20:53:49.695508" elapsed="0.277434"/>
+</kw>
+<kw name="Create Product" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.975025" level="INFO">${produto} = {'product_id': 1, 'nome': 'Produto Esgotado', 'preco_cents': 1500, 'preco': '15.00', 'estoque': 0}</msg>
+<var>${produto}</var>
+<arg>Produto Esgotado</arg>
+<arg>15.00</arg>
+<arg>0</arg>
+<status status="PASS" start="2026-10-23T20:53:49.973584" elapsed="0.001646"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-10-23T20:53:49.978946" level="INFO">${item} = {'produto_id': 1, 'quantidade': '1'}</msg>
+<var>${item}</var>
+<arg>produto_id=${produto}[product_id]</arg>
+<arg>quantidade=1</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.976121" elapsed="0.003012"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-10-23T20:53:49.981756" level="INFO">${itens} = [{'produto_id': 1, 'quantidade': '1'}]</msg>
+<var>${itens}</var>
+<arg>${item}</arg>
+<doc>Creates and returns a list containing the given items.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.979818" elapsed="0.002126"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Process Order" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.986775" level="FAIL">OutOfStockError: Estoque insuficiente de "Produto Esgotado". Disponível: 0, solicitado: 1.</msg>
+<arg>${membro}[user_id]</arg>
+<arg>${itens}</arg>
+<status status="FAIL" start="2026-10-23T20:53:49.984890" elapsed="0.005506">OutOfStockError: Estoque insuficiente de "Produto Esgotado". Disponível: 0, solicitado: 1.</status>
+</kw>
+<arg>OutOfStockError: *</arg>
+<arg>Process Order</arg>
+<arg>${membro}[user_id]</arg>
+<arg>${itens}</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.982894" elapsed="0.008619"/>
+</kw>
+<kw name="Query Scalar" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.993477" level="INFO">${estoque} = 0</msg>
+<var>${estoque}</var>
+<arg>SELECT estoque FROM produtos WHERE id = ?</arg>
+<arg>${produto}[product_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:49.992120" elapsed="0.001534"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:49.996426" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${estoque}</arg>
+<arg>0</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.994396" elapsed="0.002495"/>
+</kw>
+<kw name="Query Scalar" owner="SystemBackend">
+<msg time="2026-10-23T20:53:49.998708" level="INFO">${pedidos} = 0</msg>
+<var>${pedidos}</var>
+<arg>SELECT COUNT(*) FROM pedidos</arg>
+<status status="PASS" start="2026-10-23T20:53:49.997439" elapsed="0.001462"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.001583" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${pedidos}</arg>
+<arg>0</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:49.999656" elapsed="0.002307"/>
+</kw>
+<kw name="Query Scalar" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.003689" level="INFO">${itens_pedido} = 0</msg>
+<var>${itens_pedido}</var>
+<arg>SELECT COUNT(*) FROM pedido_itens</arg>
+<status status="PASS" start="2026-10-23T20:53:50.002606" elapsed="0.001253"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.006331" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${itens_pedido}</arg>
+<arg>0</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.004568" elapsed="0.002467"/>
+</kw>
+<doc>Produto com estoque zero deve lancar OutOfStockError e rollback.</doc>
+<tag>backend</tag>
+<tag>caixa-branca</tag>
+<tag>estoque</tag>
+<tag>excecao</tag>
+<status status="PASS" start="2026-10-23T20:53:49.683362" elapsed="0.324340"/>
+</test>
+<test id="s1-t6" name="Caso 06 - Calculo Matematico do Carrinho" line="105">
+<kw name="Reset Database" owner="SystemBackend" type="SETUP">
+<status status="PASS" start="2026-10-23T20:53:50.011409" elapsed="0.009098"/>
+</kw>
+<kw name="Register Member" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.257865" level="INFO">${membro} = {'user_id': 1, 'nome': 'Comprador Carrinho', 'email': 'carrinho.qa@angels.test', 'cargo': 'membro', 'hash_calls': 1, 'hash_calls_total': 1, 'elapsed_ms': 235.53899099988485}</msg>
+<var>${membro}</var>
+<arg>Comprador Carrinho</arg>
+<arg>carrinho.qa@angels.test</arg>
+<arg>${SENHA}</arg>
+<status status="PASS" start="2026-10-23T20:53:50.021145" elapsed="0.236885"/>
+</kw>
+<kw name="Create Product" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.259091" level="INFO">${p1} = {'product_id': 1, 'nome': 'Produto A', 'preco_cents': 1050, 'preco': '10.50', 'estoque': 10}</msg>
+<var>${p1}</var>
+<arg>Produto A</arg>
+<arg>10.50</arg>
+<arg>10</arg>
+<status status="PASS" start="2026-10-23T20:53:50.258415" elapsed="0.000759"/>
+</kw>
+<kw name="Create Product" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.260043" level="INFO">${p2} = {'product_id': 2, 'nome': 'Produto B', 'preco_cents': 3500, 'preco': '35.00', 'estoque': 10}</msg>
+<var>${p2}</var>
+<arg>Produto B</arg>
+<arg>35.00</arg>
+<arg>10</arg>
+<status status="PASS" start="2026-10-23T20:53:50.259461" elapsed="0.000667"/>
+</kw>
+<kw name="Create Product" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.261213" level="INFO">${p3} = {'product_id': 3, 'nome': 'Produto C', 'preco_cents': 725, 'preco': '7.25', 'estoque': 10}</msg>
+<var>${p3}</var>
+<arg>Produto C</arg>
+<arg>7.25</arg>
+<arg>10</arg>
+<status status="PASS" start="2026-10-23T20:53:50.260477" elapsed="0.000879"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.263401" level="INFO">${i1} = {'produto_id': 1, 'quantidade': '2'}</msg>
+<var>${i1}</var>
+<arg>produto_id=${p1}[product_id]</arg>
+<arg>quantidade=2</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.261911" elapsed="0.001596"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.265783" level="INFO">${i2} = {'produto_id': 2, 'quantidade': '1'}</msg>
+<var>${i2}</var>
+<arg>produto_id=${p2}[product_id]</arg>
+<arg>quantidade=1</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.263994" elapsed="0.001906"/>
+</kw>
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.268591" level="INFO">${i3} = {'produto_id': 3, 'quantidade': '3'}</msg>
+<var>${i3}</var>
+<arg>produto_id=${p3}[product_id]</arg>
+<arg>quantidade=3</arg>
+<doc>Creates and returns a dictionary based on the given `items`.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.266449" elapsed="0.002281"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.270677" level="INFO">${itens} = [{'produto_id': 1, 'quantidade': '2'}, {'produto_id': 2, 'quantidade': '1'}, {'produto_id': 3, 'quantidade': '3'}]</msg>
+<var>${itens}</var>
+<arg>${i1}</arg>
+<arg>${i2}</arg>
+<arg>${i3}</arg>
+<doc>Creates and returns a list containing the given items.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.269213" elapsed="0.001574"/>
+</kw>
+<kw name="Calculate Cart Total" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.272137" level="INFO">${preview} = {'items': [{'produto_id': 1, 'nome': 'Produto A', 'quantidade': 2, 'preco_unitario_cents': 1050, 'preco_unitario': '10.50', 'subtotal_cents': 2100, 'subtotal': '21.00'}, {'produto_id': 2, 'nome': 'Pro...</msg>
+<var>${preview}</var>
+<arg>${itens}</arg>
+<status status="PASS" start="2026-10-23T20:53:50.271145" elapsed="0.001101"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.273777" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${preview}[subtotals_cents][0]</arg>
+<arg>2100</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.272800" elapsed="0.001174"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.275369" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${preview}[subtotals_cents][1]</arg>
+<arg>3500</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.274400" elapsed="0.001207"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.276925" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${preview}[subtotals_cents][2]</arg>
+<arg>2175</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.276018" elapsed="0.001097"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.278481" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${preview}[total_cents]</arg>
+<arg>7775</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.277510" elapsed="0.001175"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${preview}[total]</arg>
+<arg>77.75</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.279139" elapsed="0.001105"/>
+</kw>
+<kw name="Query Scalar" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.281524" level="INFO">${pedidos_antes} = 0</msg>
+<var>${pedidos_antes}</var>
+<arg>SELECT COUNT(*) FROM pedidos</arg>
+<status status="PASS" start="2026-10-23T20:53:50.280667" elapsed="0.000983"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.283663" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${pedidos_antes}</arg>
+<arg>0</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.282295" elapsed="0.001617"/>
+</kw>
+<kw name="Process Order" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.286023" level="INFO">${pedido} = {'order_id': 1, 'usuario_id': 1, 'total_cents': 7775, 'total': '77.75', 'forma_pagamento': 'PIX', 'situacao': 'Aguardando pagamento', 'items': [{'produto_id': 1, 'nome': 'Produto A', 'quantidade': 2, ...</msg>
+<var>${pedido}</var>
+<arg>${membro}[user_id]</arg>
+<arg>${itens}</arg>
+<status status="PASS" start="2026-10-23T20:53:50.284286" elapsed="0.001874"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.287710" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${pedido}[total_cents]</arg>
+<arg>7775</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.286692" elapsed="0.001224"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${pedido}[total]</arg>
+<arg>77.75</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.288346" elapsed="0.001102"/>
+</kw>
+<kw name="Query Scalar" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.291111" level="INFO">${total_no_banco} = 7775</msg>
+<var>${total_no_banco}</var>
+<arg>SELECT valor_total_centavos FROM pedidos WHERE id = ?</arg>
+<arg>${pedido}[order_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:50.289942" elapsed="0.001358"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.293527" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${total_no_banco}</arg>
+<arg>7775</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.291987" elapsed="0.001885"/>
+</kw>
+<kw name="Query Scalar" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.295750" level="INFO">${itens_no_banco} = 3</msg>
+<var>${itens_no_banco}</var>
+<arg>SELECT COUNT(*) FROM pedido_itens WHERE pedido_id = ?</arg>
+<arg>${pedido}[order_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:50.294464" elapsed="0.001444"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.299120" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${itens_no_banco}</arg>
+<arg>3</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.296622" elapsed="0.002929"/>
+</kw>
+<doc>Valida multiplicacao e soma antes de fechar o pedido.</doc>
+<tag>backend</tag>
+<tag>caixa-branca</tag>
+<tag>carrinho</tag>
+<tag>checkout</tag>
+<status status="PASS" start="2026-10-23T20:53:50.009119" elapsed="0.291175"/>
+</test>
+<test id="s1-t7" name="Caso 07 - Justificativa de Falta Exige Documento" line="134">
+<kw name="Reset Database" owner="SystemBackend" type="SETUP">
+<status status="PASS" start="2026-10-23T20:53:50.303813" elapsed="0.007669"/>
+</kw>
+<kw name="Register Member" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.564426" level="INFO">${aluno} = {'user_id': 1, 'nome': 'Aluno Falta', 'email': 'aluno.falta@angels.test', 'cargo': 'membro', 'hash_calls': 1, 'hash_calls_total': 1, 'elapsed_ms': 251.29648200072552}</msg>
+<var>${aluno}</var>
+<arg>Aluno Falta</arg>
+<arg>aluno.falta@angels.test</arg>
+<arg>${SENHA}</arg>
+<status status="PASS" start="2026-10-23T20:53:50.311950" elapsed="0.252627"/>
+</kw>
+<kw name="Create Training" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.565826" level="INFO">${treino} = {'treino_id': 1, 'data_hora': '2026-10-10 18:00'}</msg>
+<var>${treino}</var>
+<arg>2026-10-10 18:00</arg>
+<arg>Ginasio</arg>
+<status status="PASS" start="2026-10-23T20:53:50.564985" elapsed="0.000956"/>
+</kw>
+<kw name="Record Attendance" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.568318" level="INFO">${presenca} = {'attendance_id': 1, 'treino_id': 1, 'usuario_id': 1, 'status': 'falta'}</msg>
+<var>${presenca}</var>
+<arg>${treino}[treino_id]</arg>
+<arg>${aluno}[user_id]</arg>
+<arg>falta</arg>
+<status status="PASS" start="2026-10-23T20:53:50.566326" elapsed="0.002186"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${presenca}[status]</arg>
+<arg>falta</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.569166" elapsed="0.001738"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Justify Absence" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.575713" level="FAIL">AbsenceJustificationError: O upload do documento (atestado) é obrigatório para justificar a falta.</msg>
+<arg>${presenca}[attendance_id]</arg>
+<arg>Atestado medico</arg>
+<status status="FAIL" start="2026-10-23T20:53:50.574339" elapsed="0.002788">AbsenceJustificationError: O upload do documento (atestado) é obrigatório para justificar a falta.</status>
+</kw>
+<arg>AbsenceJustificationError: *</arg>
+<arg>Justify Absence</arg>
+<arg>${presenca}[attendance_id]</arg>
+<arg>Atestado medico</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.571847" elapsed="0.006391"/>
+</kw>
+<kw name="Get Attendance Status" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.580551" level="INFO">${status_apos_erro} = falta</msg>
+<var>${status_apos_erro}</var>
+<arg>${presenca}[attendance_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:50.578947" elapsed="0.001802"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${status_apos_erro}</arg>
+<arg>falta</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.581350" elapsed="0.001477"/>
+</kw>
+<kw name="Query Scalar" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.584590" level="INFO">${status_no_banco} = falta</msg>
+<var>${status_no_banco}</var>
+<arg>SELECT status FROM presencas WHERE id = ?</arg>
+<arg>${presenca}[attendance_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:50.583334" elapsed="0.001393"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${status_no_banco}</arg>
+<arg>falta</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.585360" elapsed="0.001735"/>
+</kw>
+<kw name="Justify Absence" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.589542" level="INFO">${justificada} = {'attendance_id': 1, 'status': 'falta_justificada', 'justificativa': 'Atestado medico', 'documento_nome': 'atestado_medico.pdf'}</msg>
+<var>${justificada}</var>
+<arg>${presenca}[attendance_id]</arg>
+<arg>Atestado medico</arg>
+<arg>documento=${DOCUMENTO}</arg>
+<status status="PASS" start="2026-10-23T20:53:50.587662" elapsed="0.002068"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${justificada}[status]</arg>
+<arg>falta_justificada</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.590428" elapsed="0.001750"/>
+</kw>
+<kw name="Get Attendance Status" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.593701" level="INFO">${status_final} = falta_justificada</msg>
+<var>${status_final}</var>
+<arg>${presenca}[attendance_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:50.592721" elapsed="0.001155"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${status_final}</arg>
+<arg>falta_justificada</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.594603" elapsed="0.001938"/>
+</kw>
+<kw name="Query Scalar" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.598450" level="INFO">${documento_no_banco} = atestado_medico.pdf</msg>
+<var>${documento_no_banco}</var>
+<arg>SELECT documento_nome FROM presencas WHERE id = ?</arg>
+<arg>${presenca}[attendance_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:50.597140" elapsed="0.001491"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${documento_no_banco}</arg>
+<arg>${DOCUMENTO}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.599202" elapsed="0.001827"/>
+</kw>
+<doc>Sem payload de atestado a presenca nao pode ser atualizada.</doc>
+<tag>backend</tag>
+<tag>caixa-branca</tag>
+<tag>justificativa</tag>
+<tag>presenca</tag>
+<status status="PASS" start="2026-10-23T20:53:50.301498" elapsed="0.300172"/>
+</test>
+<test id="s1-t8" name="Caso 08 - Tempo de Cadastro Abaixo de 400ms" line="157">
+<kw name="Reset Database" owner="SystemBackend" type="SETUP">
+<status status="PASS" start="2026-10-23T20:53:50.604915" elapsed="0.008147"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.616732" level="INFO">${inicio} = 7262.150064443</msg>
+<var>${inicio}</var>
+<arg>__import__('time').perf_counter()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.614001" elapsed="0.002928"/>
+</kw>
+<kw name="Register Member" owner="SystemBackend">
+<msg time="2026-10-23T20:53:50.849962" level="INFO">${resultado} = {'user_id': 1, 'nome': 'Usuario Performance', 'email': 'performance.qa@angels.test', 'cargo': 'membro', 'hash_calls': 1, 'hash_calls_total': 1, 'elapsed_ms': 231.23990100066294}</msg>
+<var>${resultado}</var>
+<arg>Usuario Performance</arg>
+<arg>performance.qa@angels.test</arg>
+<arg>${SENHA}</arg>
+<status status="PASS" start="2026-10-23T20:53:50.617538" elapsed="0.232583"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.852860" level="INFO">${fim} = 7262.386285042</msg>
+<var>${fim}</var>
+<arg>__import__('time').perf_counter()</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.850811" elapsed="0.002198"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.855505" level="INFO">${tempo_externo_ms} = 236.22059900026215</msg>
+<var>${tempo_externo_ms}</var>
+<arg>(${fim} - ${inicio}) * 1000</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.853686" elapsed="0.001965"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${resultado}[elapsed_ms] &lt; 400</arg>
+<arg>msg=Tempo interno do cadastro excedeu 400ms: ${resultado}[elapsed_ms]</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.856247" elapsed="0.001901"/>
+</kw>
+<kw name="Should Be True" owner="BuiltIn">
+<arg>${tempo_externo_ms} &lt; 400</arg>
+<arg>msg=Tempo externo do cadastro excedeu 400ms: ${tempo_externo_ms}</arg>
+<doc>Fails if the given condition is not true.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.858898" elapsed="0.001802"/>
+</kw>
+<kw name="Log" owner="BuiltIn">
+<msg time="2026-10-23T20:53:50.863167" level="INFO">Tempo interno=231.23990100066294ms | externo=236.22059900026215ms</msg>
+<arg>Tempo interno=${resultado}[elapsed_ms]ms | externo=${tempo_externo_ms}ms</arg>
+<arg>console=yes</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="PASS" start="2026-10-23T20:53:50.861542" elapsed="0.001998"/>
+</kw>
+<doc>Mede o tempo interno do cadastro incluindo hash e I/O SQLite.</doc>
+<tag>backend</tag>
+<tag>cadastro</tag>
+<tag>caixa-branca</tag>
+<tag>performance</tag>
+<status status="PASS" start="2026-10-23T20:53:50.602807" elapsed="0.261166"/>
+</test>
+<test id="s1-t9" name="Caso 09 - Hierarquia de Cargos no Rebaixamento" line="170">
+<kw name="Reset Database" owner="SystemBackend" type="SETUP">
+<status status="PASS" start="2026-10-23T20:53:50.866657" elapsed="0.006483"/>
+</kw>
+<kw name="Create User" owner="SystemBackend">
+<msg time="2026-10-23T20:53:51.093408" level="INFO">${presidente} = {'user_id': 1, 'nome': 'Presidente Cargo', 'email': 'presidente.cargo@angels.test', 'cargo': 'presidente', 'hash_calls': 1, 'hash_calls_total': 1, 'elapsed_ms': 218.40116100065643}</msg>
+<var>${presidente}</var>
+<arg>Presidente Cargo</arg>
+<arg>presidente.cargo@angels.test</arg>
+<arg>${SENHA}</arg>
+<arg>cargo=Presidente</arg>
+<status status="PASS" start="2026-10-23T20:53:50.873743" elapsed="0.219875"/>
+</kw>
+<kw name="Create User" owner="SystemBackend">
+<msg time="2026-10-23T20:53:51.330126" level="INFO">${admin} = {'user_id': 2, 'nome': 'Admin Cargo', 'email': 'admin.cargo@angels.test', 'cargo': 'administrador', 'hash_calls': 1, 'hash_calls_total': 2, 'elapsed_ms': 234.59848099992087}</msg>
+<var>${admin}</var>
+<arg>Admin Cargo</arg>
+<arg>admin.cargo@angels.test</arg>
+<arg>${SENHA}</arg>
+<arg>cargo=Administrador</arg>
+<status status="PASS" start="2026-10-23T20:53:51.094172" elapsed="0.236190"/>
+</kw>
+<kw name="Create User" owner="SystemBackend">
+<msg time="2026-10-23T20:53:51.576923" level="INFO">${vice} = {'user_id': 3, 'nome': 'Vice Cargo', 'email': 'vice.cargo@angels.test', 'cargo': 'vice_presidente', 'hash_calls': 1, 'hash_calls_total': 3, 'elapsed_ms': 244.6389500000805}</msg>
+<var>${vice}</var>
+<arg>Vice Cargo</arg>
+<arg>vice.cargo@angels.test</arg>
+<arg>${SENHA}</arg>
+<arg>cargo=Vice-Presidente</arg>
+<status status="PASS" start="2026-10-23T20:53:51.330932" elapsed="0.246231"/>
+</kw>
+<kw name="Create User" owner="SystemBackend">
+<msg time="2026-10-23T20:53:51.797455" level="INFO">${coordenador} = {'user_id': 4, 'nome': 'Coordenador Cargo', 'email': 'coordenador.cargo@angels.test', 'cargo': 'coordenador', 'hash_calls': 1, 'hash_calls_total': 4, 'elapsed_ms': 218.00350200010143}</msg>
+<var>${coordenador}</var>
+<arg>Coordenador Cargo</arg>
+<arg>coordenador.cargo@angels.test</arg>
+<arg>${SENHA}</arg>
+<arg>cargo=Coordenador</arg>
+<status status="PASS" start="2026-10-23T20:53:51.578057" elapsed="0.219541"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Demote Member" owner="SystemBackend">
+<msg time="2026-10-23T20:53:51.800254" level="FAIL">PermissionDeniedError: Apenas o Presidente pode alterar o cargo de um Coordenador.</msg>
+<arg>${admin}[user_id]</arg>
+<arg>${coordenador}[user_id]</arg>
+<status status="FAIL" start="2026-10-23T20:53:51.799228" elapsed="0.002589">PermissionDeniedError: Apenas o Presidente pode alterar o cargo de um Coordenador.</status>
+</kw>
+<arg>PermissionDeniedError: *</arg>
+<arg>Demote Member</arg>
+<arg>${admin}[user_id]</arg>
+<arg>${coordenador}[user_id]</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2026-10-23T20:53:51.798123" elapsed="0.004163"/>
+</kw>
+<kw name="Run Keyword And Expect Error" owner="BuiltIn">
+<kw name="Demote Member" owner="SystemBackend">
+<msg time="2026-10-23T20:53:51.805062" level="FAIL">PermissionDeniedError: Apenas o Presidente pode alterar o cargo de um Coordenador.</msg>
+<arg>${vice}[user_id]</arg>
+<arg>${coordenador}[user_id]</arg>
+<status status="FAIL" start="2026-10-23T20:53:51.804151" elapsed="0.002355">PermissionDeniedError: Apenas o Presidente pode alterar o cargo de um Coordenador.</status>
+</kw>
+<arg>PermissionDeniedError: *</arg>
+<arg>Demote Member</arg>
+<arg>${vice}[user_id]</arg>
+<arg>${coordenador}[user_id]</arg>
+<doc>Runs the keyword and checks that the expected error occurred.</doc>
+<status status="PASS" start="2026-10-23T20:53:51.802946" elapsed="0.003902"/>
+</kw>
+<kw name="Get User Role" owner="SystemBackend">
+<msg time="2026-10-23T20:53:51.807992" level="INFO">${cargo_intacto} = coordenador</msg>
+<var>${cargo_intacto}</var>
+<arg>${coordenador}[user_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:51.807202" elapsed="0.000895"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${cargo_intacto}</arg>
+<arg>coordenador</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:51.808479" elapsed="0.001014"/>
+</kw>
+<kw name="Demote Member" owner="SystemBackend">
+<msg time="2026-10-23T20:53:51.810789" level="INFO">${resultado} = {'user_id': 4, 'old_role': 'coordenador', 'new_role': 'membro'}</msg>
+<var>${resultado}</var>
+<arg>${presidente}[user_id]</arg>
+<arg>${coordenador}[user_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:51.809796" elapsed="0.001123"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${resultado}[old_role]</arg>
+<arg>coordenador</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:51.811459" elapsed="0.001501"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${resultado}[new_role]</arg>
+<arg>membro</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:51.813586" elapsed="0.002041"/>
+</kw>
+<kw name="Get User Role" owner="SystemBackend">
+<msg time="2026-10-23T20:53:51.817013" level="INFO">${cargo_final} = membro</msg>
+<var>${cargo_final}</var>
+<arg>${coordenador}[user_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:51.816050" elapsed="0.001116"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${cargo_final}</arg>
+<arg>membro</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:51.817738" elapsed="0.001497"/>
+</kw>
+<doc>Somente Presidente rebaixa Coordenador para Membro.</doc>
+<tag>backend</tag>
+<tag>caixa-branca</tag>
+<tag>cargos</tag>
+<tag>rbac</tag>
+<status status="PASS" start="2026-10-23T20:53:50.864851" elapsed="0.954768"/>
+</test>
+<test id="s1-t10" name="Caso 10 - Atualizacao de Placar Dispara Notificacao" line="191">
+<kw name="Reset Database" owner="SystemBackend" type="SETUP">
+<status status="PASS" start="2026-10-23T20:53:51.821887" elapsed="0.005244"/>
+</kw>
+<kw name="Register Member" owner="SystemBackend">
+<msg time="2026-10-23T20:53:52.053415" level="INFO">${m1} = {'user_id': 1, 'nome': 'Jogador Um', 'email': 'jogador.um@angels.test', 'cargo': 'membro', 'hash_calls': 1, 'hash_calls_total': 1, 'elapsed_ms': 224.46890900027938}</msg>
+<var>${m1}</var>
+<arg>Jogador Um</arg>
+<arg>jogador.um@angels.test</arg>
+<arg>${SENHA}</arg>
+<status status="PASS" start="2026-10-23T20:53:51.827683" elapsed="0.226014"/>
+</kw>
+<kw name="Register Member" owner="SystemBackend">
+<msg time="2026-10-23T20:53:52.274177" level="INFO">${m2} = {'user_id': 2, 'nome': 'Jogador Dois', 'email': 'jogador.dois@angels.test', 'cargo': 'membro', 'hash_calls': 1, 'hash_calls_total': 2, 'elapsed_ms': 218.8416179997148}</msg>
+<var>${m2}</var>
+<arg>Jogador Dois</arg>
+<arg>jogador.dois@angels.test</arg>
+<arg>${SENHA}</arg>
+<status status="PASS" start="2026-10-23T20:53:52.054295" elapsed="0.220045"/>
+</kw>
+<kw name="Register Member" owner="SystemBackend">
+<msg time="2026-10-23T20:53:52.503922" level="INFO">${m3} = {'user_id': 3, 'nome': 'Jogador Tres', 'email': 'jogador.tres@angels.test', 'cargo': 'membro', 'hash_calls': 1, 'hash_calls_total': 3, 'elapsed_ms': 227.89147200001025}</msg>
+<var>${m3}</var>
+<arg>Jogador Tres</arg>
+<arg>jogador.tres@angels.test</arg>
+<arg>${SENHA}</arg>
+<status status="PASS" start="2026-10-23T20:53:52.274825" elapsed="0.229291"/>
+</kw>
+<kw name="Create Game" owner="SystemBackend">
+<msg time="2026-10-23T20:53:52.506072" level="INFO">${jogo} = {'game_id': 1, 'adversario': 'Equipe Rivais', 'status': 'em_andamento'}</msg>
+<var>${jogo}</var>
+<arg>Equipe Rivais</arg>
+<arg>2026-10-23 19:00</arg>
+<arg>data_hora_fim=2026-10-23 21:00</arg>
+<arg>local=Ginasio</arg>
+<arg>tipo_jogo=Amistoso</arg>
+<status status="PASS" start="2026-10-23T20:53:52.504710" elapsed="0.001538"/>
+</kw>
+<kw name="Link Member To Game" owner="SystemBackend">
+<arg>${jogo}[game_id]</arg>
+<arg>${m1}[user_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:52.506829" elapsed="0.001755"/>
+</kw>
+<kw name="Link Member To Game" owner="SystemBackend">
+<arg>${jogo}[game_id]</arg>
+<arg>${m2}[user_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:52.509362" elapsed="0.001289"/>
+</kw>
+<kw name="Update Game Score" owner="SystemBackend">
+<msg time="2026-10-23T20:53:52.513240" level="INFO">${resultado} = {'game_id': 1, 'ponto_clube': 25, 'ponto_adversario': 20, 'notifications_sent': 2, 'member_ids': [1, 2], 'notifications': [{'notification_id': 1, 'usuario_id': 1, 'game_id': 1, 'message': 'Placar atua...</msg>
+<var>${resultado}</var>
+<arg>${jogo}[game_id]</arg>
+<arg>25</arg>
+<arg>20</arg>
+<status status="PASS" start="2026-10-23T20:53:52.511173" elapsed="0.002298"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:52.515999" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resultado}[ponto_clube]</arg>
+<arg>25</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.514241" elapsed="0.002151"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:52.518811" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resultado}[ponto_adversario]</arg>
+<arg>20</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.517114" elapsed="0.001961"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:52.521165" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${resultado}[notifications_sent]</arg>
+<arg>2</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.519747" elapsed="0.001699"/>
+</kw>
+<kw name="Get Dispatched Notification Events" owner="SystemBackend">
+<msg time="2026-10-23T20:53:52.522448" level="INFO">${eventos} = [{'event': 'jogo.placar_atualizado', 'game_id': 1, 'ponto_clube': 25, 'ponto_adversario': 20, 'member_ids': [1, 2], 'notifications': [{'notification_id': 1, 'usuario_id': 1, 'game_id': 1, 'message': '...</msg>
+<var>${eventos}</var>
+<status status="PASS" start="2026-10-23T20:53:52.521849" elapsed="0.000769"/>
+</kw>
+<kw name="Get Length" owner="BuiltIn">
+<msg time="2026-10-23T20:53:52.527776" level="INFO">Length is 1.</msg>
+<msg time="2026-10-23T20:53:52.528237" level="INFO">${quantidade_eventos} = 1</msg>
+<var>${quantidade_eventos}</var>
+<arg>${eventos}</arg>
+<doc>Returns and logs the length of the given item as an integer.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.523249" elapsed="0.005136"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:52.530447" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${quantidade_eventos}</arg>
+<arg>1</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.528980" elapsed="0.001830"/>
+</kw>
+<kw name="Get From List" owner="Collections">
+<msg time="2026-10-23T20:53:52.532796" level="INFO">${primeiro_evento} = {'event': 'jogo.placar_atualizado', 'game_id': 1, 'ponto_clube': 25, 'ponto_adversario': 20, 'member_ids': [1, 2], 'notifications': [{'notification_id': 1, 'usuario_id': 1, 'game_id': 1, 'message': 'P...</msg>
+<var>${primeiro_evento}</var>
+<arg>${eventos}</arg>
+<arg>0</arg>
+<doc>Returns the value specified with an `index` from `list`.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.531555" elapsed="0.001436"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<arg>${primeiro_evento}[event]</arg>
+<arg>jogo.placar_atualizado</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.533729" elapsed="0.002357"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${primeiro_evento}[member_ids]</arg>
+<arg>${m1}[user_id]</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.536882" elapsed="0.002694"/>
+</kw>
+<kw name="Should Contain" owner="BuiltIn">
+<arg>${primeiro_evento}[member_ids]</arg>
+<arg>${m2}[user_id]</arg>
+<doc>Fails if the `container` does not contain the `item` one or more times.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.540398" elapsed="0.002106"/>
+</kw>
+<kw name="Get Notification Count" owner="SystemBackend">
+<msg time="2026-10-23T20:53:52.544576" level="INFO">${notificacoes_m1} = 1</msg>
+<var>${notificacoes_m1}</var>
+<arg>${m1}[user_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:52.543130" elapsed="0.001638"/>
+</kw>
+<kw name="Get Notification Count" owner="SystemBackend">
+<msg time="2026-10-23T20:53:52.546575" level="INFO">${notificacoes_m2} = 1</msg>
+<var>${notificacoes_m2}</var>
+<arg>${m2}[user_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:52.545367" elapsed="0.001385"/>
+</kw>
+<kw name="Get Notification Count" owner="SystemBackend">
+<msg time="2026-10-23T20:53:52.548304" level="INFO">${notificacoes_m3} = 0</msg>
+<var>${notificacoes_m3}</var>
+<arg>${m3}[user_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:52.547261" elapsed="0.001214"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:52.550914" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${notificacoes_m1}</arg>
+<arg>1</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.549166" elapsed="0.002139"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:52.553715" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${notificacoes_m2}</arg>
+<arg>1</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.552037" elapsed="0.002036"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:52.556462" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${notificacoes_m3}</arg>
+<arg>0</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.554804" elapsed="0.002014"/>
+</kw>
+<kw name="Query Scalar" owner="SystemBackend">
+<msg time="2026-10-23T20:53:52.558809" level="INFO">${notificacoes_no_banco} = 2</msg>
+<var>${notificacoes_no_banco}</var>
+<arg>SELECT COUNT(*) FROM notificacoes WHERE jogo_id = ?</arg>
+<arg>${jogo}[game_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:52.557420" elapsed="0.001579"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:52.561511" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${notificacoes_no_banco}</arg>
+<arg>2</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.559769" elapsed="0.002110"/>
+</kw>
+<kw name="Query One" owner="SystemBackend">
+<msg time="2026-10-23T20:53:52.564030" level="INFO">${placar_no_banco} = {'ponto_clube': 25, 'ponto_adversario': 20}</msg>
+<var>${placar_no_banco}</var>
+<arg>SELECT ponto_clube, ponto_adversario FROM jogos WHERE id = ?</arg>
+<arg>${jogo}[game_id]</arg>
+<status status="PASS" start="2026-10-23T20:53:52.562624" elapsed="0.001584"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:52.566768" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${placar_no_banco}[ponto_clube]</arg>
+<arg>25</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.564967" elapsed="0.002201"/>
+</kw>
+<kw name="Should Be Equal As Integers" owner="BuiltIn">
+<msg time="2026-10-23T20:53:52.570419" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<arg>${placar_no_banco}[ponto_adversario]</arg>
+<arg>20</arg>
+<doc>Fails if objects are unequal after converting them to integers.</doc>
+<status status="PASS" start="2026-10-23T20:53:52.567956" elapsed="0.002851"/>
+</kw>
+<doc>Membros vinculados ao jogo devem receber a notificacao interna.</doc>
+<tag>backend</tag>
+<tag>caixa-branca</tag>
+<tag>jogo</tag>
+<tag>notificacao</tag>
+<status status="PASS" start="2026-10-23T20:53:51.820453" elapsed="0.750990"/>
+</test>
+<kw name="Close Backend" owner="SystemBackend" type="TEARDOWN">
+<status status="PASS" start="2026-10-23T20:53:52.574001" elapsed="0.000816"/>
+</kw>
+<doc>Testes de caixa branca do backend Volleyball Angels.
+Exercitam diretamente SystemBackend.py, banco SQLite, transações,
+exceções internas, RBAC, assiduidade, estoque e notificações.</doc>
+<status status="PASS" start="2026-10-23T20:53:47.101802" elapsed="5.473230"/>
+</suite>
+<statistics>
+<total>
+<stat pass="10" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">assiduidade</stat>
+<stat pass="10" fail="0" skip="0">backend</stat>
+<stat pass="1" fail="0" skip="0">cadastro</stat>
+<stat pass="10" fail="0" skip="0">caixa-branca</stat>
+<stat pass="1" fail="0" skip="0">cargos</stat>
+<stat pass="1" fail="0" skip="0">carrinho</stat>
+<stat pass="1" fail="0" skip="0">checkout</stat>
+<stat pass="2" fail="0" skip="0">estoque</stat>
+<stat pass="1" fail="0" skip="0">eventos</stat>
+<stat pass="1" fail="0" skip="0">excecao</stat>
+<stat pass="1" fail="0" skip="0">jogo</stat>
+<stat pass="1" fail="0" skip="0">justificativa</stat>
+<stat pass="1" fail="0" skip="0">notificacao</stat>
+<stat pass="1" fail="0" skip="0">pedido</stat>
+<stat pass="1" fail="0" skip="0">performance</stat>
+<stat pass="2" fail="0" skip="0">presenca</stat>
+<stat pass="2" fail="0" skip="0">rbac</stat>
+<stat pass="1" fail="0" skip="0">seguranca</stat>
+<stat pass="1" fail="0" skip="0">senha</stat>
+</tag>
+<suite>
+<stat name="Caixa Branca" id="s1" pass="10" fail="0" skip="0">Caixa Branca</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
