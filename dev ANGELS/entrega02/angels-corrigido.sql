@@ -4,6 +4,9 @@
 -- nenhuma tabela "administrador" no schema. Isso faz o import inteiro falhar
 -- com erro 1217 (Cannot add foreign key constraint). Aqui a referencia aponta
 -- para usuario(id), que e a tabela que realmente existe.
+DROP DATABASE IF EXISTS angels;
+CREATE DATABASE angels;
+USE angels;
 
 CREATE DATABASE IF NOT EXISTS angels;
 USE angels;
